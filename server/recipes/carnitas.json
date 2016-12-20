@@ -1,0 +1,62 @@
+{
+  "title": "Carnitas",
+  "tags": [],
+  "ingredients": [
+    {
+      "ammount": 2,
+      "units": "kg",
+      "ingredient": "Lomo de cerdo"
+    }, {
+      "ammount": 1,
+      "units": "",
+      "ingredient": "Naranja rebanada"
+    }, {
+      "ammount": 0.75,
+      "units": "tsp",
+      "ingredient": "Orégano"
+    }, {
+      "ammount": null,
+      "units": "",
+      "ingredient": "Sal"
+    }, {
+      "ammount": null,
+      "units": "",
+      "ingredient": "Papel aluminio"
+    }, {
+      "ammount": null,
+      "units": "",
+      "ingredient": "Papel pergamino"
+    }
+  ],
+  "steps": [
+    {
+      "description": "Precalentar el horno a 325F."
+    }, {
+      "description": "Cortar el lomo de cerdo en pedazos grandes y ponerlo sobre un papel pergamino."
+    }, {
+      "description": "Agregar el orégano y la sal."
+    }, {
+      "description": "Colocar las rebanadas de naranja sobre la carne."
+    }, {
+      "description": "Envolver todo con dos capas de papel pergamino y dos capas de papel aluminio."
+    }, {
+      "description": "Hornear a 325F por una hora."
+    }, {
+      "description": "Bajar la temperatura a 300F y hornear por dos horas."
+    }, {
+      "description": "Bajar la temperatura a 275F y hornear por dos horas."
+    }, {
+      "description": "Apagar el horno y dejar reposar la carne dentro del horno por una hora."
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+

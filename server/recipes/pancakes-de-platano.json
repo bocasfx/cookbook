@@ -1,0 +1,52 @@
+{
+  "title": "Pancakes de Plátano/Manzana",
+  "tags": [],
+  "ingredients": [
+    {
+      "ammount": "2",
+      "units": "",
+      "ingredient": "Plátanos maduros (o un plátano y una manzana, o dos manzanas)"
+    }, {
+      "ammount": "1",
+      "units": "",
+      "ingredient": "Huevo"
+    }, {
+      "ammount": "1",
+      "units": "T",
+      "ingredient": "Leche"
+    }, {
+      "ammount": "1",
+      "units": "T",
+      "ingredient": "Harina de trigo integral"
+    }, {
+      "ammount": "1/4",
+      "units": "c",
+      "ingredient": "Sal"
+    }, {
+      "ammount": "2",
+      "units": "c",
+      "ingredient": "Polvo para hornear"
+    }, {
+      "ammount": "2",
+      "units": "C",
+      "ingredient": "Mantequilla derretida"
+    }, {
+      "ammount": "",
+      "units": "",
+      "ingredient": "Vanilla"
+    }, {
+      "ammount": "",
+      "units": "",
+      "ingredient": "Canela"
+    }
+  ],
+  "steps": [
+    {
+      "description": "Machacar los plátanos (o rallar las manzanas). Agregar el huevo batido, leche, vainilla y mantequilla."
+    }, {
+      "description": "Agregar poco a poco el harina, sal, canela y polvo para hornear mientras se mezcla con un globo."
+    }, {
+      "description": "Hacer los pancakes en un sartén a fuego bajo engrasado con poca mantequilla."
+    }
+  ]
+}
