@@ -1,6 +1,6 @@
 {
-  "name": "recipes",
-  "version": "1.0.0",
+  "name": "cookbook",
+  "version": "0.1.0",
   "description": "",
   "main": "server/index.js",
   "dependencies": {
