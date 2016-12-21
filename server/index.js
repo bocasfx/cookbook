@@ -8,6 +8,8 @@ const objectId = require('mongodb').ObjectID;
 const app = express();
 const mongoUrl = 'mongodb://localhost:27017/recipes';
 
+app.use(express.static('public'));
+
 app.get('/recipes', function (req, res) {
   MongoClient.connect(mongoUrl, function(err, db) {
     assert.equal(null, err);
