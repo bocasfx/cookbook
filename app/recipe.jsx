@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './styles/styles.css';
 
 class Recipe extends React.Component {
   constructor(props) {
@@ -26,21 +27,21 @@ class Recipe extends React.Component {
 
     return (
       <div>
-        <div>{this.state.recipe.title}</div>
-        <ul>
+        <div className={styles.title}>{this.state.recipe.title}</div>
+        <ul className={styles.ingredients}>
         {
           this.state.recipe.ingredients.map((ingredient, idx)=> {
             return (
               <li key={idx}>
-                <span>{ingredient.ammount}</span>
-                <span>{ingredient.units}</span>
-                <span>{ingredient.ingredient}</span>
+                <span className={styles.ammount}>{ingredient.ammount}</span>
+                <span className={styles.units}>{ingredient.units}</span>
+                <span className={styles.ingredient}>{ingredient.ingredient}</span>
               </li>
             );
           })
         }
         </ul>
-        <ul>
+        <ol className={styles.steps}>
         {
           this.state.recipe.steps.map((step, idx)=> {
             return (
@@ -50,7 +51,7 @@ class Recipe extends React.Component {
             );
           })
         }
-        </ul>
+        </ol>
       </div>
     );
   }

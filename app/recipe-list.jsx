@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import styles from './styles/styles.css';
 
 class RecipeList extends React.Component {
   constructor(props) {
@@ -9,12 +10,15 @@ class RecipeList extends React.Component {
   render() {
     return (
       <div>
-        {
-          this.props.recipes.map((recipe)=> {
-            let recipeUrl = '/recipes/' + recipe._id;
-            return <Link key={recipe._id} to={recipeUrl}><div>{recipe.title}</div></Link>;
-          })
-        }
+        <div className={styles.maintitle}>CookBook</div>
+        <ul>
+          {
+            this.props.recipes.map((recipe)=> {
+              let recipeUrl = '/recipes/' + recipe._id;
+              return <li key={recipe._id}><Link to={recipeUrl}><div>{recipe.title}</div></Link></li>;
+            })
+          }
+        </ul>
       </div>
     );
   }
