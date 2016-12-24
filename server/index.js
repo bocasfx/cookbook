@@ -89,12 +89,9 @@ app.post('/initialize', function(req, res) {
     console.log('Connected successfully to server');
 
     let recipes = utils.loadRecipes();
-
-    dal.drop(db, function() {
-      dal.insertDocuments(recipes, db, function() {
-        db.close();
-        res.send('POST request to homepage');
-      });
+    dal.insertDocuments(recipes, db, function() {
+      db.close();
+      res.send('POST request to homepage');
     });
   });
 });

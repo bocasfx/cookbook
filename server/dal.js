@@ -17,11 +17,34 @@ function findDocuments(db, callback) {
   // Get the documents collection
   var collection = db.collection('documents');
   // Find some documents
-  collection.find({}, {title: 1, _id: 1}).toArray(function(err, docs) {
+
+  collection.aggregate(
+    [
+      { 
+        $group : {
+          _id : '$category',
+          recipes: {
+            $push: {
+              title: '$title',
+              id: '$_id'
+            }
+          }
+        }
+      }, {
+        $sort: {_id: 1}
+      }
+    ]
+  ).toArray(function(err, docs) {
     assert.equal(err, null);
     console.log(`Found ${docs.length} records`);
     callback(docs);
   });
+
+  // collection.find({}, {title: 1, _id: 1, category: 1}).toArray(function(err, docs) {
+  //   assert.equal(err, null);
+  //   console.log(`Found ${docs.length} records`);
+  //   callback(docs);
+  // });
 }
 
 function findDocument(id, db, callback) {

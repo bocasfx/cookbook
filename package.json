@@ -4,9 +4,11 @@
   "description": "",
   "main": "server/index.js",
   "dependencies": {
+    "capitalize": "^1.0.0",
     "css-loader": "^0.26.1",
     "express": "^4.14.0",
     "fs-extra": "^1.0.0",
+    "lodash": "^4.17.2",
     "mongodb": "^2.2.16",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",

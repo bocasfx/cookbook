@@ -5,7 +5,7 @@ class RecipeListContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipes: []
+      categories: []
     };
   }
 
@@ -14,14 +14,14 @@ class RecipeListContainer extends React.Component {
       return response.json();
     }).then((json)=> {
       this.setState({
-        recipes: json
+        categories: json
       });
     });
   }
 
   render() {
     return (
-      <RecipeList recipes={this.state.recipes}/>
+      <RecipeList categories={this.state.categories}/>
     );
   }
 }

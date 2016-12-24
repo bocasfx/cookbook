@@ -38311,7 +38311,7 @@
 	    var _this = (0, _possibleConstructorReturn3.default)(this, (RecipeListContainer.__proto__ || (0, _getPrototypeOf2.default)(RecipeListContainer)).call(this, props));
 	
 	    _this.state = {
-	      recipes: []
+	      categories: []
 	    };
 	    return _this;
 	  }
@@ -38325,14 +38325,14 @@
 	        return response.json();
 	      }).then(function (json) {
 	        _this2.setState({
-	          recipes: json
+	          categories: json
 	        });
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_recipeList2.default, { recipes: this.state.recipes });
+	      return _react2.default.createElement(_recipeList2.default, { categories: this.state.categories });
 	    }
 	  }]);
 	  return RecipeListContainer;
@@ -38379,14 +38379,18 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
+	var _capitalize = __webpack_require__(/*! capitalize */ 625);
+	
+	var _capitalize2 = _interopRequireDefault(_capitalize);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var RecipeList = function (_React$Component) {
 	  (0, _inherits3.default)(RecipeList, _React$Component);
 	
-	  function RecipeList(props) {
+	  function RecipeList() {
 	    (0, _classCallCheck3.default)(this, RecipeList);
-	    return (0, _possibleConstructorReturn3.default)(this, (RecipeList.__proto__ || (0, _getPrototypeOf2.default)(RecipeList)).call(this, props));
+	    return (0, _possibleConstructorReturn3.default)(this, (RecipeList.__proto__ || (0, _getPrototypeOf2.default)(RecipeList)).apply(this, arguments));
 	  }
 	
 	  (0, _createClass3.default)(RecipeList, [{
@@ -38403,19 +38407,35 @@
 	        _react2.default.createElement(
 	          'ul',
 	          null,
-	          this.props.recipes.map(function (recipe) {
-	            var recipeUrl = '/recipes/' + recipe._id;
+	          this.props.categories.map(function (category) {
+	            var label = (0, _capitalize2.default)(category._id);
 	            return _react2.default.createElement(
 	              'li',
-	              { key: recipe._id },
+	              { key: category._id },
 	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: recipeUrl },
-	                _react2.default.createElement(
-	                  'div',
-	                  null,
-	                  recipe.title
-	                )
+	                'div',
+	                { className: _styles2.default.category },
+	                label
+	              ),
+	              _react2.default.createElement(
+	                'ul',
+	                null,
+	                category.recipes.map(function (recipe) {
+	                  var recipeUrl = '/recipes/' + recipe.id;
+	                  return _react2.default.createElement(
+	                    'li',
+	                    { key: recipe.id },
+	                    _react2.default.createElement(
+	                      _reactRouter.Link,
+	                      { to: recipeUrl },
+	                      _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        recipe.title
+	                      )
+	                    )
+	                  );
+	                })
 	              )
 	            );
 	          })
@@ -38599,7 +38619,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Raleway', sans-serif;\n  margin: 48px;\n  color: dimgray;\n}\n\na {\n  color: dimgray;\n  text-decoration: none;\n}\n\na:hover {\n  color: mistyrose;\n}\n\nul li {\n  list-style-type: none;\n  line-height: 1.5em;\n}\n\nol li {\n  line-height: 2em;\n  margin-bottom: 20px;\n}\n\n.styles__maintitle___3rptG {\n  font-size: 36px;\n}\n\n.styles__title___2Nbcg {\n  font-size: 36px;\n  margin-bottom: 25px;\n}\n\n.styles__ingredients___15_qD {\n  padding: 20px;\n  background-color: mistyrose;\n  display: inline-block;\n  margin: 0 0 25px 25px;\n}\n\n.styles__ingredient___Fz-zk {\n  margin-left: 5px;\n}\n\n.styles__ammount___KJoEa {\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__units___2YQHH {\n  margin-left: 5px;\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__steps___a9e22 {\n  max-width: 400px;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: 'Raleway', sans-serif;\n  margin: 48px;\n  color: dimgray;\n}\n\na {\n  color: dimgray;\n  text-decoration: none;\n}\n\na:hover {\n  color: mistyrose;\n}\n\nul li {\n  list-style-type: none;\n  line-height: 1.5em;\n}\n\nol li {\n  line-height: 2em;\n  margin-bottom: 20px;\n}\n\n.styles__maintitle___3rptG {\n  font-size: 36px;\n  margin-bottom: 50px;\n}\n\n.styles__title___2Nbcg {\n  font-size: 36px;\n  margin-bottom: 25px;\n}\n\n.styles__ingredients___15_qD {\n  padding: 20px;\n  background-color: mistyrose;\n  display: inline-block;\n  margin: 0 0 25px 25px;\n  width: 400px;\n}\n\n.styles__ingredients___15_qD li {\n  display: flex;\n}\n\n.styles__ingredient___Fz-zk {\n  margin-left: 5px;\n}\n\n.styles__ammount___KJoEa {\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__units___2YQHH {\n  margin-left: 5px;\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__steps___a9e22 {\n  max-width: 400px;\n}\n\n.styles__category___3eaGC {\n  font-size: 18px;\n  font-weight: bold;\n  margin-top: 30px;\n}\n", ""]);
 	
 	// exports
 	exports.locals = {
@@ -38609,7 +38629,8 @@
 		"ingredient": "styles__ingredient___Fz-zk",
 		"ammount": "styles__ammount___KJoEa",
 		"units": "styles__units___2YQHH",
-		"steps": "styles__steps___a9e22"
+		"steps": "styles__steps___a9e22",
+		"category": "styles__category___3eaGC"
 	};
 
 /***/ },
@@ -38923,6 +38944,24 @@
 	
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 625 */
+/*!*******************************!*\
+  !*** ./~/capitalize/index.js ***!
+  \*******************************/
+/***/ function(module, exports) {
+
+	module.exports = function (string) {
+	  return string.charAt(0).toUpperCase() + string.substring(1);
+	}
+	
+	module.exports.words = function (string) {
+	  return string.replace(/(^|[^a-zA-Z\u00C0-\u017F'])([a-zA-Z\u00C0-\u017F])/g, function (m) {
+	    return m.toUpperCase()
+	  })
 	}
 
 
