@@ -7,7 +7,10 @@ class RecipeList extends React.Component {
   render() {
     return (
       <div>
-        <div className={styles.maintitle}>CookBook</div>
+        <div className={styles.header}>
+          <div className={styles.maintitle}>Recetas</div>
+          <Link className={styles.new} to="/new">+</Link>
+        </div>
         <ul>
           {
             this.props.categories.map((category)=> {
@@ -19,7 +22,7 @@ class RecipeList extends React.Component {
                     {
                       category.recipes.map((recipe)=> {
                         let recipeUrl = '/recipes/' + recipe.id;
-                        return <li key={recipe.id}><Link to={recipeUrl}><div>{recipe.title}</div></Link></li>;
+                        return <li key={recipe.id}><Link to={recipeUrl}>{recipe.title}</Link></li>;
                       })
                     }
                   </ul>

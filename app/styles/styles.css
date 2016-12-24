@@ -23,9 +23,25 @@ ol li {
   margin-bottom: 20px;
 }
 
+.header {
+  display: flex;
+}
+
 .maintitle {
   font-size: 36px;
-  margin-bottom: 50px;
+}
+
+.new {
+  font-size: 42px;
+  position: absolute;
+  right: 48px;
+  background-color: mistyrose;
+  padding: 0 16px;
+  border-radius: 100%;
+}
+
+.new:hover {
+  background: none;
 }
 
 .title {
