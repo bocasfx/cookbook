@@ -23,6 +23,14 @@ ol li {
   margin-bottom: 20px;
 }
 
+input {
+  height: 30px;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
 .header {
   display: flex;
 }
@@ -38,6 +46,7 @@ ol li {
   background-color: mistyrose;
   padding: 0 16px;
   border-radius: 100%;
+  cursor: pointer;
 }
 
 .new:hover {
@@ -84,4 +93,73 @@ ol li {
   font-size: 18px;
   font-weight: bold;
   margin-top: 30px;
+}
+
+.remove {
+  font-size: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+
+
+/* Ingredient Component */
+
+.ingredientComponent {
+  margin-bottom: 10px;
+}
+
+.ingredientInput {
+  width: 300px;
+  margin-left: 10px;
+}
+
+.ammountInput {
+  width: 30px;
+}
+
+.unitsInput {
+  width: 30px;
+  margin-left: 10px;
+}
+
+
+
+/* Step Component */
+
+.stepDescription: {
+  width: 600px;
+}
+
+.stepComponent {
+  margin-bottom: 10px;
+}
+
+
+/* New Recipe */
+
+.ingredientsHeader {
+  display: flex;
+}
+
+.ingredientsHeader span {
+  font-size: 1.5em;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.stepsHeader {
+  display: flex;
+}
+
+.stepsHeader span {
+  font-size: 1.5em;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 20px;
+  font-weight: bold;
+  cursor: pointer;
 }
