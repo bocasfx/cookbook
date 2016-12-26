@@ -17,7 +17,8 @@ class New extends React.Component {
         idx: 0
       }],
       steps: [{
-        description: ''
+        description: '',
+        idx: 0
       }]
     };
 
@@ -47,9 +48,8 @@ class New extends React.Component {
 
   handleIngredientsChange(ingredientState) {
     let state = this.state;
-    let idx = ingredientState.idx;
     let ingredientIdx = _.findIndex(state.ingredients, (item)=> {
-      return item.idx === idx;
+      return item.idx === ingredientState.idx;
     });
     if (ingredientIdx < 0) {
       state.ingredients.push(ingredientState);
@@ -61,21 +61,31 @@ class New extends React.Component {
   }
 
   handleStepsChange(stepState) {
-    console.log(stepState);
+    let state = this.state;
+    let stepIdx = _.findIndex(state.steps, (item)=> {
+      return item.idx === stepState.idx;
+    });
+    if (stepIdx < 0) {
+      state.steps.push(stepState);
+    } else {
+      state.steps[stepIdx] = stepState;
+    }
+
+    this.setState(state);
   }
 
   addIngredient(event) {
     event.preventDefault();
-    let ing = this.state.ingredients;
+    let ingredients = this.state.ingredients;
 
-    ing.push({
+    ingredients.push({
       ammount: '',
       units: '',
       ingredient: '',
       idx: this.state.ingredients.length
     });
     this.setState({
-      ingredients: ing
+      ingredients: ingredients
     });
   }
 
@@ -84,7 +94,8 @@ class New extends React.Component {
     let steps = this.state.steps;
 
     steps.push({
-      description: ''
+      description: '',
+      idx: this.state.steps.length
     });
     this.setState({
       steps: steps

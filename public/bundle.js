@@ -39055,7 +39055,8 @@
 	        idx: 0
 	      }],
 	      steps: [{
-	        description: ''
+	        description: '',
+	        idx: 0
 	      }]
 	    };
 	
@@ -39090,9 +39091,8 @@
 	    key: 'handleIngredientsChange',
 	    value: function handleIngredientsChange(ingredientState) {
 	      var state = this.state;
-	      var idx = ingredientState.idx;
 	      var ingredientIdx = _lodash2.default.findIndex(state.ingredients, function (item) {
-	        return item.idx === idx;
+	        return item.idx === ingredientState.idx;
 	      });
 	      if (ingredientIdx < 0) {
 	        state.ingredients.push(ingredientState);
@@ -39105,22 +39105,32 @@
 	  }, {
 	    key: 'handleStepsChange',
 	    value: function handleStepsChange(stepState) {
-	      console.log(stepState);
+	      var state = this.state;
+	      var stepIdx = _lodash2.default.findIndex(state.steps, function (item) {
+	        return item.idx === stepState.idx;
+	      });
+	      if (stepIdx < 0) {
+	        state.steps.push(stepState);
+	      } else {
+	        state.steps[stepIdx] = stepState;
+	      }
+	
+	      this.setState(state);
 	    }
 	  }, {
 	    key: 'addIngredient',
 	    value: function addIngredient(event) {
 	      event.preventDefault();
-	      var ing = this.state.ingredients;
+	      var ingredients = this.state.ingredients;
 	
-	      ing.push({
+	      ingredients.push({
 	        ammount: '',
 	        units: '',
 	        ingredient: '',
 	        idx: this.state.ingredients.length
 	      });
 	      this.setState({
-	        ingredients: ing
+	        ingredients: ingredients
 	      });
 	    }
 	  }, {
@@ -39130,7 +39140,8 @@
 	      var steps = this.state.steps;
 	
 	      steps.push({
-	        description: ''
+	        description: '',
+	        idx: this.state.steps.length
 	      });
 	      this.setState({
 	        steps: steps
