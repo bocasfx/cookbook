@@ -2,6 +2,7 @@ body {
   font-family: 'Raleway', sans-serif;
   margin: 48px;
   color: dimgray;
+  width: 640px;
 }
 
 a {
@@ -25,6 +26,7 @@ ol li {
 
 input {
   height: 30px;
+  width: 50%;
 }
 
 h2 {
@@ -95,22 +97,16 @@ h2 {
   margin-top: 30px;
 }
 
-.remove {
-  font-size: 24px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-
-
 /* Ingredient Component */
 
 .ingredientComponent {
   margin-bottom: 10px;
+  width: 100%;
+  display: inline-flex;
 }
 
 .ingredientInput {
-  width: 300px;
+  width: 100%;
   margin-left: 10px;
 }
 
@@ -123,20 +119,35 @@ h2 {
   margin-left: 10px;
 }
 
+.remove {
+  font-size: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 
 
 /* Step Component */
 
-.stepDescription: {
-  width: 600px;
-}
-
 .stepComponent {
   margin-bottom: 10px;
+  display: flex;
+}
+
+.stepComponent input {
+  width: 100% ;
 }
 
 
 /* New Recipe */
+
+.titleInput {
+  margin: 10px 0 20px 0;
+}
+
+.categoryInput {
+  margin: 10px 0 20px 0;
+}
 
 .ingredientsHeader {
   display: flex;
@@ -162,4 +173,8 @@ h2 {
   margin-left: 20px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.submit {
+  width: 60px;
 }

@@ -29,9 +29,9 @@ class Ingredient extends React.Component {
     let closeBtn = this.state.closeBtn ? <span className={styles.remove}>&times;</span> : null;
     return (
       <div className={styles.ingredientComponent}>
-        <span><input name="ammount" type="text" className={styles.ammountInput} defaultValue={this.state.ammount} onChange={this.onChange} /></span>
-        <span><input name="units" type="text" className={styles.unitsInput} defaultValue={this.state.units} onChange={this.onChange} /></span>
-        <span><input name="ingredient" type="text" className={styles.ingredientInput} defaultValue={this.state.ingredient} onChange={this.onChange} /></span>
+        <input name="ammount" type="text" className={styles.ammountInput} defaultValue={this.state.ammount} onChange={this.onChange} />
+        <input name="units" type="text" className={styles.unitsInput} defaultValue={this.state.units} onChange={this.onChange} />
+        <input name="ingredient" type="text" className={styles.ingredientInput} defaultValue={this.state.ingredient} onChange={this.onChange} />
         {closeBtn}
       </div>
     );

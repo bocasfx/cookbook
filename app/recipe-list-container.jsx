@@ -1,5 +1,6 @@
 import React from 'react';
 import RecipeList from './recipe-list.jsx';
+import request from 'superagent';
 
 class RecipeListContainer extends React.Component {
   constructor(props) {
@@ -10,13 +11,14 @@ class RecipeListContainer extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/recipes').then((response)=> {
-      return response.json();
-    }).then((json)=> {
-      this.setState({
-        categories: json
+    request
+      .get('/recipes')
+      .set('Accept', 'application/json')
+      .end((err, response)=> {
+        this.setState({
+          categories: response.body
+        });
       });
-    });
   }
 
   render() {

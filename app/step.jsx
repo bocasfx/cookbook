@@ -25,7 +25,7 @@ class Step extends React.Component {
     let closeBtn = this.state.closeBtn ? <span className={styles.remove}>&times;</span> : null;
     return (
       <div className={styles.stepComponent}>
-        <span><input type="text" className={styles.stepDescription} defaultValue={this.state.description} onChange={this.onChange}/></span>
+        <input type="text" className={styles.stepDescription} defaultValue={this.state.description} onChange={this.onChange}/>
         {closeBtn}
       </div>
     );

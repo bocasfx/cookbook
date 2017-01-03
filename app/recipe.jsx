@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles/styles.css';
+import request from 'superagent';
 
 class Recipe extends React.Component {
   constructor(props) {
@@ -11,13 +12,14 @@ class Recipe extends React.Component {
   }
   
   componentDidMount() {
-    fetch('/recipes/' + this.props.params.recipeid).then((response)=> {
-      return response.json();
-    }).then((json)=> {
-      this.setState({
-        recipe: json[0]
+    request
+      .get('/recipes/' + this.props.params.recipeid)
+      .set('Accept', 'application/json')
+      .end((err, response)=> {
+        this.setState({
+          recipe: response.body[0]
+        });
       });
-    });
   }
 
   render() {

@@ -3,6 +3,9 @@ import Ingredient from './ingredient.jsx';
 import Step from './step.jsx';
 import styles from './styles/styles.css';
 import _ from 'lodash';
+import request from 'superagent';
+import { browserHistory } from 'react-router';
+
 
 class New extends React.Component {
   constructor(props) {
@@ -33,6 +36,12 @@ class New extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log(this.state);
+    request.post('/recipes')
+      .set('Content-Type', 'application/json')
+      .send([this.state])
+      .end((err) => {
+        browserHistory.push('/');
+      });
   }
 
   handleChange(event) {
@@ -111,17 +120,13 @@ class New extends React.Component {
         <form onSubmit={this.handleSubmit}>
 
           <div>
-            <label>
-              Title
-              <input name="title" type="text"  defaultValue={this.state.title} onChange={this.handleChange}/>
-            </label>
+            <h2>Title</h2>
+            <input name="title" type="text" defaultValue={this.state.title} onChange={this.handleChange}/>
           </div>
 
           <div>
-            <label>
-              Category
-              <input name="category" type="text"  defaultValue={this.state.category}  onChange={this.handleChange}/>
-            </label>
+            <h2>Category</h2>
+            <input name="category" type="text" className={styles.categoryInput} defaultValue={this.state.category}  onChange={this.handleChange}/>
           </div>
 
           <div className={styles.ingredientsHeader}>
@@ -160,7 +165,7 @@ class New extends React.Component {
             })
           }
           
-          <input type="submit" value="Submit"/>
+          <input type="submit" className={styles.submit} value="Submit"/>
         </form>
       </div>
     );

@@ -1,12 +1,11 @@
-var path = require('path');
+const path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'public');
-var APP_DIR = path.resolve(__dirname, 'app');
+const BUILD_DIR = path.resolve(__dirname, 'public');
+const APP_DIR = path.resolve(__dirname, 'app');
 
 var config = {
   entry: [
     'babel-polyfill',
-    'whatwg-fetch',
     APP_DIR + '/index.jsx'
   ],
   output: {
