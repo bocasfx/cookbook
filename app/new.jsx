@@ -35,7 +35,6 @@ class New extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
     request.post('/recipes')
       .set('Content-Type', 'application/json')
       .send([this.state])
