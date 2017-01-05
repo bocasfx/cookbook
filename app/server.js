@@ -35,7 +35,7 @@ app.get('/api/v1/recipes/:id', (req, res)=> {
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
-      dal.findDocument(ObjectID(req.params.id), db, (docs)=> {
+      dal.findDocument(ObjectID(req.params.id), db, (docs)=> { // eslint-disable-line new-cap
         db.close();
         res.status(200).send(docs);
       });
