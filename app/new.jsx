@@ -1,10 +1,8 @@
 import React from 'react';
-import Ingredient from './ingredient.jsx';
-import Step from './step.jsx';
-import styles from './styles/styles.css';
 import _ from 'lodash';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
+import RecipeForm from './recipe-form.jsx';
 
 
 class New extends React.Component {
@@ -112,61 +110,18 @@ class New extends React.Component {
 
   render() {
     return (
-      <div>
-        
-        <h1>New Recipe</h1>
-        
-        <form onSubmit={this.handleSubmit}>
-
-          <div>
-            <h2>Title</h2>
-            <input name="title" type="text" defaultValue={this.state.title} onChange={this.handleChange}/>
-          </div>
-
-          <div>
-            <h2>Category</h2>
-            <input name="category" type="text" className={styles.categoryInput} defaultValue={this.state.category}  onChange={this.handleChange}/>
-          </div>
-
-          <div className={styles.ingredientsHeader}>
-            <h2>Ingredients</h2>
-            <span onClick={this.addIngredient}>+</span>
-          </div>
-
-          {
-            this.state.ingredients.map((ingredient, idx) => {
-              let closeBtn = idx !== 0;
-              return <Ingredient 
-                        key={idx}
-                        idx={idx}
-                        ammount={ingredient.ammount}
-                        units={ingredient.units}
-                        ingredient={ingredient.ingredient} 
-                        closeBtn={closeBtn}
-                        onChange={this.handleIngredientsChange}/>;
-            })
-          }
-
-          <div className={styles.stepsHeader}>
-            <h2>Steps</h2>
-            <span onClick={this.addStep}>+</span>
-          </div>
-
-          {
-            this.state.steps.map((step, idx) => {
-              let closeBtn = idx !== 0;
-              return <Step
-                        key={idx}
-                        idx={idx}
-                        description={step.description}
-                        closeBtn={closeBtn}
-                        onChange={this.handleStepsChange}/>;
-            })
-          }
-          
-          <input type="submit" className={styles.submit} value="Submit"/>
-        </form>
-      </div>
+      <RecipeForm 
+        title={this.state.title}
+        category={this.state.category}
+        ingredients={this.state.ingredients}
+        steps={this.state.steps}
+        addIngredient={this.addIngredient}
+        addStep={this.addStep}
+        handleChange={this.handleChange}
+        handleIngredientsChange={this.handleIngredientsChange}
+        handleStepsChange={this.handleStepsChange}
+        handleSubmit={this.handleSubmit}
+      />
     );
   }
 }

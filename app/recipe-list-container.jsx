@@ -12,7 +12,7 @@ class RecipeListContainer extends React.Component {
 
   componentDidMount() {
     request
-      .get('/recipes')
+      .get('/api/v1/recipes')
       .set('Accept', 'application/json')
       .end((err, response)=> {
         this.setState({

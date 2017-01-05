@@ -55,8 +55,11 @@ h2 {
   background: none;
 }
 
-.title {
+.recipeTitle {
   font-size: 36px;
+}
+
+.recipeHeader {
   margin-bottom: 25px;
 }
 
@@ -177,4 +180,10 @@ h2 {
 
 .submit {
   width: 60px;
+}
+
+.editIcon {
+  margin-left: 15px;
+  bottom: 5px;
+  position: relative;
 }

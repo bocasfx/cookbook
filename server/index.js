@@ -12,7 +12,7 @@ const dbUrl = 'mongodb://localhost:27017/recipes';
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-app.get('/recipes', (req, res)=> {
+app.get('/api/v1/recipes', (req, res)=> {
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
@@ -26,7 +26,7 @@ app.get('/recipes', (req, res)=> {
     });
 });
 
-app.get('/recipes/:id', (req, res)=> {
+app.get('/api/v1/recipes/:id', (req, res)=> {
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
@@ -40,7 +40,7 @@ app.get('/recipes/:id', (req, res)=> {
     });
 });
 
-app.post('/recipes', (req, res)=> {
+app.post('/api/v1/recipes', (req, res)=> {
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
@@ -83,11 +83,15 @@ app.post('/initialize', (req, res)=> {
     });
 });
 
+app.get('*',function (req, res) {
+  res.redirect('/');
+});
+
 app.listen(3000, ()=> {
   console.log('Example app listening on port 3000!');
 });
 
-// app.put('/recipes', (req, res)=> {
+// app.put('/api/v1/recipes', (req, res)=> {
 //   MongoClient
 //     .connect(dbUrl)
 //     .then((db)=> {
@@ -101,7 +105,7 @@ app.listen(3000, ()=> {
 //     });
 // });
 // 
-// app.delete('/recipes', (req, res)=> {
+// app.delete('/api/v1/recipes', (req, res)=> {
 //   MongoClient
 //     .connect(dbUrl)
 //     .then((db)=> {

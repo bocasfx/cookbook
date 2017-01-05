@@ -30903,13 +30903,17 @@
 	
 	var _recipeListContainer2 = _interopRequireDefault(_recipeListContainer);
 	
-	var _recipe = __webpack_require__(/*! ./recipe.jsx */ 631);
+	var _recipe = __webpack_require__(/*! ./recipe.jsx */ 633);
 	
 	var _recipe2 = _interopRequireDefault(_recipe);
 	
-	var _new = __webpack_require__(/*! ./new.jsx */ 632);
+	var _new = __webpack_require__(/*! ./new.jsx */ 634);
 	
 	var _new2 = _interopRequireDefault(_new);
+	
+	var _edit = __webpack_require__(/*! ./edit.jsx */ 639);
+	
+	var _edit2 = _interopRequireDefault(_edit);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -30932,7 +30936,8 @@
 	          { history: _reactRouter.browserHistory },
 	          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _recipeListContainer2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: '/recipes/:recipeid', component: _recipe2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: '/new', component: _new2.default })
+	          _react2.default.createElement(_reactRouter.Route, { path: '/new', component: _new2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: '/edit/:recipeid', component: _edit2.default })
 	        )
 	      );
 	    }
@@ -37837,7 +37842,7 @@
 	
 	var _recipeList2 = _interopRequireDefault(_recipeList);
 	
-	var _superagent = __webpack_require__(/*! superagent */ 624);
+	var _superagent = __webpack_require__(/*! superagent */ 626);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
@@ -37862,7 +37867,7 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 	
-	      _superagent2.default.get('/recipes').set('Accept', 'application/json').end(function (err, response) {
+	      _superagent2.default.get('/api/v1/recipes').set('Accept', 'application/json').end(function (err, response) {
 	        _this2.setState({
 	          categories: response.body
 	        });
@@ -38033,14 +38038,15 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Raleway', sans-serif;\n  margin: 48px;\n  color: dimgray;\n  width: 640px;\n}\n\na {\n  color: dimgray;\n  text-decoration: none;\n}\n\na:hover {\n  color: mistyrose;\n}\n\nul li {\n  list-style-type: none;\n  line-height: 1.5em;\n}\n\nol li {\n  line-height: 2em;\n  margin-bottom: 20px;\n}\n\ninput {\n  height: 30px;\n  width: 50%;\n}\n\nh2 {\n  font-size: 1.5em;\n}\n\n.styles__header___1UdvR {\n  display: flex;\n}\n\n.styles__maintitle___3rptG {\n  font-size: 36px;\n}\n\n.styles__new___2yO6M {\n  font-size: 42px;\n  position: absolute;\n  right: 48px;\n  background-color: mistyrose;\n  padding: 0 16px;\n  border-radius: 100%;\n  cursor: pointer;\n}\n\n.styles__new___2yO6M:hover {\n  background: none;\n}\n\n.styles__title___2Nbcg {\n  font-size: 36px;\n  margin-bottom: 25px;\n}\n\n.styles__ingredients___15_qD {\n  padding: 20px;\n  background-color: mistyrose;\n  display: inline-block;\n  margin: 0 0 25px 25px;\n  width: 400px;\n}\n\n.styles__ingredients___15_qD li {\n  display: flex;\n}\n\n.styles__ingredient___Fz-zk {\n  margin-left: 5px;\n}\n\n.styles__ammount___KJoEa {\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__units___2YQHH {\n  margin-left: 5px;\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__steps___a9e22 {\n  max-width: 400px;\n}\n\n.styles__category___3eaGC {\n  font-size: 18px;\n  font-weight: bold;\n  margin-top: 30px;\n}\n\n/* Ingredient Component */\n\n.styles__ingredientComponent___3q4Qk {\n  margin-bottom: 10px;\n  width: 100%;\n  display: inline-flex;\n}\n\n.styles__ingredientInput___2p9iX {\n  width: 100%;\n  margin-left: 10px;\n}\n\n.styles__ammountInput___1RfsP {\n  width: 30px;\n}\n\n.styles__unitsInput___2-DKD {\n  width: 30px;\n  margin-left: 10px;\n}\n\n.styles__remove___2N8lt {\n  font-size: 24px;\n  margin-left: 10px;\n  cursor: pointer;\n}\n\n\n\n/* Step Component */\n\n.styles__stepComponent___1DhWz {\n  margin-bottom: 10px;\n  display: flex;\n}\n\n.styles__stepComponent___1DhWz input {\n  width: 100% ;\n}\n\n\n/* New Recipe */\n\n.styles__titleInput___d9N9K {\n  margin: 10px 0 20px 0;\n}\n\n.styles__categoryInput___18_gD {\n  margin: 10px 0 20px 0;\n}\n\n.styles__ingredientsHeader___ooF5M {\n  display: flex;\n}\n\n.styles__ingredientsHeader___ooF5M span {\n  font-size: 1.5em;\n  margin-top: 0.83em;\n  margin-bottom: 0.83em;\n  margin-left: 20px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.styles__stepsHeader___1tRIi {\n  display: flex;\n}\n\n.styles__stepsHeader___1tRIi span {\n  font-size: 1.5em;\n  margin-top: 0.83em;\n  margin-bottom: 0.83em;\n  margin-left: 20px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.styles__submit___TT8Ci {\n  width: 60px;\n}", ""]);
+	exports.push([module.id, "body {\n  font-family: 'Raleway', sans-serif;\n  margin: 48px;\n  color: dimgray;\n  width: 640px;\n}\n\na {\n  color: dimgray;\n  text-decoration: none;\n}\n\na:hover {\n  color: mistyrose;\n}\n\nul li {\n  list-style-type: none;\n  line-height: 1.5em;\n}\n\nol li {\n  line-height: 2em;\n  margin-bottom: 20px;\n}\n\ninput {\n  height: 30px;\n  width: 50%;\n}\n\nh2 {\n  font-size: 1.5em;\n}\n\n.styles__header___1UdvR {\n  display: flex;\n}\n\n.styles__maintitle___3rptG {\n  font-size: 36px;\n}\n\n.styles__new___2yO6M {\n  font-size: 42px;\n  position: absolute;\n  right: 48px;\n  background-color: mistyrose;\n  padding: 0 16px;\n  border-radius: 100%;\n  cursor: pointer;\n}\n\n.styles__new___2yO6M:hover {\n  background: none;\n}\n\n.styles__recipeTitle___3oGxy {\n  font-size: 36px;\n}\n\n.styles__recipeHeader___Lv8oG {\n  margin-bottom: 25px;\n}\n\n.styles__ingredients___15_qD {\n  padding: 20px;\n  background-color: mistyrose;\n  display: inline-block;\n  margin: 0 0 25px 25px;\n  width: 400px;\n}\n\n.styles__ingredients___15_qD li {\n  display: flex;\n}\n\n.styles__ingredient___Fz-zk {\n  margin-left: 5px;\n}\n\n.styles__ammount___KJoEa {\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__units___2YQHH {\n  margin-left: 5px;\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__steps___a9e22 {\n  max-width: 400px;\n}\n\n.styles__category___3eaGC {\n  font-size: 18px;\n  font-weight: bold;\n  margin-top: 30px;\n}\n\n/* Ingredient Component */\n\n.styles__ingredientComponent___3q4Qk {\n  margin-bottom: 10px;\n  width: 100%;\n  display: inline-flex;\n}\n\n.styles__ingredientInput___2p9iX {\n  width: 100%;\n  margin-left: 10px;\n}\n\n.styles__ammountInput___1RfsP {\n  width: 30px;\n}\n\n.styles__unitsInput___2-DKD {\n  width: 30px;\n  margin-left: 10px;\n}\n\n.styles__remove___2N8lt {\n  font-size: 24px;\n  margin-left: 10px;\n  cursor: pointer;\n}\n\n\n\n/* Step Component */\n\n.styles__stepComponent___1DhWz {\n  margin-bottom: 10px;\n  display: flex;\n}\n\n.styles__stepComponent___1DhWz input {\n  width: 100% ;\n}\n\n\n/* New Recipe */\n\n.styles__titleInput___d9N9K {\n  margin: 10px 0 20px 0;\n}\n\n.styles__categoryInput___18_gD {\n  margin: 10px 0 20px 0;\n}\n\n.styles__ingredientsHeader___ooF5M {\n  display: flex;\n}\n\n.styles__ingredientsHeader___ooF5M span {\n  font-size: 1.5em;\n  margin-top: 0.83em;\n  margin-bottom: 0.83em;\n  margin-left: 20px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.styles__stepsHeader___1tRIi {\n  display: flex;\n}\n\n.styles__stepsHeader___1tRIi span {\n  font-size: 1.5em;\n  margin-top: 0.83em;\n  margin-bottom: 0.83em;\n  margin-left: 20px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.styles__submit___TT8Ci {\n  width: 60px;\n}\n\n.styles__editIcon___14GzX {\n  margin-left: 15px;\n  bottom: 5px;\n  position: relative;\n}\n", ""]);
 	
 	// exports
 	exports.locals = {
 		"header": "styles__header___1UdvR",
 		"maintitle": "styles__maintitle___3rptG",
 		"new": "styles__new___2yO6M",
-		"title": "styles__title___2Nbcg",
+		"recipeTitle": "styles__recipeTitle___3oGxy",
+		"recipeHeader": "styles__recipeHeader___Lv8oG",
 		"ingredients": "styles__ingredients___15_qD",
 		"ingredient": "styles__ingredient___Fz-zk",
 		"ammount": "styles__ammount___KJoEa",
@@ -38057,7 +38063,8 @@
 		"categoryInput": "styles__categoryInput___18_gD",
 		"ingredientsHeader": "styles__ingredientsHeader___ooF5M",
 		"stepsHeader": "styles__stepsHeader___1tRIi",
-		"submit": "styles__submit___TT8Ci"
+		"submit": "styles__submit___TT8Ci",
+		"editIcon": "styles__editIcon___14GzX"
 	};
 
 /***/ },
@@ -38394,6 +38401,154 @@
 
 /***/ },
 /* 624 */
+/*!******************************************!*\
+  !*** ./~/react-fontawesome/lib/index.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _screenReaderStyles = __webpack_require__(/*! ./screen-reader-styles */ 625);
+	
+	var _screenReaderStyles2 = _interopRequireDefault(_screenReaderStyles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	/**
+	 * A React component for the font-awesome icon library.
+	 *
+	 *
+	 * @param {String} [ariaLabel] An extra accessibility label to put on the icon
+	 * @param {Boolean} [border=false] Whether or not to show a border radius
+	 * @param {String} [className] An extra set of CSS classes to add to the component
+	 * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
+	 * @param {Boolean} [fixedWidth=false] Make buttons fixed width
+	 * @param {String} [flip=false] Flip the icon's orientation.
+	 * @param {Boolean} [inverse=false]Inverse the icon's color
+	 * @param {String} name Name of the icon to use
+	 * @param {Boolean} [pulse=false] Rotate icon with 8 steps (rather than smoothly)
+	 * @param {Number} [rotate] The degress to rotate the icon by
+	 * @param {String} [size] The icon scaling size
+	 * @param {Boolean} [spin=false] Spin the icon
+	 * @param {String} [stack] Stack an icon on top of another
+	 * @param {String} [tag=span] The HTML tag to use as a string (eg 'i' or 'em')
+	 * @module FontAwesome
+	 * @type {ReactClass}
+	 */
+	exports.default = _react2.default.createClass({
+	
+	  displayName: 'FontAwesome',
+	
+	  propTypes: {
+	    ariaLabel: _react2.default.PropTypes.string,
+	    border: _react2.default.PropTypes.bool,
+	    className: _react2.default.PropTypes.string,
+	    cssModule: _react2.default.PropTypes.object,
+	    fixedWidth: _react2.default.PropTypes.bool,
+	    flip: _react2.default.PropTypes.oneOf(['horizontal', 'vertical']),
+	    inverse: _react2.default.PropTypes.bool,
+	    name: _react2.default.PropTypes.string.isRequired,
+	    pulse: _react2.default.PropTypes.bool,
+	    rotate: _react2.default.PropTypes.oneOf([90, 180, 270]),
+	    size: _react2.default.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x']),
+	    spin: _react2.default.PropTypes.bool,
+	    stack: _react2.default.PropTypes.oneOf(['1x', '2x']),
+	    tag: _react2.default.PropTypes.string
+	  },
+	
+	  render: function render() {
+	    var _props = this.props;
+	    var border = _props.border;
+	    var cssModule = _props.cssModule;
+	    var className = _props.className;
+	    var fixedWidth = _props.fixedWidth;
+	    var flip = _props.flip;
+	    var inverse = _props.inverse;
+	    var name = _props.name;
+	    var pulse = _props.pulse;
+	    var rotate = _props.rotate;
+	    var size = _props.size;
+	    var spin = _props.spin;
+	    var stack = _props.stack;
+	    var _props$tag = _props.tag;
+	    var tag = _props$tag === undefined ? 'span' : _props$tag;
+	    var ariaLabel = _props.ariaLabel;
+	
+	    var props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag', 'ariaLabel']);
+	
+	    var classNames = [];
+	
+	    if (cssModule) {
+	      classNames.push(cssModule['fa']);
+	      classNames.push(cssModule['fa-' + name]);
+	      size && classNames.push(cssModule['fa-' + size]);
+	      spin && classNames.push(cssModule['fa-spin']);
+	      pulse && classNames.push(cssModule['fa-pulse']);
+	      border && classNames.push(cssModule['fa-border']);
+	      fixedWidth && classNames.push(cssModule['fa-fw']);
+	      inverse && classNames.push(cssModule['fa-inverse']);
+	      flip && classNames.push(cssModule['fa-flip-' + flip]);
+	      rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
+	      stack && classNames.push(cssModule['fa-stack-' + stack]);
+	    } else {
+	      classNames.push('fa');
+	      classNames.push('fa-' + name);
+	      size && classNames.push('fa-' + size);
+	      spin && classNames.push('fa-spin');
+	      pulse && classNames.push('fa-pulse');
+	      border && classNames.push('fa-border');
+	      fixedWidth && classNames.push('fa-fw');
+	      inverse && classNames.push('fa-inverse');
+	      flip && classNames.push('fa-flip-' + flip);
+	      rotate && classNames.push('fa-rotate-' + rotate);
+	      stack && classNames.push('fa-stack-' + stack);
+	    }
+	
+	    // Add any custom class names at the end.
+	    className && classNames.push(className);
+	    return _react2.default.createElement(tag, _extends({}, props, { 'aria-hidden': true, className: classNames.join(' ') }), ariaLabel ? _react2.default.createElement('span', { style: _screenReaderStyles2.default }, ariaLabel) : null);
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 625 */
+/*!*********************************************************!*\
+  !*** ./~/react-fontawesome/lib/screen-reader-styles.js ***!
+  \*********************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  position: 'absolute',
+	  width: '1px',
+	  height: '1px',
+	  padding: '0px',
+	  margin: '-1px',
+	  overflow: 'hidden',
+	  clip: 'rect(0px, 0px, 0px, 0px)',
+	  border: '0px'
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 626 */
 /*!************************************!*\
   !*** ./~/superagent/lib/client.js ***!
   \************************************/
@@ -38413,11 +38568,11 @@
 	  root = this;
 	}
 	
-	var Emitter = __webpack_require__(/*! emitter */ 625);
-	var RequestBase = __webpack_require__(/*! ./request-base */ 626);
-	var isObject = __webpack_require__(/*! ./is-object */ 627);
-	var isFunction = __webpack_require__(/*! ./is-function */ 628);
-	var ResponseBase = __webpack_require__(/*! ./response-base */ 629);
+	var Emitter = __webpack_require__(/*! emitter */ 627);
+	var RequestBase = __webpack_require__(/*! ./request-base */ 628);
+	var isObject = __webpack_require__(/*! ./is-object */ 629);
+	var isFunction = __webpack_require__(/*! ./is-function */ 630);
+	var ResponseBase = __webpack_require__(/*! ./response-base */ 631);
 	
 	/**
 	 * Noop.
@@ -39306,7 +39461,7 @@
 
 
 /***/ },
-/* 625 */
+/* 627 */
 /*!**************************************!*\
   !*** ./~/component-emitter/index.js ***!
   \**************************************/
@@ -39478,7 +39633,7 @@
 
 
 /***/ },
-/* 626 */
+/* 628 */
 /*!******************************************!*\
   !*** ./~/superagent/lib/request-base.js ***!
   \******************************************/
@@ -39487,7 +39642,7 @@
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(/*! ./is-object */ 627);
+	var isObject = __webpack_require__(/*! ./is-object */ 629);
 	
 	/**
 	 * Expose `RequestBase`.
@@ -40021,7 +40176,7 @@
 
 
 /***/ },
-/* 627 */
+/* 629 */
 /*!***************************************!*\
   !*** ./~/superagent/lib/is-object.js ***!
   \***************************************/
@@ -40043,7 +40198,7 @@
 
 
 /***/ },
-/* 628 */
+/* 630 */
 /*!*****************************************!*\
   !*** ./~/superagent/lib/is-function.js ***!
   \*****************************************/
@@ -40056,7 +40211,7 @@
 	 * @return {Boolean}
 	 * @api private
 	 */
-	var isObject = __webpack_require__(/*! ./is-object */ 627);
+	var isObject = __webpack_require__(/*! ./is-object */ 629);
 	
 	function isFunction(fn) {
 	  var tag = isObject(fn) ? Object.prototype.toString.call(fn) : '';
@@ -40067,7 +40222,7 @@
 
 
 /***/ },
-/* 629 */
+/* 631 */
 /*!*******************************************!*\
   !*** ./~/superagent/lib/response-base.js ***!
   \*******************************************/
@@ -40078,7 +40233,7 @@
 	 * Module dependencies.
 	 */
 	
-	var utils = __webpack_require__(/*! ./utils */ 630);
+	var utils = __webpack_require__(/*! ./utils */ 632);
 	
 	/**
 	 * Expose `ResponseBase`.
@@ -40209,7 +40364,7 @@
 
 
 /***/ },
-/* 630 */
+/* 632 */
 /*!***********************************!*\
   !*** ./~/superagent/lib/utils.js ***!
   \***********************************/
@@ -40286,7 +40441,7 @@
 
 
 /***/ },
-/* 631 */
+/* 633 */
 /*!************************!*\
   !*** ./app/recipe.jsx ***!
   \************************/
@@ -40322,9 +40477,15 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _superagent = __webpack_require__(/*! superagent */ 624);
+	var _superagent = __webpack_require__(/*! superagent */ 626);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 624);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -40336,7 +40497,6 @@
 	
 	    var _this = (0, _possibleConstructorReturn3.default)(this, (Recipe.__proto__ || (0, _getPrototypeOf2.default)(Recipe)).call(this, props));
 	
-	    _this.props = props;
 	    _this.state = {
 	      recipe: {}
 	    };
@@ -40348,7 +40508,7 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 	
-	      _superagent2.default.get('/recipes/' + this.props.params.recipeid).set('Accept', 'application/json').end(function (err, response) {
+	      _superagent2.default.get('/api/v1/recipes/' + this.props.params.recipeid).set('Accept', 'application/json').end(function (err, response) {
 	        _this2.setState({
 	          recipe: response.body[0]
 	        });
@@ -40361,13 +40521,24 @@
 	        return null;
 	      }
 	
+	      var editUrl = '/edit/' + this.props.params.recipeid;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: _styles2.default.title },
-	          this.state.recipe.title
+	          { className: _styles2.default.recipeHeader },
+	          _react2.default.createElement(
+	            'span',
+	            { className: _styles2.default.recipeTitle },
+	            this.state.recipe.title
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: editUrl },
+	            _react2.default.createElement(_reactFontawesome2.default, { className: _styles2.default.editIcon, name: 'pencil' })
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'ul',
@@ -40418,7 +40589,7 @@
 	module.exports = Recipe;
 
 /***/ },
-/* 632 */
+/* 634 */
 /*!*********************!*\
   !*** ./app/new.jsx ***!
   \*********************/
@@ -40450,27 +40621,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ingredient = __webpack_require__(/*! ./ingredient.jsx */ 633);
-	
-	var _ingredient2 = _interopRequireDefault(_ingredient);
-	
-	var _step = __webpack_require__(/*! ./step.jsx */ 634);
-	
-	var _step2 = _interopRequireDefault(_step);
-	
-	var _styles = __webpack_require__(/*! ./styles/styles.css */ 619);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _lodash = __webpack_require__(/*! lodash */ 635);
+	var _lodash = __webpack_require__(/*! lodash */ 637);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _superagent = __webpack_require__(/*! superagent */ 624);
+	var _superagent = __webpack_require__(/*! superagent */ 626);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
+	var _recipeForm = __webpack_require__(/*! ./recipe-form.jsx */ 640);
+	
+	var _recipeForm2 = _interopRequireDefault(_recipeForm);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -40510,7 +40673,6 @@
 	    key: 'handleSubmit',
 	    value: function handleSubmit(event) {
 	      event.preventDefault();
-	      console.log(this.state);
 	      _superagent2.default.post('/recipes').set('Content-Type', 'application/json').send([this.state]).end(function (err) {
 	        _reactRouter.browserHistory.push('/');
 	      });
@@ -40590,90 +40752,18 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'New Recipe'
-	        ),
-	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: this.handleSubmit },
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Title'
-	            ),
-	            _react2.default.createElement('input', { name: 'title', type: 'text', defaultValue: this.state.title, onChange: this.handleChange })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Category'
-	            ),
-	            _react2.default.createElement('input', { name: 'category', type: 'text', className: _styles2.default.categoryInput, defaultValue: this.state.category, onChange: this.handleChange })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _styles2.default.ingredientsHeader },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Ingredients'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { onClick: this.addIngredient },
-	              '+'
-	            )
-	          ),
-	          this.state.ingredients.map(function (ingredient, idx) {
-	            var closeBtn = idx !== 0;
-	            return _react2.default.createElement(_ingredient2.default, {
-	              key: idx,
-	              idx: idx,
-	              ammount: ingredient.ammount,
-	              units: ingredient.units,
-	              ingredient: ingredient.ingredient,
-	              closeBtn: closeBtn,
-	              onChange: _this2.handleIngredientsChange });
-	          }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _styles2.default.stepsHeader },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Steps'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { onClick: this.addStep },
-	              '+'
-	            )
-	          ),
-	          this.state.steps.map(function (step, idx) {
-	            var closeBtn = idx !== 0;
-	            return _react2.default.createElement(_step2.default, {
-	              key: idx,
-	              idx: idx,
-	              description: step.description,
-	              closeBtn: closeBtn,
-	              onChange: _this2.handleStepsChange });
-	          }),
-	          _react2.default.createElement('input', { type: 'submit', className: _styles2.default.submit, value: 'Submit' })
-	        )
-	      );
+	      return _react2.default.createElement(_recipeForm2.default, {
+	        title: this.state.title,
+	        category: this.state.category,
+	        ingredients: this.state.ingredients,
+	        steps: this.state.steps,
+	        addIngredient: this.addIngredient,
+	        addStep: this.addStep,
+	        handleChange: this.handleChange,
+	        handleIngredientsChange: this.handleIngredientsChange,
+	        handleStepsChange: this.handleStepsChange,
+	        handleSubmit: this.handleSubmit
+	      });
 	    }
 	  }]);
 	  return New;
@@ -40682,7 +40772,7 @@
 	module.exports = New;
 
 /***/ },
-/* 633 */
+/* 635 */
 /*!****************************!*\
   !*** ./app/ingredient.jsx ***!
   \****************************/
@@ -40775,7 +40865,7 @@
 	module.exports = Ingredient;
 
 /***/ },
-/* 634 */
+/* 636 */
 /*!**********************!*\
   !*** ./app/step.jsx ***!
   \**********************/
@@ -40862,7 +40952,7 @@
 	module.exports = Step;
 
 /***/ },
-/* 635 */
+/* 637 */
 /*!****************************!*\
   !*** ./~/lodash/lodash.js ***!
   \****************************/
@@ -57953,10 +58043,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../webpack/buildin/module.js */ 636)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../webpack/buildin/module.js */ 638)(module)))
 
 /***/ },
-/* 636 */
+/* 638 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -57973,6 +58063,287 @@
 		return module;
 	}
 
+
+/***/ },
+/* 639 */
+/*!**********************!*\
+  !*** ./app/edit.jsx ***!
+  \**********************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _recipeForm = __webpack_require__(/*! ./recipe-form.jsx */ 640);
+	
+	var _recipeForm2 = _interopRequireDefault(_recipeForm);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 626);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Edit = function (_React$Component) {
+	  (0, _inherits3.default)(Edit, _React$Component);
+	
+	  function Edit(props) {
+	    (0, _classCallCheck3.default)(this, Edit);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (Edit.__proto__ || (0, _getPrototypeOf2.default)(Edit)).call(this, props));
+	
+	    _this.state = {
+	      title: '',
+	      category: '',
+	      ingredients: [],
+	      steps: []
+	    };
+	
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.handleIngredientsChange = _this.handleIngredientsChange.bind(_this);
+	    _this.handleStepsChange = _this.handleStepsChange.bind(_this);
+	    _this.addIngredient = _this.addIngredient.bind(_this);
+	    _this.addStep = _this.addStep.bind(_this);
+	    return _this;
+	  }
+	
+	  (0, _createClass3.default)(Edit, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      _superagent2.default.get('/api/v1/recipes/' + this.props.params.recipeid).set('Accept', 'application/json').end(function (err, response) {
+	        var recipe = response.body[0];
+	        _this2.setState({
+	          title: recipe.title,
+	          category: recipe.category,
+	          ingredients: recipe.ingredients,
+	          steps: recipe.steps
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      event.preventDefault();
+	
+	      var value = event.target.value;
+	      var name = event.target.name;
+	      var state = this.state;
+	
+	      state[name] = value;
+	      console.log(name);
+	      this.setState(state);
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {}
+	  }, {
+	    key: 'handleIngredientsChange',
+	    value: function handleIngredientsChange() {}
+	  }, {
+	    key: 'handleStepsChange',
+	    value: function handleStepsChange() {}
+	  }, {
+	    key: 'addIngredient',
+	    value: function addIngredient() {}
+	  }, {
+	    key: 'addStep',
+	    value: function addStep() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_recipeForm2.default, {
+	        title: this.state.title,
+	        category: this.state.category,
+	        ingredients: this.state.ingredients,
+	        steps: this.state.steps,
+	        addIngredient: this.addIngredient,
+	        addStep: this.addStep,
+	        handleChange: this.handleChange,
+	        handleIngredientsChange: this.handleIngredientsChange,
+	        handleStepsChange: this.handleStepsChange,
+	        handleSubmit: this.handleSubmit
+	      });
+	    }
+	  }]);
+	  return Edit;
+	}(_react2.default.Component);
+	
+	module.exports = Edit;
+
+/***/ },
+/* 640 */
+/*!*****************************!*\
+  !*** ./app/recipe-form.jsx ***!
+  \*****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = __webpack_require__(/*! ./styles/styles.css */ 619);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _ingredient = __webpack_require__(/*! ./ingredient.jsx */ 635);
+	
+	var _ingredient2 = _interopRequireDefault(_ingredient);
+	
+	var _step = __webpack_require__(/*! ./step.jsx */ 636);
+	
+	var _step2 = _interopRequireDefault(_step);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RecipeForm = function (_React$Component) {
+	  (0, _inherits3.default)(RecipeForm, _React$Component);
+	
+	  function RecipeForm(props) {
+	    (0, _classCallCheck3.default)(this, RecipeForm);
+	    return (0, _possibleConstructorReturn3.default)(this, (RecipeForm.__proto__ || (0, _getPrototypeOf2.default)(RecipeForm)).call(this, props));
+	  }
+	
+	  (0, _createClass3.default)(RecipeForm, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'New Recipe'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.props.handleSubmit },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Title'
+	            ),
+	            _react2.default.createElement('input', { name: 'title', type: 'text', value: this.props.title, onChange: this.props.handleChange })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Category'
+	            ),
+	            _react2.default.createElement('input', { name: 'category', type: 'text', className: _styles2.default.categoryInput, value: this.props.category, onChange: this.props.handleChange })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _styles2.default.ingredientsHeader },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Ingredients'
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              { onClick: this.props.addIngredient },
+	              '+'
+	            )
+	          ),
+	          this.props.ingredients.map(function (ingredient, idx) {
+	            var closeBtn = idx !== 0;
+	            return _react2.default.createElement(_ingredient2.default, {
+	              key: idx,
+	              idx: idx,
+	              ammount: ingredient.ammount,
+	              units: ingredient.units,
+	              ingredient: ingredient.ingredient,
+	              closeBtn: closeBtn,
+	              onChange: _this2.props.handleIngredientsChange });
+	          }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: _styles2.default.stepsHeader },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Steps'
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              { onClick: this.props.addStep },
+	              '+'
+	            )
+	          ),
+	          this.props.steps.map(function (step, idx) {
+	            var closeBtn = idx !== 0;
+	            return _react2.default.createElement(_step2.default, {
+	              key: idx,
+	              idx: idx,
+	              description: step.description,
+	              closeBtn: closeBtn,
+	              onChange: _this2.props.handleStepsChange });
+	          }),
+	          _react2.default.createElement('input', { type: 'submit', className: _styles2.default.submit, value: 'Submit' })
+	        )
+	      );
+	    }
+	  }]);
+	  return RecipeForm;
+	}(_react2.default.Component);
+	
+	module.exports = RecipeForm;
 
 /***/ }
 /******/ ]);

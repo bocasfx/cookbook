@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './styles/styles.css';
 import request from 'superagent';
+import FontAwesome from 'react-fontawesome';
+import { Link } from 'react-router';
 
 class Recipe extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
     this.state = {
       recipe: {}
     };
@@ -13,7 +14,7 @@ class Recipe extends React.Component {
   
   componentDidMount() {
     request
-      .get('/recipes/' + this.props.params.recipeid)
+      .get('/api/v1/recipes/' + this.props.params.recipeid)
       .set('Accept', 'application/json')
       .end((err, response)=> {
         this.setState({
@@ -27,9 +28,14 @@ class Recipe extends React.Component {
       return null;
     }
 
+    let editUrl = '/edit/' + this.props.params.recipeid;
+
     return (
       <div>
-        <div className={styles.title}>{this.state.recipe.title}</div>
+        <div className={styles.recipeHeader}>
+          <span className={styles.recipeTitle}>{this.state.recipe.title}</span>
+          <Link to={editUrl}><FontAwesome className={styles.editIcon} name='pencil'/></Link>
+        </div>
         <ul className={styles.ingredients}>
         {
           this.state.recipe.ingredients.map((ingredient, idx)=> {
