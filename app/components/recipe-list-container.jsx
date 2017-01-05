@@ -21,6 +21,13 @@ class RecipeListContainer extends React.Component {
       });
   }
 
+  onGetData(docs) {
+    console.log('got data');
+    this.setState({
+      categories: docs
+    });
+  }
+
   render() {
     return (
       <RecipeList categories={this.state.categories}/>

@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './styles/styles.css';
 
 class Ingredient extends React.Component {
   constructor(props) {
@@ -26,12 +25,12 @@ class Ingredient extends React.Component {
   }
 
   render() {
-    let closeBtn = this.state.closeBtn ? <span className={styles.remove}>&times;</span> : null;
+    let closeBtn = this.state.closeBtn ? <span className="remove">&times;</span> : null;
     return (
-      <div className={styles.ingredientComponent}>
-        <input name="ammount" type="text" className={styles.ammountInput} defaultValue={this.state.ammount} onChange={this.onChange} />
-        <input name="units" type="text" className={styles.unitsInput} defaultValue={this.state.units} onChange={this.onChange} />
-        <input name="ingredient" type="text" className={styles.ingredientInput} defaultValue={this.state.ingredient} onChange={this.onChange} />
+      <div className="ingredientComponent">
+        <input name="ammount" type="text" className="ammountInput" defaultValue={this.state.ammount} onChange={this.onChange} />
+        <input name="units" type="text" className="unitsInput" defaultValue={this.state.units} onChange={this.onChange} />
+        <input name="ingredient" type="text" className="ingredientInput" defaultValue={this.state.ingredient} onChange={this.onChange} />
         {closeBtn}
       </div>
     );

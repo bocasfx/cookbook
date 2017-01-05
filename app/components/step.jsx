@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './styles/styles.css';
 
 class Step extends React.Component {
   constructor(props) {
@@ -22,10 +21,10 @@ class Step extends React.Component {
   }
 
   render() {
-    let closeBtn = this.state.closeBtn ? <span className={styles.remove}>&times;</span> : null;
+    let closeBtn = this.state.closeBtn ? <span className="remove">&times;</span> : null;
     return (
-      <div className={styles.stepComponent}>
-        <input type="text" className={styles.stepDescription} defaultValue={this.state.description} onChange={this.onChange}/>
+      <div className="stepComponent">
+        <input type="text" className="stepDescription" defaultValue={this.state.description} onChange={this.onChange}/>
         {closeBtn}
       </div>
     );

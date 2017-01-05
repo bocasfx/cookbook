@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './styles/styles.css';
 import Ingredient from './ingredient.jsx';
 import Step from './step.jsx';
 
@@ -23,10 +22,10 @@ class RecipeForm extends React.Component {
 
           <div>
             <h2>Category</h2>
-            <input name="category" type="text" className={styles.categoryInput} value={this.props.category}  onChange={this.props.handleChange}/>
+            <input name="category" type="text" className="categoryInput" value={this.props.category}  onChange={this.props.handleChange}/>
           </div>
 
-          <div className={styles.ingredientsHeader}>
+          <div className="ingredientsHeader">
             <h2>Ingredients</h2>
             <span onClick={this.props.addIngredient}>+</span>
           </div>
@@ -45,7 +44,7 @@ class RecipeForm extends React.Component {
             })
           }
 
-          <div className={styles.stepsHeader}>
+          <div className="stepsHeader">
             <h2>Steps</h2>
             <span onClick={this.props.addStep}>+</span>
           </div>
@@ -62,7 +61,7 @@ class RecipeForm extends React.Component {
             })
           }
           
-          <input type="submit" className={styles.submit} value="Submit"/>
+          <input type="submit" className="submit" value="Submit"/>
         </form>
       </div>
     );

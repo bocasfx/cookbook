@@ -1,6 +1,5 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Cookbook from './cookbook.jsx';
-import styles from './styles/styles.css';
+import AppRoutes from './app-routes.jsx';
 
-render(<Cookbook/>, document.getElementById('app'));
+render(<AppRoutes/>, document.getElementById('app'));

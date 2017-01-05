@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
-import styles from './styles/styles.css';
 import capitalize from 'capitalize';
 
 class RecipeList extends React.Component {
   render() {
     return (
       <div>
-        <div className={styles.header}>
-          <div className={styles.maintitle}>Recetas</div>
-          <Link className={styles.new} to="/new">+</Link>
+        <div className="header">
+          <div className="maintitle">Recetas</div>
+          <Link className="new" to="/new">+</Link>
         </div>
         <ul>
           {
@@ -17,7 +16,7 @@ class RecipeList extends React.Component {
               let label = capitalize(category._id);
               return (
                 <li key={category._id}>
-                  <div className={styles.category}>{label}</div>
+                  <div className="category">{label}</div>
                   <ul>
                     {
                       category.recipes.map((recipe)=> {

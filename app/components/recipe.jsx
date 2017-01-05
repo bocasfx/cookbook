@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './styles/styles.css';
 import request from 'superagent';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
@@ -32,24 +31,24 @@ class Recipe extends React.Component {
 
     return (
       <div>
-        <div className={styles.recipeHeader}>
-          <span className={styles.recipeTitle}>{this.state.recipe.title}</span>
-          <Link to={editUrl}><FontAwesome className={styles.editIcon} name='pencil'/></Link>
+        <div className="recipeHeader">
+          <span className="recipeTitle">{this.state.recipe.title}</span>
+          <Link to={editUrl}><FontAwesome className="editIcon" name='pencil'/></Link>
         </div>
-        <ul className={styles.ingredients}>
+        <ul className="ingredients">
         {
           this.state.recipe.ingredients.map((ingredient, idx)=> {
             return (
               <li key={idx}>
-                <span className={styles.ammount}>{ingredient.ammount}</span>
-                <span className={styles.units}>{ingredient.units}</span>
-                <span className={styles.ingredient}>{ingredient.ingredient}</span>
+                <span className="ammount">{ingredient.ammount}</span>
+                <span className="units">{ingredient.units}</span>
+                <span className="ingredient">{ingredient.ingredient}</span>
               </li>
             );
           })
         }
         </ul>
-        <ol className={styles.steps}>
+        <ol className="steps">
         {
           this.state.recipe.steps.map((step, idx)=> {
             return (

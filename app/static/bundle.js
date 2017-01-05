@@ -9097,17 +9097,13 @@
 	
 	var _reactDom = __webpack_require__(/*! react-dom */ 329);
 	
-	var _cookbook = __webpack_require__(/*! ./cookbook.jsx */ 475);
+	var _appRoutes = __webpack_require__(/*! ./app-routes.jsx */ 475);
 	
-	var _cookbook2 = _interopRequireDefault(_cookbook);
-	
-	var _styles = __webpack_require__(/*! ./styles/styles.css */ 619);
-	
-	var _styles2 = _interopRequireDefault(_styles);
+	var _appRoutes2 = _interopRequireDefault(_appRoutes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	(0, _reactDom.render)(_react2.default.createElement(_cookbook2.default, null), document.getElementById('app'));
+	(0, _reactDom.render)(_react2.default.createElement(_appRoutes2.default, null), document.getElementById('app'));
 
 /***/ },
 /* 299 */
@@ -30866,9 +30862,9 @@
 
 /***/ },
 /* 475 */
-/*!**************************!*\
-  !*** ./app/cookbook.jsx ***!
-  \**************************/
+/*!****************************!*\
+  !*** ./app/app-routes.jsx ***!
+  \****************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30899,53 +30895,35 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 562);
 	
-	var _recipeListContainer = __webpack_require__(/*! ./recipe-list-container.jsx */ 617);
+	var _routes = __webpack_require__(/*! ./routes.jsx */ 617);
 	
-	var _recipeListContainer2 = _interopRequireDefault(_recipeListContainer);
-	
-	var _recipe = __webpack_require__(/*! ./recipe.jsx */ 633);
-	
-	var _recipe2 = _interopRequireDefault(_recipe);
-	
-	var _new = __webpack_require__(/*! ./new.jsx */ 634);
-	
-	var _new2 = _interopRequireDefault(_new);
-	
-	var _edit = __webpack_require__(/*! ./edit.jsx */ 639);
-	
-	var _edit2 = _interopRequireDefault(_edit);
+	var _routes2 = _interopRequireDefault(_routes);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var App = function (_React$Component) {
-	  (0, _inherits3.default)(App, _React$Component);
+	var AppRoutes = function (_React$Component) {
+	  (0, _inherits3.default)(AppRoutes, _React$Component);
 	
-	  function App() {
-	    (0, _classCallCheck3.default)(this, App);
-	    return (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).apply(this, arguments));
+	  function AppRoutes() {
+	    (0, _classCallCheck3.default)(this, AppRoutes);
+	    return (0, _possibleConstructorReturn3.default)(this, (AppRoutes.__proto__ || (0, _getPrototypeOf2.default)(AppRoutes)).apply(this, arguments));
 	  }
 	
-	  (0, _createClass3.default)(App, [{
+	  (0, _createClass3.default)(AppRoutes, [{
+	    key: 'onUpdate',
+	    value: function onUpdate() {
+	      window.scrollTo(0, 0);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _reactRouter.Router,
-	          { history: _reactRouter.browserHistory },
-	          _react2.default.createElement(_reactRouter.Route, { path: '/', component: _recipeListContainer2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: '/recipes/:recipeid', component: _recipe2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: '/new', component: _new2.default }),
-	          _react2.default.createElement(_reactRouter.Route, { path: '/edit/:recipeid', component: _edit2.default })
-	        )
-	      );
+	      return _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _routes2.default, onUpdate: this.onUpdate });
 	    }
 	  }]);
-	  return App;
+	  return AppRoutes;
 	}(_react2.default.Component);
 	
-	module.exports = App;
+	module.exports = AppRoutes;
 
 /***/ },
 /* 476 */
@@ -37807,111 +37785,16 @@
 
 /***/ },
 /* 617 */
-/*!***************************************!*\
-  !*** ./app/recipe-list-container.jsx ***!
-  \***************************************/
+/*!************************!*\
+  !*** ./app/routes.jsx ***!
+  \************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _recipeList = __webpack_require__(/*! ./recipe-list.jsx */ 618);
-	
-	var _recipeList2 = _interopRequireDefault(_recipeList);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 626);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RecipeListContainer = function (_React$Component) {
-	  (0, _inherits3.default)(RecipeListContainer, _React$Component);
-	
-	  function RecipeListContainer(props) {
-	    (0, _classCallCheck3.default)(this, RecipeListContainer);
-	
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (RecipeListContainer.__proto__ || (0, _getPrototypeOf2.default)(RecipeListContainer)).call(this, props));
-	
-	    _this.state = {
-	      categories: []
-	    };
-	    return _this;
-	  }
-	
-	  (0, _createClass3.default)(RecipeListContainer, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      _superagent2.default.get('/api/v1/recipes').set('Accept', 'application/json').end(function (err, response) {
-	        _this2.setState({
-	          categories: response.body
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(_recipeList2.default, { categories: this.state.categories });
-	    }
-	  }]);
-	  return RecipeListContainer;
-	}(_react2.default.Component);
-	
-	module.exports = RecipeListContainer;
-
-/***/ },
-/* 618 */
-/*!*****************************!*\
-  !*** ./app/recipe-list.jsx ***!
-  \*****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _react = __webpack_require__(/*! react */ 299);
 	
@@ -37919,72 +37802,175 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 562);
 	
-	var _styles = __webpack_require__(/*! ./styles/styles.css */ 619);
+	var _recipe = __webpack_require__(/*! ./components/recipe.jsx */ 618);
 	
-	var _styles2 = _interopRequireDefault(_styles);
+	var _recipe2 = _interopRequireDefault(_recipe);
 	
-	var _capitalize = __webpack_require__(/*! capitalize */ 623);
+	var _new = __webpack_require__(/*! ./components/new.jsx */ 628);
 	
-	var _capitalize2 = _interopRequireDefault(_capitalize);
+	var _new2 = _interopRequireDefault(_new);
+	
+	var _edit = __webpack_require__(/*! ./components/edit.jsx */ 634);
+	
+	var _edit2 = _interopRequireDefault(_edit);
+	
+	var _layout = __webpack_require__(/*! ./components/layout.jsx */ 635);
+	
+	var _layout2 = _interopRequireDefault(_layout);
+	
+	var _indexPage = __webpack_require__(/*! ./components/index-page.jsx */ 636);
+	
+	var _indexPage2 = _interopRequireDefault(_indexPage);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var RecipeList = function (_React$Component) {
-	  (0, _inherits3.default)(RecipeList, _React$Component);
+	var routes = _react2.default.createElement(
+	  'div',
+	  null,
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: '/', component: _layout2.default },
+	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _indexPage2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'recipes/:recipeid', component: _recipe2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'new', component: _new2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'edit/:recipeid', component: _edit2.default })
+	  )
+	);
 	
-	  function RecipeList() {
-	    (0, _classCallCheck3.default)(this, RecipeList);
-	    return (0, _possibleConstructorReturn3.default)(this, (RecipeList.__proto__ || (0, _getPrototypeOf2.default)(RecipeList)).apply(this, arguments));
+	exports.default = routes;
+
+/***/ },
+/* 618 */
+/*!***********************************!*\
+  !*** ./app/components/recipe.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 619);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 626);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Recipe = function (_React$Component) {
+	  (0, _inherits3.default)(Recipe, _React$Component);
+	
+	  function Recipe(props) {
+	    (0, _classCallCheck3.default)(this, Recipe);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (Recipe.__proto__ || (0, _getPrototypeOf2.default)(Recipe)).call(this, props));
+	
+	    _this.state = {
+	      recipe: {}
+	    };
+	    return _this;
 	  }
 	
-	  (0, _createClass3.default)(RecipeList, [{
+	  (0, _createClass3.default)(Recipe, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      _superagent2.default.get('/api/v1/recipes/' + this.props.params.recipeid).set('Accept', 'application/json').end(function (err, response) {
+	        _this2.setState({
+	          recipe: response.body[0]
+	        });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      if (!this.state.recipe.ingredients) {
+	        return null;
+	      }
+	
+	      var editUrl = '/edit/' + this.props.params.recipeid;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: _styles2.default.header },
+	          { className: 'recipeHeader' },
 	          _react2.default.createElement(
-	            'div',
-	            { className: _styles2.default.maintitle },
-	            'Recetas'
+	            'span',
+	            { className: 'recipeTitle' },
+	            this.state.recipe.title
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { className: _styles2.default.new, to: '/new' },
-	            '+'
+	            { to: editUrl },
+	            _react2.default.createElement(_reactFontawesome2.default, { className: 'editIcon', name: 'pencil' })
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'ul',
-	          null,
-	          this.props.categories.map(function (category) {
-	            var label = (0, _capitalize2.default)(category._id);
+	          { className: 'ingredients' },
+	          this.state.recipe.ingredients.map(function (ingredient, idx) {
 	            return _react2.default.createElement(
 	              'li',
-	              { key: category._id },
+	              { key: idx },
 	              _react2.default.createElement(
-	                'div',
-	                { className: _styles2.default.category },
-	                label
+	                'span',
+	                { className: 'ammount' },
+	                ingredient.ammount
 	              ),
 	              _react2.default.createElement(
-	                'ul',
+	                'span',
+	                { className: 'units' },
+	                ingredient.units
+	              ),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'ingredient' },
+	                ingredient.ingredient
+	              )
+	            );
+	          })
+	        ),
+	        _react2.default.createElement(
+	          'ol',
+	          { className: 'steps' },
+	          this.state.recipe.steps.map(function (step, idx) {
+	            return _react2.default.createElement(
+	              'li',
+	              { key: idx },
+	              _react2.default.createElement(
+	                'span',
 	                null,
-	                category.recipes.map(function (recipe) {
-	                  var recipeUrl = '/recipes/' + recipe.id;
-	                  return _react2.default.createElement(
-	                    'li',
-	                    { key: recipe.id },
-	                    _react2.default.createElement(
-	                      _reactRouter.Link,
-	                      { to: recipeUrl },
-	                      recipe.title
-	                    )
-	                  );
-	                })
+	                step.description
 	              )
 	            );
 	          })
@@ -37992,563 +37978,13 @@
 	      );
 	    }
 	  }]);
-	  return RecipeList;
+	  return Recipe;
 	}(_react2.default.Component);
 	
-	module.exports = RecipeList;
+	module.exports = Recipe;
 
 /***/ },
 /* 619 */
-/*!*******************************!*\
-  !*** ./app/styles/styles.css ***!
-  \*******************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./styles.css */ 620);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 622)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./styles.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./styles.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 620 */
-/*!***********************************************************************************************************************!*\
-  !*** ./~/css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!./app/styles/styles.css ***!
-  \***********************************************************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 621)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "body {\n  font-family: 'Raleway', sans-serif;\n  margin: 48px;\n  color: dimgray;\n  width: 640px;\n}\n\na {\n  color: dimgray;\n  text-decoration: none;\n}\n\na:hover {\n  color: mistyrose;\n}\n\nul li {\n  list-style-type: none;\n  line-height: 1.5em;\n}\n\nol li {\n  line-height: 2em;\n  margin-bottom: 20px;\n}\n\ninput {\n  height: 30px;\n  width: 50%;\n}\n\nh2 {\n  font-size: 1.5em;\n}\n\n.styles__header___1UdvR {\n  display: flex;\n}\n\n.styles__maintitle___3rptG {\n  font-size: 36px;\n}\n\n.styles__new___2yO6M {\n  font-size: 42px;\n  position: absolute;\n  right: 48px;\n  background-color: mistyrose;\n  padding: 0 16px;\n  border-radius: 100%;\n  cursor: pointer;\n}\n\n.styles__new___2yO6M:hover {\n  background: none;\n}\n\n.styles__recipeTitle___3oGxy {\n  font-size: 36px;\n}\n\n.styles__recipeHeader___Lv8oG {\n  margin-bottom: 25px;\n}\n\n.styles__ingredients___15_qD {\n  padding: 20px;\n  background-color: mistyrose;\n  display: inline-block;\n  margin: 0 0 25px 25px;\n  width: 400px;\n}\n\n.styles__ingredients___15_qD li {\n  display: flex;\n}\n\n.styles__ingredient___Fz-zk {\n  margin-left: 5px;\n}\n\n.styles__ammount___KJoEa {\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__units___2YQHH {\n  margin-left: 5px;\n  min-width: 30px;\n  display: inline-block;\n}\n\n.styles__steps___a9e22 {\n  max-width: 400px;\n}\n\n.styles__category___3eaGC {\n  font-size: 18px;\n  font-weight: bold;\n  margin-top: 30px;\n}\n\n/* Ingredient Component */\n\n.styles__ingredientComponent___3q4Qk {\n  margin-bottom: 10px;\n  width: 100%;\n  display: inline-flex;\n}\n\n.styles__ingredientInput___2p9iX {\n  width: 100%;\n  margin-left: 10px;\n}\n\n.styles__ammountInput___1RfsP {\n  width: 30px;\n}\n\n.styles__unitsInput___2-DKD {\n  width: 30px;\n  margin-left: 10px;\n}\n\n.styles__remove___2N8lt {\n  font-size: 24px;\n  margin-left: 10px;\n  cursor: pointer;\n}\n\n\n\n/* Step Component */\n\n.styles__stepComponent___1DhWz {\n  margin-bottom: 10px;\n  display: flex;\n}\n\n.styles__stepComponent___1DhWz input {\n  width: 100% ;\n}\n\n\n/* New Recipe */\n\n.styles__titleInput___d9N9K {\n  margin: 10px 0 20px 0;\n}\n\n.styles__categoryInput___18_gD {\n  margin: 10px 0 20px 0;\n}\n\n.styles__ingredientsHeader___ooF5M {\n  display: flex;\n}\n\n.styles__ingredientsHeader___ooF5M span {\n  font-size: 1.5em;\n  margin-top: 0.83em;\n  margin-bottom: 0.83em;\n  margin-left: 20px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.styles__stepsHeader___1tRIi {\n  display: flex;\n}\n\n.styles__stepsHeader___1tRIi span {\n  font-size: 1.5em;\n  margin-top: 0.83em;\n  margin-bottom: 0.83em;\n  margin-left: 20px;\n  font-weight: bold;\n  cursor: pointer;\n}\n\n.styles__submit___TT8Ci {\n  width: 60px;\n}\n\n.styles__editIcon___14GzX {\n  margin-left: 15px;\n  bottom: 5px;\n  position: relative;\n}\n", ""]);
-	
-	// exports
-	exports.locals = {
-		"header": "styles__header___1UdvR",
-		"maintitle": "styles__maintitle___3rptG",
-		"new": "styles__new___2yO6M",
-		"recipeTitle": "styles__recipeTitle___3oGxy",
-		"recipeHeader": "styles__recipeHeader___Lv8oG",
-		"ingredients": "styles__ingredients___15_qD",
-		"ingredient": "styles__ingredient___Fz-zk",
-		"ammount": "styles__ammount___KJoEa",
-		"units": "styles__units___2YQHH",
-		"steps": "styles__steps___a9e22",
-		"category": "styles__category___3eaGC",
-		"ingredientComponent": "styles__ingredientComponent___3q4Qk",
-		"ingredientInput": "styles__ingredientInput___2p9iX",
-		"ammountInput": "styles__ammountInput___1RfsP",
-		"unitsInput": "styles__unitsInput___2-DKD",
-		"remove": "styles__remove___2N8lt",
-		"stepComponent": "styles__stepComponent___1DhWz",
-		"titleInput": "styles__titleInput___d9N9K",
-		"categoryInput": "styles__categoryInput___18_gD",
-		"ingredientsHeader": "styles__ingredientsHeader___ooF5M",
-		"stepsHeader": "styles__stepsHeader___1tRIi",
-		"submit": "styles__submit___TT8Ci",
-		"editIcon": "styles__editIcon___14GzX"
-	};
-
-/***/ },
-/* 621 */
-/*!**************************************!*\
-  !*** ./~/css-loader/lib/css-base.js ***!
-  \**************************************/
-/***/ function(module, exports) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-	
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-	
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-/* 622 */
-/*!*************************************!*\
-  !*** ./~/style-loader/addStyles.js ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-	
-	module.exports = function(list, options) {
-		if(true) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-	
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-	
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-	
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-	
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-	
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-	
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-	
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-	
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-	
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-	
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-	
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-	
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-	
-		update(obj);
-	
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-	
-	var replaceText = (function () {
-		var textStore = [];
-	
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-	
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-	
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-	
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-	
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-	
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-	
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-	
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-	
-		var blob = new Blob([css], { type: "text/css" });
-	
-		var oldSrc = linkElement.href;
-	
-		linkElement.href = URL.createObjectURL(blob);
-	
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-/* 623 */
-/*!*******************************!*\
-  !*** ./~/capitalize/index.js ***!
-  \*******************************/
-/***/ function(module, exports) {
-
-	module.exports = function (string) {
-	  return string.charAt(0).toUpperCase() + string.substring(1);
-	}
-	
-	module.exports.words = function (string) {
-	  return string.replace(/(^|[^a-zA-Z\u00C0-\u017F'])([a-zA-Z\u00C0-\u017F])/g, function (m) {
-	    return m.toUpperCase()
-	  })
-	}
-
-
-/***/ },
-/* 624 */
-/*!******************************************!*\
-  !*** ./~/react-fontawesome/lib/index.js ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _screenReaderStyles = __webpack_require__(/*! ./screen-reader-styles */ 625);
-	
-	var _screenReaderStyles2 = _interopRequireDefault(_screenReaderStyles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	/**
-	 * A React component for the font-awesome icon library.
-	 *
-	 *
-	 * @param {String} [ariaLabel] An extra accessibility label to put on the icon
-	 * @param {Boolean} [border=false] Whether or not to show a border radius
-	 * @param {String} [className] An extra set of CSS classes to add to the component
-	 * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
-	 * @param {Boolean} [fixedWidth=false] Make buttons fixed width
-	 * @param {String} [flip=false] Flip the icon's orientation.
-	 * @param {Boolean} [inverse=false]Inverse the icon's color
-	 * @param {String} name Name of the icon to use
-	 * @param {Boolean} [pulse=false] Rotate icon with 8 steps (rather than smoothly)
-	 * @param {Number} [rotate] The degress to rotate the icon by
-	 * @param {String} [size] The icon scaling size
-	 * @param {Boolean} [spin=false] Spin the icon
-	 * @param {String} [stack] Stack an icon on top of another
-	 * @param {String} [tag=span] The HTML tag to use as a string (eg 'i' or 'em')
-	 * @module FontAwesome
-	 * @type {ReactClass}
-	 */
-	exports.default = _react2.default.createClass({
-	
-	  displayName: 'FontAwesome',
-	
-	  propTypes: {
-	    ariaLabel: _react2.default.PropTypes.string,
-	    border: _react2.default.PropTypes.bool,
-	    className: _react2.default.PropTypes.string,
-	    cssModule: _react2.default.PropTypes.object,
-	    fixedWidth: _react2.default.PropTypes.bool,
-	    flip: _react2.default.PropTypes.oneOf(['horizontal', 'vertical']),
-	    inverse: _react2.default.PropTypes.bool,
-	    name: _react2.default.PropTypes.string.isRequired,
-	    pulse: _react2.default.PropTypes.bool,
-	    rotate: _react2.default.PropTypes.oneOf([90, 180, 270]),
-	    size: _react2.default.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x']),
-	    spin: _react2.default.PropTypes.bool,
-	    stack: _react2.default.PropTypes.oneOf(['1x', '2x']),
-	    tag: _react2.default.PropTypes.string
-	  },
-	
-	  render: function render() {
-	    var _props = this.props;
-	    var border = _props.border;
-	    var cssModule = _props.cssModule;
-	    var className = _props.className;
-	    var fixedWidth = _props.fixedWidth;
-	    var flip = _props.flip;
-	    var inverse = _props.inverse;
-	    var name = _props.name;
-	    var pulse = _props.pulse;
-	    var rotate = _props.rotate;
-	    var size = _props.size;
-	    var spin = _props.spin;
-	    var stack = _props.stack;
-	    var _props$tag = _props.tag;
-	    var tag = _props$tag === undefined ? 'span' : _props$tag;
-	    var ariaLabel = _props.ariaLabel;
-	
-	    var props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag', 'ariaLabel']);
-	
-	    var classNames = [];
-	
-	    if (cssModule) {
-	      classNames.push(cssModule['fa']);
-	      classNames.push(cssModule['fa-' + name]);
-	      size && classNames.push(cssModule['fa-' + size]);
-	      spin && classNames.push(cssModule['fa-spin']);
-	      pulse && classNames.push(cssModule['fa-pulse']);
-	      border && classNames.push(cssModule['fa-border']);
-	      fixedWidth && classNames.push(cssModule['fa-fw']);
-	      inverse && classNames.push(cssModule['fa-inverse']);
-	      flip && classNames.push(cssModule['fa-flip-' + flip]);
-	      rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
-	      stack && classNames.push(cssModule['fa-stack-' + stack]);
-	    } else {
-	      classNames.push('fa');
-	      classNames.push('fa-' + name);
-	      size && classNames.push('fa-' + size);
-	      spin && classNames.push('fa-spin');
-	      pulse && classNames.push('fa-pulse');
-	      border && classNames.push('fa-border');
-	      fixedWidth && classNames.push('fa-fw');
-	      inverse && classNames.push('fa-inverse');
-	      flip && classNames.push('fa-flip-' + flip);
-	      rotate && classNames.push('fa-rotate-' + rotate);
-	      stack && classNames.push('fa-stack-' + stack);
-	    }
-	
-	    // Add any custom class names at the end.
-	    className && classNames.push(className);
-	    return _react2.default.createElement(tag, _extends({}, props, { 'aria-hidden': true, className: classNames.join(' ') }), ariaLabel ? _react2.default.createElement('span', { style: _screenReaderStyles2.default }, ariaLabel) : null);
-	  }
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 625 */
-/*!*********************************************************!*\
-  !*** ./~/react-fontawesome/lib/screen-reader-styles.js ***!
-  \*********************************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  position: 'absolute',
-	  width: '1px',
-	  height: '1px',
-	  padding: '0px',
-	  margin: '-1px',
-	  overflow: 'hidden',
-	  clip: 'rect(0px, 0px, 0px, 0px)',
-	  border: '0px'
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 626 */
 /*!************************************!*\
   !*** ./~/superagent/lib/client.js ***!
   \************************************/
@@ -38568,11 +38004,11 @@
 	  root = this;
 	}
 	
-	var Emitter = __webpack_require__(/*! emitter */ 627);
-	var RequestBase = __webpack_require__(/*! ./request-base */ 628);
-	var isObject = __webpack_require__(/*! ./is-object */ 629);
-	var isFunction = __webpack_require__(/*! ./is-function */ 630);
-	var ResponseBase = __webpack_require__(/*! ./response-base */ 631);
+	var Emitter = __webpack_require__(/*! emitter */ 620);
+	var RequestBase = __webpack_require__(/*! ./request-base */ 621);
+	var isObject = __webpack_require__(/*! ./is-object */ 622);
+	var isFunction = __webpack_require__(/*! ./is-function */ 623);
+	var ResponseBase = __webpack_require__(/*! ./response-base */ 624);
 	
 	/**
 	 * Noop.
@@ -39461,7 +38897,7 @@
 
 
 /***/ },
-/* 627 */
+/* 620 */
 /*!**************************************!*\
   !*** ./~/component-emitter/index.js ***!
   \**************************************/
@@ -39633,7 +39069,7 @@
 
 
 /***/ },
-/* 628 */
+/* 621 */
 /*!******************************************!*\
   !*** ./~/superagent/lib/request-base.js ***!
   \******************************************/
@@ -39642,7 +39078,7 @@
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(/*! ./is-object */ 629);
+	var isObject = __webpack_require__(/*! ./is-object */ 622);
 	
 	/**
 	 * Expose `RequestBase`.
@@ -40176,7 +39612,7 @@
 
 
 /***/ },
-/* 629 */
+/* 622 */
 /*!***************************************!*\
   !*** ./~/superagent/lib/is-object.js ***!
   \***************************************/
@@ -40198,7 +39634,7 @@
 
 
 /***/ },
-/* 630 */
+/* 623 */
 /*!*****************************************!*\
   !*** ./~/superagent/lib/is-function.js ***!
   \*****************************************/
@@ -40211,7 +39647,7 @@
 	 * @return {Boolean}
 	 * @api private
 	 */
-	var isObject = __webpack_require__(/*! ./is-object */ 629);
+	var isObject = __webpack_require__(/*! ./is-object */ 622);
 	
 	function isFunction(fn) {
 	  var tag = isObject(fn) ? Object.prototype.toString.call(fn) : '';
@@ -40222,7 +39658,7 @@
 
 
 /***/ },
-/* 631 */
+/* 624 */
 /*!*******************************************!*\
   !*** ./~/superagent/lib/response-base.js ***!
   \*******************************************/
@@ -40233,7 +39669,7 @@
 	 * Module dependencies.
 	 */
 	
-	var utils = __webpack_require__(/*! ./utils */ 632);
+	var utils = __webpack_require__(/*! ./utils */ 625);
 	
 	/**
 	 * Expose `ResponseBase`.
@@ -40364,7 +39800,7 @@
 
 
 /***/ },
-/* 632 */
+/* 625 */
 /*!***********************************!*\
   !*** ./~/superagent/lib/utils.js ***!
   \***********************************/
@@ -40441,158 +39877,158 @@
 
 
 /***/ },
-/* 633 */
-/*!************************!*\
-  !*** ./app/recipe.jsx ***!
-  \************************/
+/* 626 */
+/*!******************************************!*\
+  !*** ./~/react-fontawesome/lib/index.js ***!
+  \******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _react = __webpack_require__(/*! react */ 299);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _styles = __webpack_require__(/*! ./styles/styles.css */ 619);
+	var _screenReaderStyles = __webpack_require__(/*! ./screen-reader-styles */ 627);
 	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 626);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 624);
-	
-	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	var _screenReaderStyles2 = _interopRequireDefault(_screenReaderStyles);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Recipe = function (_React$Component) {
-	  (0, _inherits3.default)(Recipe, _React$Component);
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
-	  function Recipe(props) {
-	    (0, _classCallCheck3.default)(this, Recipe);
+	/**
+	 * A React component for the font-awesome icon library.
+	 *
+	 *
+	 * @param {String} [ariaLabel] An extra accessibility label to put on the icon
+	 * @param {Boolean} [border=false] Whether or not to show a border radius
+	 * @param {String} [className] An extra set of CSS classes to add to the component
+	 * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
+	 * @param {Boolean} [fixedWidth=false] Make buttons fixed width
+	 * @param {String} [flip=false] Flip the icon's orientation.
+	 * @param {Boolean} [inverse=false]Inverse the icon's color
+	 * @param {String} name Name of the icon to use
+	 * @param {Boolean} [pulse=false] Rotate icon with 8 steps (rather than smoothly)
+	 * @param {Number} [rotate] The degress to rotate the icon by
+	 * @param {String} [size] The icon scaling size
+	 * @param {Boolean} [spin=false] Spin the icon
+	 * @param {String} [stack] Stack an icon on top of another
+	 * @param {String} [tag=span] The HTML tag to use as a string (eg 'i' or 'em')
+	 * @module FontAwesome
+	 * @type {ReactClass}
+	 */
+	exports.default = _react2.default.createClass({
 	
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (Recipe.__proto__ || (0, _getPrototypeOf2.default)(Recipe)).call(this, props));
+	  displayName: 'FontAwesome',
 	
-	    _this.state = {
-	      recipe: {}
-	    };
-	    return _this;
+	  propTypes: {
+	    ariaLabel: _react2.default.PropTypes.string,
+	    border: _react2.default.PropTypes.bool,
+	    className: _react2.default.PropTypes.string,
+	    cssModule: _react2.default.PropTypes.object,
+	    fixedWidth: _react2.default.PropTypes.bool,
+	    flip: _react2.default.PropTypes.oneOf(['horizontal', 'vertical']),
+	    inverse: _react2.default.PropTypes.bool,
+	    name: _react2.default.PropTypes.string.isRequired,
+	    pulse: _react2.default.PropTypes.bool,
+	    rotate: _react2.default.PropTypes.oneOf([90, 180, 270]),
+	    size: _react2.default.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x']),
+	    spin: _react2.default.PropTypes.bool,
+	    stack: _react2.default.PropTypes.oneOf(['1x', '2x']),
+	    tag: _react2.default.PropTypes.string
+	  },
+	
+	  render: function render() {
+	    var _props = this.props;
+	    var border = _props.border;
+	    var cssModule = _props.cssModule;
+	    var className = _props.className;
+	    var fixedWidth = _props.fixedWidth;
+	    var flip = _props.flip;
+	    var inverse = _props.inverse;
+	    var name = _props.name;
+	    var pulse = _props.pulse;
+	    var rotate = _props.rotate;
+	    var size = _props.size;
+	    var spin = _props.spin;
+	    var stack = _props.stack;
+	    var _props$tag = _props.tag;
+	    var tag = _props$tag === undefined ? 'span' : _props$tag;
+	    var ariaLabel = _props.ariaLabel;
+	
+	    var props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag', 'ariaLabel']);
+	
+	    var classNames = [];
+	
+	    if (cssModule) {
+	      classNames.push(cssModule['fa']);
+	      classNames.push(cssModule['fa-' + name]);
+	      size && classNames.push(cssModule['fa-' + size]);
+	      spin && classNames.push(cssModule['fa-spin']);
+	      pulse && classNames.push(cssModule['fa-pulse']);
+	      border && classNames.push(cssModule['fa-border']);
+	      fixedWidth && classNames.push(cssModule['fa-fw']);
+	      inverse && classNames.push(cssModule['fa-inverse']);
+	      flip && classNames.push(cssModule['fa-flip-' + flip]);
+	      rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
+	      stack && classNames.push(cssModule['fa-stack-' + stack]);
+	    } else {
+	      classNames.push('fa');
+	      classNames.push('fa-' + name);
+	      size && classNames.push('fa-' + size);
+	      spin && classNames.push('fa-spin');
+	      pulse && classNames.push('fa-pulse');
+	      border && classNames.push('fa-border');
+	      fixedWidth && classNames.push('fa-fw');
+	      inverse && classNames.push('fa-inverse');
+	      flip && classNames.push('fa-flip-' + flip);
+	      rotate && classNames.push('fa-rotate-' + rotate);
+	      stack && classNames.push('fa-stack-' + stack);
+	    }
+	
+	    // Add any custom class names at the end.
+	    className && classNames.push(className);
+	    return _react2.default.createElement(tag, _extends({}, props, { 'aria-hidden': true, className: classNames.join(' ') }), ariaLabel ? _react2.default.createElement('span', { style: _screenReaderStyles2.default }, ariaLabel) : null);
 	  }
-	
-	  (0, _createClass3.default)(Recipe, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      _superagent2.default.get('/api/v1/recipes/' + this.props.params.recipeid).set('Accept', 'application/json').end(function (err, response) {
-	        _this2.setState({
-	          recipe: response.body[0]
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (!this.state.recipe.ingredients) {
-	        return null;
-	      }
-	
-	      var editUrl = '/edit/' + this.props.params.recipeid;
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: _styles2.default.recipeHeader },
-	          _react2.default.createElement(
-	            'span',
-	            { className: _styles2.default.recipeTitle },
-	            this.state.recipe.title
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: editUrl },
-	            _react2.default.createElement(_reactFontawesome2.default, { className: _styles2.default.editIcon, name: 'pencil' })
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'ul',
-	          { className: _styles2.default.ingredients },
-	          this.state.recipe.ingredients.map(function (ingredient, idx) {
-	            return _react2.default.createElement(
-	              'li',
-	              { key: idx },
-	              _react2.default.createElement(
-	                'span',
-	                { className: _styles2.default.ammount },
-	                ingredient.ammount
-	              ),
-	              _react2.default.createElement(
-	                'span',
-	                { className: _styles2.default.units },
-	                ingredient.units
-	              ),
-	              _react2.default.createElement(
-	                'span',
-	                { className: _styles2.default.ingredient },
-	                ingredient.ingredient
-	              )
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'ol',
-	          { className: _styles2.default.steps },
-	          this.state.recipe.steps.map(function (step, idx) {
-	            return _react2.default.createElement(
-	              'li',
-	              { key: idx },
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                step.description
-	              )
-	            );
-	          })
-	        )
-	      );
-	    }
-	  }]);
-	  return Recipe;
-	}(_react2.default.Component);
-	
-	module.exports = Recipe;
+	});
+	module.exports = exports['default'];
 
 /***/ },
-/* 634 */
-/*!*********************!*\
-  !*** ./app/new.jsx ***!
-  \*********************/
+/* 627 */
+/*!*********************************************************!*\
+  !*** ./~/react-fontawesome/lib/screen-reader-styles.js ***!
+  \*********************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  position: 'absolute',
+	  width: '1px',
+	  height: '1px',
+	  padding: '0px',
+	  margin: '-1px',
+	  overflow: 'hidden',
+	  clip: 'rect(0px, 0px, 0px, 0px)',
+	  border: '0px'
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 628 */
+/*!********************************!*\
+  !*** ./app/components/new.jsx ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40621,17 +40057,17 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _lodash = __webpack_require__(/*! lodash */ 637);
+	var _lodash = __webpack_require__(/*! lodash */ 629);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _superagent = __webpack_require__(/*! superagent */ 626);
+	var _superagent = __webpack_require__(/*! superagent */ 619);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 562);
 	
-	var _recipeForm = __webpack_require__(/*! ./recipe-form.jsx */ 640);
+	var _recipeForm = __webpack_require__(/*! ./recipe-form.jsx */ 631);
 	
 	var _recipeForm2 = _interopRequireDefault(_recipeForm);
 	
@@ -40772,187 +40208,7 @@
 	module.exports = New;
 
 /***/ },
-/* 635 */
-/*!****************************!*\
-  !*** ./app/ingredient.jsx ***!
-  \****************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _styles = __webpack_require__(/*! ./styles/styles.css */ 619);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Ingredient = function (_React$Component) {
-	  (0, _inherits3.default)(Ingredient, _React$Component);
-	
-	  function Ingredient(props) {
-	    (0, _classCallCheck3.default)(this, Ingredient);
-	
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (Ingredient.__proto__ || (0, _getPrototypeOf2.default)(Ingredient)).call(this, props));
-	
-	    _this.props = props;
-	    _this.state = {
-	      idx: props.idx,
-	      ammount: props.ammount,
-	      units: props.units,
-	      ingredient: props.ingredient,
-	      closeBtn: props.closeBtn
-	    };
-	
-	    _this.onChange = _this.onChange.bind(_this);
-	    return _this;
-	  }
-	
-	  (0, _createClass3.default)(Ingredient, [{
-	    key: 'onChange',
-	    value: function onChange(event) {
-	      var name = event.target.name;
-	      var value = event.target.value;
-	      var state = this.state;
-	      state[name] = value;
-	      this.setState(state);
-	      this.props.onChange(state);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var closeBtn = this.state.closeBtn ? _react2.default.createElement(
-	        'span',
-	        { className: _styles2.default.remove },
-	        '\xD7'
-	      ) : null;
-	      return _react2.default.createElement(
-	        'div',
-	        { className: _styles2.default.ingredientComponent },
-	        _react2.default.createElement('input', { name: 'ammount', type: 'text', className: _styles2.default.ammountInput, defaultValue: this.state.ammount, onChange: this.onChange }),
-	        _react2.default.createElement('input', { name: 'units', type: 'text', className: _styles2.default.unitsInput, defaultValue: this.state.units, onChange: this.onChange }),
-	        _react2.default.createElement('input', { name: 'ingredient', type: 'text', className: _styles2.default.ingredientInput, defaultValue: this.state.ingredient, onChange: this.onChange }),
-	        closeBtn
-	      );
-	    }
-	  }]);
-	  return Ingredient;
-	}(_react2.default.Component);
-	
-	module.exports = Ingredient;
-
-/***/ },
-/* 636 */
-/*!**********************!*\
-  !*** ./app/step.jsx ***!
-  \**********************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _styles = __webpack_require__(/*! ./styles/styles.css */ 619);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Step = function (_React$Component) {
-	  (0, _inherits3.default)(Step, _React$Component);
-	
-	  function Step(props) {
-	    (0, _classCallCheck3.default)(this, Step);
-	
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (Step.__proto__ || (0, _getPrototypeOf2.default)(Step)).call(this, props));
-	
-	    _this.state = {
-	      idx: props.idx,
-	      description: props.description,
-	      closeBtn: props.closeBtn
-	    };
-	
-	    _this.onChange = _this.onChange.bind(_this);
-	    return _this;
-	  }
-	
-	  (0, _createClass3.default)(Step, [{
-	    key: 'onChange',
-	    value: function onChange(event) {
-	      var state = this.state;
-	      var value = event.target.value;
-	      state.description = value;
-	      this.setState(state);
-	      this.props.onChange(state);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var closeBtn = this.state.closeBtn ? _react2.default.createElement(
-	        'span',
-	        { className: _styles2.default.remove },
-	        '\xD7'
-	      ) : null;
-	      return _react2.default.createElement(
-	        'div',
-	        { className: _styles2.default.stepComponent },
-	        _react2.default.createElement('input', { type: 'text', className: _styles2.default.stepDescription, defaultValue: this.state.description, onChange: this.onChange }),
-	        closeBtn
-	      );
-	    }
-	  }]);
-	  return Step;
-	}(_react2.default.Component);
-	
-	module.exports = Step;
-
-/***/ },
-/* 637 */
+/* 629 */
 /*!****************************!*\
   !*** ./~/lodash/lodash.js ***!
   \****************************/
@@ -58043,10 +57299,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../webpack/buildin/module.js */ 638)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../webpack/buildin/module.js */ 630)(module)))
 
 /***/ },
-/* 638 */
+/* 630 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -58065,10 +57321,10 @@
 
 
 /***/ },
-/* 639 */
-/*!**********************!*\
-  !*** ./app/edit.jsx ***!
-  \**********************/
+/* 631 */
+/*!****************************************!*\
+  !*** ./app/components/recipe-form.jsx ***!
+  \****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58097,11 +57353,328 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _recipeForm = __webpack_require__(/*! ./recipe-form.jsx */ 640);
+	var _ingredient = __webpack_require__(/*! ./ingredient.jsx */ 632);
+	
+	var _ingredient2 = _interopRequireDefault(_ingredient);
+	
+	var _step = __webpack_require__(/*! ./step.jsx */ 633);
+	
+	var _step2 = _interopRequireDefault(_step);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RecipeForm = function (_React$Component) {
+	  (0, _inherits3.default)(RecipeForm, _React$Component);
+	
+	  function RecipeForm(props) {
+	    (0, _classCallCheck3.default)(this, RecipeForm);
+	    return (0, _possibleConstructorReturn3.default)(this, (RecipeForm.__proto__ || (0, _getPrototypeOf2.default)(RecipeForm)).call(this, props));
+	  }
+	
+	  (0, _createClass3.default)(RecipeForm, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'New Recipe'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.props.handleSubmit },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Title'
+	            ),
+	            _react2.default.createElement('input', { name: 'title', type: 'text', value: this.props.title, onChange: this.props.handleChange })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Category'
+	            ),
+	            _react2.default.createElement('input', { name: 'category', type: 'text', className: 'categoryInput', value: this.props.category, onChange: this.props.handleChange })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'ingredientsHeader' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Ingredients'
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              { onClick: this.props.addIngredient },
+	              '+'
+	            )
+	          ),
+	          this.props.ingredients.map(function (ingredient, idx) {
+	            var closeBtn = idx !== 0;
+	            return _react2.default.createElement(_ingredient2.default, {
+	              key: idx,
+	              idx: idx,
+	              ammount: ingredient.ammount,
+	              units: ingredient.units,
+	              ingredient: ingredient.ingredient,
+	              closeBtn: closeBtn,
+	              onChange: _this2.props.handleIngredientsChange });
+	          }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'stepsHeader' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Steps'
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              { onClick: this.props.addStep },
+	              '+'
+	            )
+	          ),
+	          this.props.steps.map(function (step, idx) {
+	            var closeBtn = idx !== 0;
+	            return _react2.default.createElement(_step2.default, {
+	              key: idx,
+	              idx: idx,
+	              description: step.description,
+	              closeBtn: closeBtn,
+	              onChange: _this2.props.handleStepsChange });
+	          }),
+	          _react2.default.createElement('input', { type: 'submit', className: 'submit', value: 'Submit' })
+	        )
+	      );
+	    }
+	  }]);
+	  return RecipeForm;
+	}(_react2.default.Component);
+	
+	module.exports = RecipeForm;
+
+/***/ },
+/* 632 */
+/*!***************************************!*\
+  !*** ./app/components/ingredient.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Ingredient = function (_React$Component) {
+	  (0, _inherits3.default)(Ingredient, _React$Component);
+	
+	  function Ingredient(props) {
+	    (0, _classCallCheck3.default)(this, Ingredient);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (Ingredient.__proto__ || (0, _getPrototypeOf2.default)(Ingredient)).call(this, props));
+	
+	    _this.props = props;
+	    _this.state = {
+	      idx: props.idx,
+	      ammount: props.ammount,
+	      units: props.units,
+	      ingredient: props.ingredient,
+	      closeBtn: props.closeBtn
+	    };
+	
+	    _this.onChange = _this.onChange.bind(_this);
+	    return _this;
+	  }
+	
+	  (0, _createClass3.default)(Ingredient, [{
+	    key: "onChange",
+	    value: function onChange(event) {
+	      var name = event.target.name;
+	      var value = event.target.value;
+	      var state = this.state;
+	      state[name] = value;
+	      this.setState(state);
+	      this.props.onChange(state);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var closeBtn = this.state.closeBtn ? _react2.default.createElement(
+	        "span",
+	        { className: "remove" },
+	        "\xD7"
+	      ) : null;
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "ingredientComponent" },
+	        _react2.default.createElement("input", { name: "ammount", type: "text", className: "ammountInput", defaultValue: this.state.ammount, onChange: this.onChange }),
+	        _react2.default.createElement("input", { name: "units", type: "text", className: "unitsInput", defaultValue: this.state.units, onChange: this.onChange }),
+	        _react2.default.createElement("input", { name: "ingredient", type: "text", className: "ingredientInput", defaultValue: this.state.ingredient, onChange: this.onChange }),
+	        closeBtn
+	      );
+	    }
+	  }]);
+	  return Ingredient;
+	}(_react2.default.Component);
+	
+	module.exports = Ingredient;
+
+/***/ },
+/* 633 */
+/*!*********************************!*\
+  !*** ./app/components/step.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Step = function (_React$Component) {
+	  (0, _inherits3.default)(Step, _React$Component);
+	
+	  function Step(props) {
+	    (0, _classCallCheck3.default)(this, Step);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (Step.__proto__ || (0, _getPrototypeOf2.default)(Step)).call(this, props));
+	
+	    _this.state = {
+	      idx: props.idx,
+	      description: props.description,
+	      closeBtn: props.closeBtn
+	    };
+	
+	    _this.onChange = _this.onChange.bind(_this);
+	    return _this;
+	  }
+	
+	  (0, _createClass3.default)(Step, [{
+	    key: "onChange",
+	    value: function onChange(event) {
+	      var state = this.state;
+	      var value = event.target.value;
+	      state.description = value;
+	      this.setState(state);
+	      this.props.onChange(state);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var closeBtn = this.state.closeBtn ? _react2.default.createElement(
+	        "span",
+	        { className: "remove" },
+	        "\xD7"
+	      ) : null;
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "stepComponent" },
+	        _react2.default.createElement("input", { type: "text", className: "stepDescription", defaultValue: this.state.description, onChange: this.onChange }),
+	        closeBtn
+	      );
+	    }
+	  }]);
+	  return Step;
+	}(_react2.default.Component);
+	
+	module.exports = Step;
+
+/***/ },
+/* 634 */
+/*!*********************************!*\
+  !*** ./app/components/edit.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _recipeForm = __webpack_require__(/*! ./recipe-form.jsx */ 631);
 	
 	var _recipeForm2 = _interopRequireDefault(_recipeForm);
 	
-	var _superagent = __webpack_require__(/*! superagent */ 626);
+	var _superagent = __webpack_require__(/*! superagent */ 619);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
@@ -58197,10 +57770,10 @@
 	module.exports = Edit;
 
 /***/ },
-/* 640 */
-/*!*****************************!*\
-  !*** ./app/recipe-form.jsx ***!
-  \*****************************/
+/* 635 */
+/*!***********************************!*\
+  !*** ./app/components/layout.jsx ***!
+  \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58229,121 +57802,334 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _styles = __webpack_require__(/*! ./styles/styles.css */ 619);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _ingredient = __webpack_require__(/*! ./ingredient.jsx */ 635);
-	
-	var _ingredient2 = _interopRequireDefault(_ingredient);
-	
-	var _step = __webpack_require__(/*! ./step.jsx */ 636);
-	
-	var _step2 = _interopRequireDefault(_step);
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var RecipeForm = function (_React$Component) {
-	  (0, _inherits3.default)(RecipeForm, _React$Component);
+	var Layout = function (_React$Component) {
+	  (0, _inherits3.default)(Layout, _React$Component);
 	
-	  function RecipeForm(props) {
-	    (0, _classCallCheck3.default)(this, RecipeForm);
-	    return (0, _possibleConstructorReturn3.default)(this, (RecipeForm.__proto__ || (0, _getPrototypeOf2.default)(RecipeForm)).call(this, props));
+	  function Layout() {
+	    (0, _classCallCheck3.default)(this, Layout);
+	    return (0, _possibleConstructorReturn3.default)(this, (Layout.__proto__ || (0, _getPrototypeOf2.default)(Layout)).apply(this, arguments));
 	  }
 	
-	  (0, _createClass3.default)(RecipeForm, [{
+	  (0, _createClass3.default)(Layout, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'app-container' },
 	        _react2.default.createElement(
-	          'h1',
+	          'header',
 	          null,
-	          'New Recipe'
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Header'
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: this.props.handleSubmit },
+	          'div',
+	          { className: 'app-content' },
+	          this.props.children
+	        ),
+	        _react2.default.createElement(
+	          'footer',
+	          null,
 	          _react2.default.createElement(
-	            'div',
+	            'p',
 	            null,
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Title'
-	            ),
-	            _react2.default.createElement('input', { name: 'title', type: 'text', value: this.props.title, onChange: this.props.handleChange })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Category'
-	            ),
-	            _react2.default.createElement('input', { name: 'category', type: 'text', className: _styles2.default.categoryInput, value: this.props.category, onChange: this.props.handleChange })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _styles2.default.ingredientsHeader },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Ingredients'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { onClick: this.props.addIngredient },
-	              '+'
-	            )
-	          ),
-	          this.props.ingredients.map(function (ingredient, idx) {
-	            var closeBtn = idx !== 0;
-	            return _react2.default.createElement(_ingredient2.default, {
-	              key: idx,
-	              idx: idx,
-	              ammount: ingredient.ammount,
-	              units: ingredient.units,
-	              ingredient: ingredient.ingredient,
-	              closeBtn: closeBtn,
-	              onChange: _this2.props.handleIngredientsChange });
-	          }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: _styles2.default.stepsHeader },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Steps'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { onClick: this.props.addStep },
-	              '+'
-	            )
-	          ),
-	          this.props.steps.map(function (step, idx) {
-	            var closeBtn = idx !== 0;
-	            return _react2.default.createElement(_step2.default, {
-	              key: idx,
-	              idx: idx,
-	              description: step.description,
-	              closeBtn: closeBtn,
-	              onChange: _this2.props.handleStepsChange });
-	          }),
-	          _react2.default.createElement('input', { type: 'submit', className: _styles2.default.submit, value: 'Submit' })
+	            'Footer'
+	          )
 	        )
 	      );
 	    }
 	  }]);
-	  return RecipeForm;
+	  return Layout;
 	}(_react2.default.Component);
 	
-	module.exports = RecipeForm;
+	module.exports = Layout;
+
+/***/ },
+/* 636 */
+/*!***************************************!*\
+  !*** ./app/components/index-page.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _recipeListContainer = __webpack_require__(/*! ./recipe-list-container.jsx */ 637);
+	
+	var _recipeListContainer2 = _interopRequireDefault(_recipeListContainer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var IndexPage = function (_React$Component) {
+	  (0, _inherits3.default)(IndexPage, _React$Component);
+	
+	  function IndexPage() {
+	    (0, _classCallCheck3.default)(this, IndexPage);
+	    return (0, _possibleConstructorReturn3.default)(this, (IndexPage.__proto__ || (0, _getPrototypeOf2.default)(IndexPage)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(IndexPage, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_recipeListContainer2.default, null);
+	    }
+	  }]);
+	  return IndexPage;
+	}(_react2.default.Component);
+	
+	exports.default = IndexPage;
+
+/***/ },
+/* 637 */
+/*!**************************************************!*\
+  !*** ./app/components/recipe-list-container.jsx ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _recipeList = __webpack_require__(/*! ./recipe-list.jsx */ 638);
+	
+	var _recipeList2 = _interopRequireDefault(_recipeList);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 619);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RecipeListContainer = function (_React$Component) {
+	  (0, _inherits3.default)(RecipeListContainer, _React$Component);
+	
+	  function RecipeListContainer(props) {
+	    (0, _classCallCheck3.default)(this, RecipeListContainer);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (RecipeListContainer.__proto__ || (0, _getPrototypeOf2.default)(RecipeListContainer)).call(this, props));
+	
+	    _this.state = {
+	      categories: []
+	    };
+	    return _this;
+	  }
+	
+	  (0, _createClass3.default)(RecipeListContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      _superagent2.default.get('/api/v1/recipes').set('Accept', 'application/json').end(function (err, response) {
+	        _this2.setState({
+	          categories: response.body
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'onGetData',
+	    value: function onGetData(docs) {
+	      console.log('got data');
+	      this.setState({
+	        categories: docs
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_recipeList2.default, { categories: this.state.categories });
+	    }
+	  }]);
+	  return RecipeListContainer;
+	}(_react2.default.Component);
+	
+	module.exports = RecipeListContainer;
+
+/***/ },
+/* 638 */
+/*!****************************************!*\
+  !*** ./app/components/recipe-list.jsx ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
+	var _capitalize = __webpack_require__(/*! capitalize */ 639);
+	
+	var _capitalize2 = _interopRequireDefault(_capitalize);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RecipeList = function (_React$Component) {
+	  (0, _inherits3.default)(RecipeList, _React$Component);
+	
+	  function RecipeList() {
+	    (0, _classCallCheck3.default)(this, RecipeList);
+	    return (0, _possibleConstructorReturn3.default)(this, (RecipeList.__proto__ || (0, _getPrototypeOf2.default)(RecipeList)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(RecipeList, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'header' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'maintitle' },
+	            'Recetas'
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { className: 'new', to: '/new' },
+	            '+'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          this.props.categories.map(function (category) {
+	            var label = (0, _capitalize2.default)(category._id);
+	            return _react2.default.createElement(
+	              'li',
+	              { key: category._id },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'category' },
+	                label
+	              ),
+	              _react2.default.createElement(
+	                'ul',
+	                null,
+	                category.recipes.map(function (recipe) {
+	                  var recipeUrl = '/recipes/' + recipe.id;
+	                  return _react2.default.createElement(
+	                    'li',
+	                    { key: recipe.id },
+	                    _react2.default.createElement(
+	                      _reactRouter.Link,
+	                      { to: recipeUrl },
+	                      recipe.title
+	                    )
+	                  );
+	                })
+	              )
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }]);
+	  return RecipeList;
+	}(_react2.default.Component);
+	
+	module.exports = RecipeList;
+
+/***/ },
+/* 639 */
+/*!*******************************!*\
+  !*** ./~/capitalize/index.js ***!
+  \*******************************/
+/***/ function(module, exports) {
+
+	module.exports = function (string) {
+	  return string.charAt(0).toUpperCase() + string.substring(1);
+	}
+	
+	module.exports.words = function (string) {
+	  return string.replace(/(^|[^a-zA-Z\u00C0-\u017F'])([a-zA-Z\u00C0-\u017F])/g, function (m) {
+	    return m.toUpperCase()
+	  })
+	}
+
 
 /***/ }
 /******/ ]);
