@@ -56,11 +56,12 @@ h2 {
 }
 
 .recipeTitle {
-  font-size: 36px;
+  font-size: 25px;
 }
 
 .recipeHeader {
   margin-bottom: 25px;
+  margin-top: 25px;
 }
 
 .ingredients {

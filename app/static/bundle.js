@@ -37818,7 +37818,7 @@
 	
 	var _layout2 = _interopRequireDefault(_layout);
 	
-	var _indexPage = __webpack_require__(/*! ./components/index-page.jsx */ 636);
+	var _indexPage = __webpack_require__(/*! ./components/index-page.jsx */ 637);
 	
 	var _indexPage2 = _interopRequireDefault(_indexPage);
 	
@@ -57804,6 +57804,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 562);
 	
+	var _header = __webpack_require__(/*! ./header.jsx */ 636);
+	
+	var _header2 = _interopRequireDefault(_header);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Layout = function (_React$Component) {
@@ -57820,19 +57824,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'app-container' },
-	        _react2.default.createElement(
-	          'header',
-	          null,
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Header'
-	            )
-	          )
-	        ),
+	        _react2.default.createElement(_header2.default, null),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'app-content' },
@@ -57857,6 +57849,83 @@
 
 /***/ },
 /* 636 */
+/*!***********************************!*\
+  !*** ./app/components/header.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Header = function (_React$Component) {
+	  (0, _inherits3.default)(Header, _React$Component);
+	
+	  function Header() {
+	    (0, _classCallCheck3.default)(this, Header);
+	    return (0, _possibleConstructorReturn3.default)(this, (Header.__proto__ || (0, _getPrototypeOf2.default)(Header)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(Header, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'header',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'header' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'maintitle' },
+	              'Recetas'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { className: 'new', to: '/new' },
+	            '+'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	  return Header;
+	}(_react2.default.Component);
+	
+	module.exports = Header;
+
+/***/ },
+/* 637 */
 /*!***************************************!*\
   !*** ./app/components/index-page.jsx ***!
   \***************************************/
@@ -57892,7 +57961,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _recipeListContainer = __webpack_require__(/*! ./recipe-list-container.jsx */ 637);
+	var _recipeListContainer = __webpack_require__(/*! ./recipe-list-container.jsx */ 638);
 	
 	var _recipeListContainer2 = _interopRequireDefault(_recipeListContainer);
 	
@@ -57918,7 +57987,7 @@
 	exports.default = IndexPage;
 
 /***/ },
-/* 637 */
+/* 638 */
 /*!**************************************************!*\
   !*** ./app/components/recipe-list-container.jsx ***!
   \**************************************************/
@@ -57950,7 +58019,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _recipeList = __webpack_require__(/*! ./recipe-list.jsx */ 638);
+	var _recipeList = __webpack_require__(/*! ./recipe-list.jsx */ 639);
 	
 	var _recipeList2 = _interopRequireDefault(_recipeList);
 	
@@ -58005,7 +58074,7 @@
 	module.exports = RecipeListContainer;
 
 /***/ },
-/* 638 */
+/* 639 */
 /*!****************************************!*\
   !*** ./app/components/recipe-list.jsx ***!
   \****************************************/
@@ -58039,7 +58108,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 562);
 	
-	var _capitalize = __webpack_require__(/*! capitalize */ 639);
+	var _capitalize = __webpack_require__(/*! capitalize */ 640);
 	
 	var _capitalize2 = _interopRequireDefault(_capitalize);
 	
@@ -58059,20 +58128,6 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'header' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'maintitle' },
-	            'Recetas'
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { className: 'new', to: '/new' },
-	            '+'
-	          )
-	        ),
 	        _react2.default.createElement(
 	          'ul',
 	          null,
@@ -58114,7 +58169,7 @@
 	module.exports = RecipeList;
 
 /***/ },
-/* 639 */
+/* 640 */
 /*!*******************************!*\
   !*** ./~/capitalize/index.js ***!
   \*******************************/

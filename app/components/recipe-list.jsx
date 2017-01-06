@@ -6,10 +6,6 @@ class RecipeList extends React.Component {
   render() {
     return (
       <div>
-        <div className="header">
-          <div className="maintitle">Recetas</div>
-          <Link className="new" to="/new">+</Link>
-        </div>
         <ul>
           {
             this.props.categories.map((category)=> {

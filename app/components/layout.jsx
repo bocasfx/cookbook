@@ -1,15 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Header from './header.jsx';
 
 class Layout extends React.Component {
   render() {
     return (
       <div className="app-container">
-        <header>
-          <Link to="/">
-            <h2>Header</h2>
-          </Link>
-        </header>
+        <Header/>
         <div className="app-content">{this.props.children}</div>
         <footer>
           <p>
