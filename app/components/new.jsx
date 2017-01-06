@@ -4,28 +4,32 @@ import request from 'superagent';
 import { browserHistory } from 'react-router';
 import RecipeForm from './recipe-form.jsx';
 
-
 class New extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
       category: '',
-      description: ''
+      description: '',
+      images: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onDrop = this.onDrop.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    let newRecipe = [this.state];
-    request.post('/api/v1/recipes')
-      .set('Content-Type', 'application/json')
-      .send(newRecipe)
+
+    let image = this.state.images[0];
+
+    request.post('/api/v1/images')
+      .attach('image', image, image.name)
+      .field('title', this.state.title)
+      .field('category', this.state.category)
+      .field('description', this.state.description)
       .end((err) => {
-        browserHistory.push('/');
       });
   }
 
@@ -40,6 +44,13 @@ class New extends React.Component {
     this.setState(state);
   }
 
+  onDrop(acceptedFiles) {
+    console.log(acceptedFiles[0]);
+    let state = this.state;
+    state.images = acceptedFiles;
+    this.setState(state);
+  }
+
   render() {
     return (
       <RecipeForm 
@@ -48,6 +59,8 @@ class New extends React.Component {
         description={this.state.description}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        onDrop={this.onDrop}
+        images={this.state.images}
       />
     );
   }

@@ -153,10 +153,6 @@ pre{
   margin: 10px 0 20px 0;
 }
 
-.categoryInput {
-  margin: 10px 0 20px 0;
-}
-
 .ingredientsHeader {
   display: flex;
 }
@@ -202,4 +198,23 @@ pre{
 .preFormatted {
   font-family: inherit;
   font-size: 1em;
+}
+
+.recipeImage {
+  max-height: 190px;
+  /*margin: 5px;*/
+}
+
+.dropzone {
+  width: 50%;
+  height: 200px;
+  border: 1px solid #ccc;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageIcon {
+  font-size: 2em;
 }

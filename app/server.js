@@ -9,7 +9,9 @@ import { MongoClient, ObjectID } from 'mongodb';
 import dal from './dal.js';
 import errorHandler from './error-handler.js';
 import bodyParser from 'body-parser';
+import multer from 'multer';
 
+const upload = multer({ dest: 'uploads/' });
 const dbUrl = 'mongodb://localhost:27017/recipes';
 
 const app = new Express();
@@ -17,7 +19,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(Express.static(path.join(__dirname, 'static')));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
 app.get('/api/v1/recipes', (req, res)=> {
   MongoClient
@@ -59,6 +61,12 @@ app.post('/api/v1/recipes', (req, res)=> {
     .catch((err)=> {
       errorHandler(err);
     });
+});
+
+app.post('/api/v1/images', upload.single('image'), (req, res)=> {
+  console.log(req.file);
+  console.log(req.body);
+  res.status(201).send('Image added.');
 });
 
 app.patch('/api/v1/recipes/:id', (req, res)=> {

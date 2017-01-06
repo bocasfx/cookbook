@@ -1,6 +1,8 @@
 import React from 'react';
 import Ingredient from './ingredient.jsx';
 import Step from './step.jsx';
+import Dropzone from 'react-dropzone';
+import FontAwesome from 'react-fontawesome';
 
 class RecipeForm extends React.Component {
   constructor(props) {
@@ -17,9 +19,18 @@ class RecipeForm extends React.Component {
           </div>
           <div>
             <h2>Category</h2>
-            <input name="category" type="text" className="categoryInput" value={this.props.category}  onChange={this.props.handleChange}/>
+            <input name="category" type="text" value={this.props.category}  onChange={this.props.handleChange}/>
           </div>
-          <textarea name="description" type="text" className="recipeTextArea" value={this.props.description} onChange={this.props.handleChange}/>
+          <div>
+            <h2>Image</h2>
+            <Dropzone className="dropzone" ref={(node) => { this.dropzone = node; }} onDrop={this.props.onDrop}>
+              {(this.props.images && this.props.images.length > 0) ? <div>{this.props.images.map((image) => <img name="image" className="recipeImage" key={image.name} src={image.preview} /> )}</div> : <div className="recipeImage"><FontAwesome className="imageIcon" name='picture-o'/></div>}
+            </Dropzone>
+          </div>
+          <div>
+            <h2>Description</h2>
+            <textarea name="description" type="text" className="recipeTextArea" value={this.props.description} onChange={this.props.handleChange}/>
+          </div>
           <input type="submit" className="submit" value="Submit"/>
         </form>
       </div>
