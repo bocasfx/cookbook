@@ -1,6 +1,7 @@
 import React from 'react';
 import RecipeForm from './recipe-form.jsx';
 import request from 'superagent';
+import { browserHistory } from 'react-router';
 
 class Edit extends React.Component {
   constructor(props) {
@@ -8,16 +9,11 @@ class Edit extends React.Component {
     this.state = {
       title: '',
       category: '',
-      ingredients: [],
-      steps: []
+      description: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleIngredientsChange = this.handleIngredientsChange.bind(this);
-    this.handleStepsChange = this.handleStepsChange.bind(this);
-    this.addIngredient = this.addIngredient.bind(this);
-    this.addStep = this.addStep.bind(this);
   }
 
   componentDidMount() {
@@ -29,8 +25,7 @@ class Edit extends React.Component {
         this.setState({
           title: recipe.title,
           category: recipe.category,
-          ingredients: recipe.ingredients,
-          steps: recipe.steps
+          description: recipe.description
         });
       });
   }
@@ -43,32 +38,27 @@ class Edit extends React.Component {
     let state = this.state;
 
     state[name] = value;
-    console.log(name);
     this.setState(state);
   }
 
-  handleSubmit() {}
-
-  handleIngredientsChange() {}
-
-  handleStepsChange() {}
-
-  addIngredient() {}
-
-  addStep() {}
+  handleSubmit(event) {
+    event.preventDefault();
+    let updatedRecipe = this.state;
+    request.patch('/api/v1/recipes/' + this.props.params.recipeid)
+      .set('Content-Type', 'application/json')
+      .send(updatedRecipe)
+      .end((err) => {
+        browserHistory.push('/recipes/' + this.props.params.recipeid);
+      });
+  }
 
   render() {
     return (
       <RecipeForm 
         title={this.state.title}
         category={this.state.category}
-        ingredients={this.state.ingredients}
-        steps={this.state.steps}
-        addIngredient={this.addIngredient}
-        addStep={this.addStep}
+        description={this.state.description}
         handleChange={this.handleChange}
-        handleIngredientsChange={this.handleIngredientsChange}
-        handleStepsChange={this.handleStepsChange}
         handleSubmit={this.handleSubmit}
       />
     );

@@ -49,6 +49,17 @@ function findDocument(id, db, callback) {
   });
 }
 
+function updateDocument(id, doc, db, callback) {
+  // Get the documents collection
+  var collection = db.collection('documents');
+  // Update document where a is 2, set b equal to 1
+  collection.updateOne({_id: id}, { $set: { title: doc.title, category: doc.category, description: doc.description } }, (err, result)=> {
+    assert.equal(err, null);
+    assert.equal(1, result.result.n);
+    callback(result);
+  });  
+}
+
 function drop(db, callback) {
   // Get the documents collection
   var collection = db.collection('documents');
@@ -63,6 +74,7 @@ module.exports = {
   insertDocuments,
   findDocuments,
   findDocument,
+  updateDocument,
   drop
 };
 
@@ -77,14 +89,4 @@ module.exports = {
 //   });    
 // }
 // 
-// function updateDocument(db, callback) {
-//   // Get the documents collection
-//   var collection = db.collection('documents');
-//   // Update document where a is 2, set b equal to 1
-//   collection.updateOne({ a : 2 }
-//     , { $set: { b : 1 } }, function(err, result) {
-//     assert.equal(err, null);
-//     assert.equal(1, result.result.n);
-//     callback(result);
-//   });  
-// }
+

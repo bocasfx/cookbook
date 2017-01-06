@@ -33,6 +33,10 @@ h2 {
   font-size: 1.5em;
 }
 
+pre{
+    white-space: pre-wrap;
+}
+
 .header {
   display: flex;
 }
@@ -187,4 +191,15 @@ h2 {
   margin-left: 15px;
   bottom: 5px;
   position: relative;
+}
+
+.recipeTextArea {
+  width: 100%;
+  height: 50%;
+  border-color: #ccc;
+}
+
+.preFormatted {
+  font-family: inherit;
+  font-size: 1em;
 }

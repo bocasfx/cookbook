@@ -37912,9 +37912,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (!this.state.recipe.ingredients) {
-	        return null;
-	      }
 	
 	      var editUrl = '/edit/' + this.props.params.recipeid;
 	
@@ -37936,44 +37933,9 @@
 	          )
 	        ),
 	        _react2.default.createElement(
-	          'ul',
-	          { className: 'ingredients' },
-	          this.state.recipe.ingredients.map(function (ingredient, idx) {
-	            return _react2.default.createElement(
-	              'li',
-	              { key: idx },
-	              _react2.default.createElement(
-	                'span',
-	                { className: 'ammount' },
-	                ingredient.ammount
-	              ),
-	              _react2.default.createElement(
-	                'span',
-	                { className: 'units' },
-	                ingredient.units
-	              ),
-	              _react2.default.createElement(
-	                'span',
-	                { className: 'ingredient' },
-	                ingredient.ingredient
-	              )
-	            );
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'ol',
-	          { className: 'steps' },
-	          this.state.recipe.steps.map(function (step, idx) {
-	            return _react2.default.createElement(
-	              'li',
-	              { key: idx },
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                step.description
-	              )
-	            );
-	          })
+	          'pre',
+	          { className: 'preFormatted' },
+	          this.state.recipe.description
 	        )
 	      );
 	    }
@@ -40084,24 +40046,11 @@
 	    _this.state = {
 	      title: '',
 	      category: '',
-	      ingredients: [{
-	        ammount: '',
-	        units: '',
-	        ingredient: '',
-	        idx: 0
-	      }],
-	      steps: [{
-	        description: '',
-	        idx: 0
-	      }]
+	      description: ''
 	    };
 	
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    _this.handleChange = _this.handleChange.bind(_this);
-	    _this.handleIngredientsChange = _this.handleIngredientsChange.bind(_this);
-	    _this.handleStepsChange = _this.handleStepsChange.bind(_this);
-	    _this.addIngredient = _this.addIngredient.bind(_this);
-	    _this.addStep = _this.addStep.bind(_this);
 	    return _this;
 	  }
 	
@@ -40109,7 +40058,8 @@
 	    key: 'handleSubmit',
 	    value: function handleSubmit(event) {
 	      event.preventDefault();
-	      _superagent2.default.post('/recipes').set('Content-Type', 'application/json').send([this.state]).end(function (err) {
+	      var newRecipe = [this.state];
+	      _superagent2.default.post('/api/v1/recipes').set('Content-Type', 'application/json').send(newRecipe).end(function (err) {
 	        _reactRouter.browserHistory.push('/');
 	      });
 	    }
@@ -40126,78 +40076,13 @@
 	      this.setState(state);
 	    }
 	  }, {
-	    key: 'handleIngredientsChange',
-	    value: function handleIngredientsChange(ingredientState) {
-	      var state = this.state;
-	      var ingredientIdx = _lodash2.default.findIndex(state.ingredients, function (item) {
-	        return item.idx === ingredientState.idx;
-	      });
-	      if (ingredientIdx < 0) {
-	        state.ingredients.push(ingredientState);
-	      } else {
-	        state.ingredients[ingredientIdx] = ingredientState;
-	      }
-	
-	      this.setState(state);
-	    }
-	  }, {
-	    key: 'handleStepsChange',
-	    value: function handleStepsChange(stepState) {
-	      var state = this.state;
-	      var stepIdx = _lodash2.default.findIndex(state.steps, function (item) {
-	        return item.idx === stepState.idx;
-	      });
-	      if (stepIdx < 0) {
-	        state.steps.push(stepState);
-	      } else {
-	        state.steps[stepIdx] = stepState;
-	      }
-	
-	      this.setState(state);
-	    }
-	  }, {
-	    key: 'addIngredient',
-	    value: function addIngredient(event) {
-	      event.preventDefault();
-	      var ingredients = this.state.ingredients;
-	
-	      ingredients.push({
-	        ammount: '',
-	        units: '',
-	        ingredient: '',
-	        idx: this.state.ingredients.length
-	      });
-	      this.setState({
-	        ingredients: ingredients
-	      });
-	    }
-	  }, {
-	    key: 'addStep',
-	    value: function addStep(event) {
-	      event.preventDefault();
-	      var steps = this.state.steps;
-	
-	      steps.push({
-	        description: '',
-	        idx: this.state.steps.length
-	      });
-	      this.setState({
-	        steps: steps
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(_recipeForm2.default, {
 	        title: this.state.title,
 	        category: this.state.category,
-	        ingredients: this.state.ingredients,
-	        steps: this.state.steps,
-	        addIngredient: this.addIngredient,
-	        addStep: this.addStep,
+	        description: this.state.description,
 	        handleChange: this.handleChange,
-	        handleIngredientsChange: this.handleIngredientsChange,
-	        handleStepsChange: this.handleStepsChange,
 	        handleSubmit: this.handleSubmit
 	      });
 	    }
@@ -57374,16 +57259,9 @@
 	  (0, _createClass3.default)(RecipeForm, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'New Recipe'
-	        ),
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this.props.handleSubmit },
@@ -57407,54 +57285,7 @@
 	            ),
 	            _react2.default.createElement('input', { name: 'category', type: 'text', className: 'categoryInput', value: this.props.category, onChange: this.props.handleChange })
 	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'ingredientsHeader' },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Ingredients'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { onClick: this.props.addIngredient },
-	              '+'
-	            )
-	          ),
-	          this.props.ingredients.map(function (ingredient, idx) {
-	            var closeBtn = idx !== 0;
-	            return _react2.default.createElement(_ingredient2.default, {
-	              key: idx,
-	              idx: idx,
-	              ammount: ingredient.ammount,
-	              units: ingredient.units,
-	              ingredient: ingredient.ingredient,
-	              closeBtn: closeBtn,
-	              onChange: _this2.props.handleIngredientsChange });
-	          }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'stepsHeader' },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'Steps'
-	            ),
-	            _react2.default.createElement(
-	              'span',
-	              { onClick: this.props.addStep },
-	              '+'
-	            )
-	          ),
-	          this.props.steps.map(function (step, idx) {
-	            var closeBtn = idx !== 0;
-	            return _react2.default.createElement(_step2.default, {
-	              key: idx,
-	              idx: idx,
-	              description: step.description,
-	              closeBtn: closeBtn,
-	              onChange: _this2.props.handleStepsChange });
-	          }),
+	          _react2.default.createElement('textarea', { name: 'description', type: 'text', className: 'recipeTextArea', value: this.props.description, onChange: this.props.handleChange }),
 	          _react2.default.createElement('input', { type: 'submit', className: 'submit', value: 'Submit' })
 	        )
 	      );
@@ -57678,6 +57509,8 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Edit = function (_React$Component) {
@@ -57691,16 +57524,11 @@
 	    _this.state = {
 	      title: '',
 	      category: '',
-	      ingredients: [],
-	      steps: []
+	      description: ''
 	    };
 	
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    _this.handleChange = _this.handleChange.bind(_this);
-	    _this.handleIngredientsChange = _this.handleIngredientsChange.bind(_this);
-	    _this.handleStepsChange = _this.handleStepsChange.bind(_this);
-	    _this.addIngredient = _this.addIngredient.bind(_this);
-	    _this.addStep = _this.addStep.bind(_this);
 	    return _this;
 	  }
 	
@@ -57714,8 +57542,7 @@
 	        _this2.setState({
 	          title: recipe.title,
 	          category: recipe.category,
-	          ingredients: recipe.ingredients,
-	          steps: recipe.steps
+	          description: recipe.description
 	        });
 	      });
 	    }
@@ -57729,37 +57556,27 @@
 	      var state = this.state;
 	
 	      state[name] = value;
-	      console.log(name);
 	      this.setState(state);
 	    }
 	  }, {
 	    key: 'handleSubmit',
-	    value: function handleSubmit() {}
-	  }, {
-	    key: 'handleIngredientsChange',
-	    value: function handleIngredientsChange() {}
-	  }, {
-	    key: 'handleStepsChange',
-	    value: function handleStepsChange() {}
-	  }, {
-	    key: 'addIngredient',
-	    value: function addIngredient() {}
-	  }, {
-	    key: 'addStep',
-	    value: function addStep() {}
+	    value: function handleSubmit(event) {
+	      var _this3 = this;
+	
+	      event.preventDefault();
+	      var updatedRecipe = this.state;
+	      _superagent2.default.patch('/api/v1/recipes/' + this.props.params.recipeid).set('Content-Type', 'application/json').send(updatedRecipe).end(function (err) {
+	        _reactRouter.browserHistory.push('/recipes/' + _this3.props.params.recipeid);
+	      });
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(_recipeForm2.default, {
 	        title: this.state.title,
 	        category: this.state.category,
-	        ingredients: this.state.ingredients,
-	        steps: this.state.steps,
-	        addIngredient: this.addIngredient,
-	        addStep: this.addStep,
+	        description: this.state.description,
 	        handleChange: this.handleChange,
-	        handleIngredientsChange: this.handleIngredientsChange,
-	        handleStepsChange: this.handleStepsChange,
 	        handleSubmit: this.handleSubmit
 	      });
 	    }

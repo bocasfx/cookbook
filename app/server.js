@@ -8,6 +8,7 @@ import NotFoundPage from './not-found-page.jsx';
 import { MongoClient, ObjectID } from 'mongodb';
 import dal from './dal.js';
 import errorHandler from './error-handler.js';
+import bodyParser from 'body-parser';
 
 const dbUrl = 'mongodb://localhost:27017/recipes';
 
@@ -16,6 +17,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(Express.static(path.join(__dirname, 'static')));
+app.use(bodyParser.json());
 
 app.get('/api/v1/recipes', (req, res)=> {
   MongoClient
@@ -52,6 +54,34 @@ app.post('/api/v1/recipes', (req, res)=> {
       dal.insertDocuments(req.body, db, ()=> {
         db.close();
         res.status(201).send('Recipe added.');
+      });
+    })
+    .catch((err)=> {
+      errorHandler(err);
+    });
+});
+
+app.patch('/api/v1/recipes/:id', (req, res)=> {
+  MongoClient
+    .connect(dbUrl)
+    .then((db)=> {
+      dal.updateDocument(ObjectID(req.params.id), req.body, db, ()=> { // eslint-disable-line new-cap
+        db.close();
+        res.status(201).send('PUT request to homepage');
+      });
+    })
+    .catch((err)=> {
+      errorHandler(err);
+    });
+});
+
+app.delete('/drop', (req, res)=> {
+  MongoClient
+    .connect(dbUrl)
+    .then((db)=> {
+      dal.drop(db, ()=> {
+        db.close();
+        res.status(200).send('Dropped DB');
       });
     })
     .catch((err)=> {

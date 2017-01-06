@@ -23,9 +23,6 @@ class Recipe extends React.Component {
   }
 
   render() {
-    if (!this.state.recipe.ingredients) {
-      return null;
-    }
 
     let editUrl = '/edit/' + this.props.params.recipeid;
 
@@ -35,30 +32,7 @@ class Recipe extends React.Component {
           <span className="recipeTitle">{this.state.recipe.title}</span>
           <Link to={editUrl}><FontAwesome className="editIcon" name='pencil'/></Link>
         </div>
-        <ul className="ingredients">
-        {
-          this.state.recipe.ingredients.map((ingredient, idx)=> {
-            return (
-              <li key={idx}>
-                <span className="ammount">{ingredient.ammount}</span>
-                <span className="units">{ingredient.units}</span>
-                <span className="ingredient">{ingredient.ingredient}</span>
-              </li>
-            );
-          })
-        }
-        </ul>
-        <ol className="steps">
-        {
-          this.state.recipe.steps.map((step, idx)=> {
-            return (
-              <li key={idx}>
-                <span>{step.description}</span>
-              </li>
-            );
-          })
-        }
-        </ol>
+        <pre className="preFormatted">{this.state.recipe.description}</pre>
       </div>
     );
   }
