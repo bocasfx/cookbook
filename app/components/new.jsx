@@ -24,12 +24,13 @@ class New extends React.Component {
 
     let image = this.state.images[0];
 
-    request.post('/api/v1/images')
+    request.post('/api/v1/recipes')
       .attach('image', image, image.name)
       .field('title', this.state.title)
       .field('category', this.state.category)
       .field('description', this.state.description)
       .end((err) => {
+        browserHistory.push('/');
       });
   }
 
@@ -45,7 +46,6 @@ class New extends React.Component {
   }
 
   onDrop(acceptedFiles) {
-    console.log(acceptedFiles[0]);
     let state = this.state;
     state.images = acceptedFiles;
     this.setState(state);

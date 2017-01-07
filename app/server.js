@@ -11,7 +11,17 @@ import errorHandler from './error-handler.js';
 import bodyParser from 'body-parser';
 import multer from 'multer';
 
-const upload = multer({ dest: 'uploads/' });
+let storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './app/static/images/');
+  },
+  filename: function (req, file, cb) {
+    let extension = file.mimetype.split('/')[1];
+    cb(null, file.fieldname + '-' + Date.now() + '.' + extension);
+  }
+});
+
+let upload = multer({ storage: storage });
 const dbUrl = 'mongodb://localhost:27017/recipes';
 
 const app = new Express();
@@ -31,7 +41,7 @@ app.get('/api/v1/recipes', (req, res)=> {
       });
     })
     .catch((err)=> {
-      errorHandler(err);
+      errorHandler(err, res);
     });
 });
 
@@ -45,28 +55,26 @@ app.get('/api/v1/recipes/:id', (req, res)=> {
       });
     })
     .catch((err)=> {
-      errorHandler(err);
+      errorHandler(err, res);
     });
 });
 
-app.post('/api/v1/recipes', (req, res)=> {
+app.post('/api/v1/recipes', upload.single('image'), (req, res)=> {
+  
+  let docs = [req.body];
+  docs[0].imagePath = '/images/' + path.basename(req.file.path);
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
-      dal.insertDocuments(req.body, db, ()=> {
+      dal.insertDocuments(docs, db, ()=> {
         db.close();
         res.status(201).send('Recipe added.');
       });
     })
     .catch((err)=> {
-      errorHandler(err);
+      errorHandler(err, res);
     });
-});
-
-app.post('/api/v1/images', upload.single('image'), (req, res)=> {
-  console.log(req.file);
-  console.log(req.body);
-  res.status(201).send('Image added.');
+  // res.status(201).send('Image added.');
 });
 
 app.patch('/api/v1/recipes/:id', (req, res)=> {
@@ -79,7 +87,7 @@ app.patch('/api/v1/recipes/:id', (req, res)=> {
       });
     })
     .catch((err)=> {
-      errorHandler(err);
+      errorHandler(err, res);
     });
 });
 
@@ -93,7 +101,7 @@ app.delete('/drop', (req, res)=> {
       });
     })
     .catch((err)=> {
-      errorHandler(err);
+      errorHandler(err, res);
     });
 });
 

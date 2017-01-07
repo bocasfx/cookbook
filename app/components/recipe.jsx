@@ -32,6 +32,7 @@ class Recipe extends React.Component {
           <span className="recipeTitle">{this.state.recipe.title}</span>
           <Link to={editUrl}><FontAwesome className="editIcon" name='pencil'/></Link>
         </div>
+        <img className="recipeImage" src={this.state.recipe.imagePath}/>
         <pre className="preFormatted">{this.state.recipe.description}</pre>
       </div>
     );

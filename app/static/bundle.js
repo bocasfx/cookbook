@@ -37932,6 +37932,7 @@
 	            _react2.default.createElement(_reactFontawesome2.default, { className: 'editIcon', name: 'pencil' })
 	          )
 	        ),
+	        _react2.default.createElement('img', { className: 'recipeImage', src: this.state.recipe.imagePath }),
 	        _react2.default.createElement(
 	          'pre',
 	          { className: 'preFormatted' },
@@ -40063,7 +40064,9 @@
 	
 	      var image = this.state.images[0];
 	
-	      _superagent2.default.post('/api/v1/images').attach('image', image, image.name).field('title', this.state.title).field('category', this.state.category).field('description', this.state.description).end(function (err) {});
+	      _superagent2.default.post('/api/v1/recipes').attach('image', image, image.name).field('title', this.state.title).field('category', this.state.category).field('description', this.state.description).end(function (err) {
+	        _reactRouter.browserHistory.push('/');
+	      });
 	    }
 	  }, {
 	    key: 'handleChange',
@@ -40080,7 +40083,6 @@
 	  }, {
 	    key: 'onDrop',
 	    value: function onDrop(acceptedFiles) {
-	      console.log(acceptedFiles[0]);
 	      var state = this.state;
 	      state.images = acceptedFiles;
 	      this.setState(state);
