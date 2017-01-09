@@ -9,6 +9,7 @@ class Edit extends React.Component {
     this.state = {
       title: '',
       category: '',
+      ingredients: '',
       description: ''
     };
 
@@ -25,6 +26,7 @@ class Edit extends React.Component {
         this.setState({
           title: recipe.title,
           category: recipe.category,
+          ingredients: recipe.ingredients,
           description: recipe.description
         });
       });
@@ -57,6 +59,7 @@ class Edit extends React.Component {
       <RecipeForm 
         title={this.state.title}
         category={this.state.category}
+        ingredients={this.state.ingredients}
         description={this.state.description}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}

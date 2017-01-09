@@ -37810,15 +37810,15 @@
 	
 	var _new2 = _interopRequireDefault(_new);
 	
-	var _edit = __webpack_require__(/*! ./components/edit.jsx */ 634);
+	var _edit = __webpack_require__(/*! ./components/edit.jsx */ 633);
 	
 	var _edit2 = _interopRequireDefault(_edit);
 	
-	var _layout = __webpack_require__(/*! ./components/layout.jsx */ 635);
+	var _layout = __webpack_require__(/*! ./components/layout.jsx */ 634);
 	
 	var _layout2 = _interopRequireDefault(_layout);
 	
-	var _indexPage = __webpack_require__(/*! ./components/index-page.jsx */ 637);
+	var _indexPage = __webpack_require__(/*! ./components/index-page.jsx */ 636);
 	
 	var _indexPage2 = _interopRequireDefault(_indexPage);
 	
@@ -37914,6 +37914,9 @@
 	    value: function render() {
 	
 	      var editUrl = '/edit/' + this.props.params.recipeid;
+	      var headerStyle = {
+	        backgroundImage: 'url(' + this.state.recipe.imagePath + ')'
+	      };
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -37922,7 +37925,7 @@
 	          'div',
 	          { className: 'recipeHeader' },
 	          _react2.default.createElement(
-	            'span',
+	            'div',
 	            { className: 'recipeTitle' },
 	            this.state.recipe.title
 	          ),
@@ -37932,11 +37935,30 @@
 	            _react2.default.createElement(_reactFontawesome2.default, { className: 'editIcon', name: 'pencil' })
 	          )
 	        ),
-	        _react2.default.createElement('img', { className: 'recipeImage', src: this.state.recipe.imagePath }),
+	        _react2.default.createElement('div', { className: 'recipeImage', style: headerStyle }),
 	        _react2.default.createElement(
-	          'pre',
-	          { className: 'preFormatted' },
-	          this.state.recipe.description
+	          'div',
+	          { className: 'recipeBody' },
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            'Ingredients'
+	          ),
+	          _react2.default.createElement(
+	            'pre',
+	            { className: 'preFormatted' },
+	            this.state.recipe.ingredients
+	          ),
+	          _react2.default.createElement(
+	            'h2',
+	            { className: 'recipeDescription' },
+	            'Description'
+	          ),
+	          _react2.default.createElement(
+	            'pre',
+	            { className: 'preFormatted' },
+	            this.state.recipe.description
+	          )
 	        )
 	      );
 	    }
@@ -40047,6 +40069,7 @@
 	    _this.state = {
 	      title: '',
 	      category: '',
+	      ingredients: '',
 	      description: '',
 	      images: []
 	    };
@@ -40064,7 +40087,7 @@
 	
 	      var image = this.state.images[0];
 	
-	      _superagent2.default.post('/api/v1/recipes').attach('image', image, image.name).field('title', this.state.title).field('category', this.state.category).field('description', this.state.description).end(function (err) {
+	      _superagent2.default.post('/api/v1/recipes').attach('image', image, image.name).field('title', this.state.title).field('category', this.state.category).field('ingredients', this.state.ingredients).field('description', this.state.description).end(function (err) {
 	        _reactRouter.browserHistory.push('/');
 	      });
 	    }
@@ -40093,6 +40116,7 @@
 	      return _react2.default.createElement(_recipeForm2.default, {
 	        title: this.state.title,
 	        category: this.state.category,
+	        ingredients: this.state.ingredients,
 	        description: this.state.description,
 	        handleChange: this.handleChange,
 	        handleSubmit: this.handleSubmit,
@@ -57252,15 +57276,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ingredient = __webpack_require__(/*! ./ingredient.jsx */ 632);
-	
-	var _ingredient2 = _interopRequireDefault(_ingredient);
-	
-	var _step = __webpack_require__(/*! ./step.jsx */ 633);
-	
-	var _step2 = _interopRequireDefault(_step);
-	
-	var _reactDropzone = __webpack_require__(/*! react-dropzone */ 641);
+	var _reactDropzone = __webpack_require__(/*! react-dropzone */ 632);
 	
 	var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 	
@@ -57285,13 +57301,13 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'recipeForm' },
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this.props.handleSubmit },
 	          _react2.default.createElement(
 	            'div',
-	            null,
+	            { className: 'formEntry' },
 	            _react2.default.createElement(
 	              'h2',
 	              null,
@@ -57301,7 +57317,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            null,
+	            { className: 'formEntry' },
 	            _react2.default.createElement(
 	              'h2',
 	              null,
@@ -57311,7 +57327,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            null,
+	            { className: 'formEntry' },
 	            _react2.default.createElement(
 	              'h2',
 	              null,
@@ -57326,18 +57342,28 @@
 	                'div',
 	                null,
 	                this.props.images.map(function (image) {
-	                  return _react2.default.createElement('img', { name: 'image', className: 'recipeImage', key: image.name, src: image.preview });
+	                  return _react2.default.createElement('img', { name: 'image', className: 'newRecipeImage', key: image.name, src: image.preview });
 	                })
 	              ) : _react2.default.createElement(
 	                'div',
-	                { className: 'recipeImage' },
+	                { className: 'newRecipeImage' },
 	                _react2.default.createElement(_reactFontawesome2.default, { className: 'imageIcon', name: 'picture-o' })
 	              )
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            null,
+	            { className: 'formEntry' },
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'Ingredients'
+	            ),
+	            _react2.default.createElement('textarea', { name: 'ingredients', type: 'text', className: 'recipeTextArea', value: this.props.ingredients, onChange: this.props.handleChange })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'formEntry' },
 	            _react2.default.createElement(
 	              'h2',
 	              null,
@@ -57345,7 +57371,7 @@
 	            ),
 	            _react2.default.createElement('textarea', { name: 'description', type: 'text', className: 'recipeTextArea', value: this.props.description, onChange: this.props.handleChange })
 	          ),
-	          _react2.default.createElement('input', { type: 'submit', className: 'submit', value: 'Submit' })
+	          _react2.default.createElement('input', { type: 'submit', className: 'submit', value: 'Add' })
 	        )
 	      );
 	    }
@@ -57357,713 +57383,6 @@
 
 /***/ },
 /* 632 */
-/*!***************************************!*\
-  !*** ./app/components/ingredient.jsx ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Ingredient = function (_React$Component) {
-	  (0, _inherits3.default)(Ingredient, _React$Component);
-	
-	  function Ingredient(props) {
-	    (0, _classCallCheck3.default)(this, Ingredient);
-	
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (Ingredient.__proto__ || (0, _getPrototypeOf2.default)(Ingredient)).call(this, props));
-	
-	    _this.props = props;
-	    _this.state = {
-	      idx: props.idx,
-	      ammount: props.ammount,
-	      units: props.units,
-	      ingredient: props.ingredient,
-	      closeBtn: props.closeBtn
-	    };
-	
-	    _this.onChange = _this.onChange.bind(_this);
-	    return _this;
-	  }
-	
-	  (0, _createClass3.default)(Ingredient, [{
-	    key: "onChange",
-	    value: function onChange(event) {
-	      var name = event.target.name;
-	      var value = event.target.value;
-	      var state = this.state;
-	      state[name] = value;
-	      this.setState(state);
-	      this.props.onChange(state);
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var closeBtn = this.state.closeBtn ? _react2.default.createElement(
-	        "span",
-	        { className: "remove" },
-	        "\xD7"
-	      ) : null;
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "ingredientComponent" },
-	        _react2.default.createElement("input", { name: "ammount", type: "text", className: "ammountInput", defaultValue: this.state.ammount, onChange: this.onChange }),
-	        _react2.default.createElement("input", { name: "units", type: "text", className: "unitsInput", defaultValue: this.state.units, onChange: this.onChange }),
-	        _react2.default.createElement("input", { name: "ingredient", type: "text", className: "ingredientInput", defaultValue: this.state.ingredient, onChange: this.onChange }),
-	        closeBtn
-	      );
-	    }
-	  }]);
-	  return Ingredient;
-	}(_react2.default.Component);
-	
-	module.exports = Ingredient;
-
-/***/ },
-/* 633 */
-/*!*********************************!*\
-  !*** ./app/components/step.jsx ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Step = function (_React$Component) {
-	  (0, _inherits3.default)(Step, _React$Component);
-	
-	  function Step(props) {
-	    (0, _classCallCheck3.default)(this, Step);
-	
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (Step.__proto__ || (0, _getPrototypeOf2.default)(Step)).call(this, props));
-	
-	    _this.state = {
-	      idx: props.idx,
-	      description: props.description,
-	      closeBtn: props.closeBtn
-	    };
-	
-	    _this.onChange = _this.onChange.bind(_this);
-	    return _this;
-	  }
-	
-	  (0, _createClass3.default)(Step, [{
-	    key: "onChange",
-	    value: function onChange(event) {
-	      var state = this.state;
-	      var value = event.target.value;
-	      state.description = value;
-	      this.setState(state);
-	      this.props.onChange(state);
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var closeBtn = this.state.closeBtn ? _react2.default.createElement(
-	        "span",
-	        { className: "remove" },
-	        "\xD7"
-	      ) : null;
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "stepComponent" },
-	        _react2.default.createElement("input", { type: "text", className: "stepDescription", defaultValue: this.state.description, onChange: this.onChange }),
-	        closeBtn
-	      );
-	    }
-	  }]);
-	  return Step;
-	}(_react2.default.Component);
-	
-	module.exports = Step;
-
-/***/ },
-/* 634 */
-/*!*********************************!*\
-  !*** ./app/components/edit.jsx ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _recipeForm = __webpack_require__(/*! ./recipe-form.jsx */ 631);
-	
-	var _recipeForm2 = _interopRequireDefault(_recipeForm);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 619);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 562);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Edit = function (_React$Component) {
-	  (0, _inherits3.default)(Edit, _React$Component);
-	
-	  function Edit(props) {
-	    (0, _classCallCheck3.default)(this, Edit);
-	
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (Edit.__proto__ || (0, _getPrototypeOf2.default)(Edit)).call(this, props));
-	
-	    _this.state = {
-	      title: '',
-	      category: '',
-	      description: ''
-	    };
-	
-	    _this.handleSubmit = _this.handleSubmit.bind(_this);
-	    _this.handleChange = _this.handleChange.bind(_this);
-	    return _this;
-	  }
-	
-	  (0, _createClass3.default)(Edit, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      _superagent2.default.get('/api/v1/recipes/' + this.props.params.recipeid).set('Accept', 'application/json').end(function (err, response) {
-	        var recipe = response.body[0];
-	        _this2.setState({
-	          title: recipe.title,
-	          category: recipe.category,
-	          description: recipe.description
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'handleChange',
-	    value: function handleChange(event) {
-	      event.preventDefault();
-	
-	      var value = event.target.value;
-	      var name = event.target.name;
-	      var state = this.state;
-	
-	      state[name] = value;
-	      this.setState(state);
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit(event) {
-	      var _this3 = this;
-	
-	      event.preventDefault();
-	      var updatedRecipe = this.state;
-	      _superagent2.default.patch('/api/v1/recipes/' + this.props.params.recipeid).set('Content-Type', 'application/json').send(updatedRecipe).end(function (err) {
-	        _reactRouter.browserHistory.push('/recipes/' + _this3.props.params.recipeid);
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(_recipeForm2.default, {
-	        title: this.state.title,
-	        category: this.state.category,
-	        description: this.state.description,
-	        handleChange: this.handleChange,
-	        handleSubmit: this.handleSubmit
-	      });
-	    }
-	  }]);
-	  return Edit;
-	}(_react2.default.Component);
-	
-	module.exports = Edit;
-
-/***/ },
-/* 635 */
-/*!***********************************!*\
-  !*** ./app/components/layout.jsx ***!
-  \***********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 562);
-	
-	var _header = __webpack_require__(/*! ./header.jsx */ 636);
-	
-	var _header2 = _interopRequireDefault(_header);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Layout = function (_React$Component) {
-	  (0, _inherits3.default)(Layout, _React$Component);
-	
-	  function Layout() {
-	    (0, _classCallCheck3.default)(this, Layout);
-	    return (0, _possibleConstructorReturn3.default)(this, (Layout.__proto__ || (0, _getPrototypeOf2.default)(Layout)).apply(this, arguments));
-	  }
-	
-	  (0, _createClass3.default)(Layout, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'app-container' },
-	        _react2.default.createElement(_header2.default, null),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'app-content' },
-	          this.props.children
-	        ),
-	        _react2.default.createElement(
-	          'footer',
-	          null,
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Footer'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	  return Layout;
-	}(_react2.default.Component);
-	
-	module.exports = Layout;
-
-/***/ },
-/* 636 */
-/*!***********************************!*\
-  !*** ./app/components/header.jsx ***!
-  \***********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 562);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Header = function (_React$Component) {
-	  (0, _inherits3.default)(Header, _React$Component);
-	
-	  function Header() {
-	    (0, _classCallCheck3.default)(this, Header);
-	    return (0, _possibleConstructorReturn3.default)(this, (Header.__proto__ || (0, _getPrototypeOf2.default)(Header)).apply(this, arguments));
-	  }
-	
-	  (0, _createClass3.default)(Header, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'header',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'header' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'maintitle' },
-	              'Recetas'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { className: 'new', to: '/new' },
-	            '+'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	  return Header;
-	}(_react2.default.Component);
-	
-	module.exports = Header;
-
-/***/ },
-/* 637 */
-/*!***************************************!*\
-  !*** ./app/components/index-page.jsx ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _recipeListContainer = __webpack_require__(/*! ./recipe-list-container.jsx */ 638);
-	
-	var _recipeListContainer2 = _interopRequireDefault(_recipeListContainer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var IndexPage = function (_React$Component) {
-	  (0, _inherits3.default)(IndexPage, _React$Component);
-	
-	  function IndexPage() {
-	    (0, _classCallCheck3.default)(this, IndexPage);
-	    return (0, _possibleConstructorReturn3.default)(this, (IndexPage.__proto__ || (0, _getPrototypeOf2.default)(IndexPage)).apply(this, arguments));
-	  }
-	
-	  (0, _createClass3.default)(IndexPage, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(_recipeListContainer2.default, null);
-	    }
-	  }]);
-	  return IndexPage;
-	}(_react2.default.Component);
-	
-	exports.default = IndexPage;
-
-/***/ },
-/* 638 */
-/*!**************************************************!*\
-  !*** ./app/components/recipe-list-container.jsx ***!
-  \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _recipeList = __webpack_require__(/*! ./recipe-list.jsx */ 639);
-	
-	var _recipeList2 = _interopRequireDefault(_recipeList);
-	
-	var _superagent = __webpack_require__(/*! superagent */ 619);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RecipeListContainer = function (_React$Component) {
-	  (0, _inherits3.default)(RecipeListContainer, _React$Component);
-	
-	  function RecipeListContainer(props) {
-	    (0, _classCallCheck3.default)(this, RecipeListContainer);
-	
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (RecipeListContainer.__proto__ || (0, _getPrototypeOf2.default)(RecipeListContainer)).call(this, props));
-	
-	    _this.state = {
-	      categories: []
-	    };
-	    return _this;
-	  }
-	
-	  (0, _createClass3.default)(RecipeListContainer, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      _superagent2.default.get('/api/v1/recipes').set('Accept', 'application/json').end(function (err, response) {
-	        _this2.setState({
-	          categories: response.body
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'onGetData',
-	    value: function onGetData(docs) {
-	      console.log('got data');
-	      this.setState({
-	        categories: docs
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(_recipeList2.default, { categories: this.state.categories });
-	    }
-	  }]);
-	  return RecipeListContainer;
-	}(_react2.default.Component);
-	
-	module.exports = RecipeListContainer;
-
-/***/ },
-/* 639 */
-/*!****************************************!*\
-  !*** ./app/components/recipe-list.jsx ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _react = __webpack_require__(/*! react */ 299);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 562);
-	
-	var _capitalize = __webpack_require__(/*! capitalize */ 640);
-	
-	var _capitalize2 = _interopRequireDefault(_capitalize);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var RecipeList = function (_React$Component) {
-	  (0, _inherits3.default)(RecipeList, _React$Component);
-	
-	  function RecipeList() {
-	    (0, _classCallCheck3.default)(this, RecipeList);
-	    return (0, _possibleConstructorReturn3.default)(this, (RecipeList.__proto__ || (0, _getPrototypeOf2.default)(RecipeList)).apply(this, arguments));
-	  }
-	
-	  (0, _createClass3.default)(RecipeList, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          this.props.categories.map(function (category) {
-	            var label = (0, _capitalize2.default)(category._id);
-	            return _react2.default.createElement(
-	              'li',
-	              { key: category._id },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'category' },
-	                label
-	              ),
-	              _react2.default.createElement(
-	                'ul',
-	                null,
-	                category.recipes.map(function (recipe) {
-	                  var recipeUrl = '/recipes/' + recipe.id;
-	                  return _react2.default.createElement(
-	                    'li',
-	                    { key: recipe.id },
-	                    _react2.default.createElement(
-	                      _reactRouter.Link,
-	                      { to: recipeUrl },
-	                      recipe.title
-	                    )
-	                  );
-	                })
-	              )
-	            );
-	          })
-	        )
-	      );
-	    }
-	  }]);
-	  return RecipeList;
-	}(_react2.default.Component);
-	
-	module.exports = RecipeList;
-
-/***/ },
-/* 640 */
-/*!*******************************!*\
-  !*** ./~/capitalize/index.js ***!
-  \*******************************/
-/***/ function(module, exports) {
-
-	module.exports = function (string) {
-	  return string.charAt(0).toUpperCase() + string.substring(1);
-	}
-	
-	module.exports.words = function (string) {
-	  return string.replace(/(^|[^a-zA-Z\u00C0-\u017F'])([a-zA-Z\u00C0-\u017F])/g, function (m) {
-	    return m.toUpperCase()
-	  })
-	}
-
-
-/***/ },
-/* 641 */
 /*!****************************************!*\
   !*** ./~/react-dropzone/dist/index.js ***!
   \****************************************/
@@ -58564,6 +57883,594 @@
 	});
 	;
 	//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 633 */
+/*!*********************************!*\
+  !*** ./app/components/edit.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _recipeForm = __webpack_require__(/*! ./recipe-form.jsx */ 631);
+	
+	var _recipeForm2 = _interopRequireDefault(_recipeForm);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 619);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Edit = function (_React$Component) {
+	  (0, _inherits3.default)(Edit, _React$Component);
+	
+	  function Edit(props) {
+	    (0, _classCallCheck3.default)(this, Edit);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (Edit.__proto__ || (0, _getPrototypeOf2.default)(Edit)).call(this, props));
+	
+	    _this.state = {
+	      title: '',
+	      category: '',
+	      ingredients: '',
+	      description: ''
+	    };
+	
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    return _this;
+	  }
+	
+	  (0, _createClass3.default)(Edit, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      _superagent2.default.get('/api/v1/recipes/' + this.props.params.recipeid).set('Accept', 'application/json').end(function (err, response) {
+	        var recipe = response.body[0];
+	        _this2.setState({
+	          title: recipe.title,
+	          category: recipe.category,
+	          ingredients: recipe.ingredients,
+	          description: recipe.description
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      event.preventDefault();
+	
+	      var value = event.target.value;
+	      var name = event.target.name;
+	      var state = this.state;
+	
+	      state[name] = value;
+	      this.setState(state);
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(event) {
+	      var _this3 = this;
+	
+	      event.preventDefault();
+	      var updatedRecipe = this.state;
+	      _superagent2.default.patch('/api/v1/recipes/' + this.props.params.recipeid).set('Content-Type', 'application/json').send(updatedRecipe).end(function (err) {
+	        _reactRouter.browserHistory.push('/recipes/' + _this3.props.params.recipeid);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_recipeForm2.default, {
+	        title: this.state.title,
+	        category: this.state.category,
+	        ingredients: this.state.ingredients,
+	        description: this.state.description,
+	        handleChange: this.handleChange,
+	        handleSubmit: this.handleSubmit
+	      });
+	    }
+	  }]);
+	  return Edit;
+	}(_react2.default.Component);
+	
+	module.exports = Edit;
+
+/***/ },
+/* 634 */
+/*!***********************************!*\
+  !*** ./app/components/layout.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
+	var _header = __webpack_require__(/*! ./header.jsx */ 635);
+	
+	var _header2 = _interopRequireDefault(_header);
+	
+	var _footer = __webpack_require__(/*! ./footer.jsx */ 640);
+	
+	var _footer2 = _interopRequireDefault(_footer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Layout = function (_React$Component) {
+	  (0, _inherits3.default)(Layout, _React$Component);
+	
+	  function Layout() {
+	    (0, _classCallCheck3.default)(this, Layout);
+	    return (0, _possibleConstructorReturn3.default)(this, (Layout.__proto__ || (0, _getPrototypeOf2.default)(Layout)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(Layout, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'app-container' },
+	        _react2.default.createElement(_header2.default, null),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'app-content' },
+	          this.props.children
+	        ),
+	        _react2.default.createElement(_footer2.default, null)
+	      );
+	    }
+	  }]);
+	  return Layout;
+	}(_react2.default.Component);
+	
+	module.exports = Layout;
+
+/***/ },
+/* 635 */
+/*!***********************************!*\
+  !*** ./app/components/header.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Header = function (_React$Component) {
+	  (0, _inherits3.default)(Header, _React$Component);
+	
+	  function Header() {
+	    (0, _classCallCheck3.default)(this, Header);
+	    return (0, _possibleConstructorReturn3.default)(this, (Header.__proto__ || (0, _getPrototypeOf2.default)(Header)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(Header, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'header',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'header' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/', className: 'maintitle' },
+	            'COOKBOOK'
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { className: 'new', to: '/new' },
+	            '+'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	  return Header;
+	}(_react2.default.Component);
+	
+	module.exports = Header;
+
+/***/ },
+/* 636 */
+/*!***************************************!*\
+  !*** ./app/components/index-page.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _recipeListContainer = __webpack_require__(/*! ./recipe-list-container.jsx */ 637);
+	
+	var _recipeListContainer2 = _interopRequireDefault(_recipeListContainer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var IndexPage = function (_React$Component) {
+	  (0, _inherits3.default)(IndexPage, _React$Component);
+	
+	  function IndexPage() {
+	    (0, _classCallCheck3.default)(this, IndexPage);
+	    return (0, _possibleConstructorReturn3.default)(this, (IndexPage.__proto__ || (0, _getPrototypeOf2.default)(IndexPage)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(IndexPage, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_recipeListContainer2.default, null);
+	    }
+	  }]);
+	  return IndexPage;
+	}(_react2.default.Component);
+	
+	exports.default = IndexPage;
+
+/***/ },
+/* 637 */
+/*!**************************************************!*\
+  !*** ./app/components/recipe-list-container.jsx ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _recipeList = __webpack_require__(/*! ./recipe-list.jsx */ 638);
+	
+	var _recipeList2 = _interopRequireDefault(_recipeList);
+	
+	var _superagent = __webpack_require__(/*! superagent */ 619);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RecipeListContainer = function (_React$Component) {
+	  (0, _inherits3.default)(RecipeListContainer, _React$Component);
+	
+	  function RecipeListContainer(props) {
+	    (0, _classCallCheck3.default)(this, RecipeListContainer);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (RecipeListContainer.__proto__ || (0, _getPrototypeOf2.default)(RecipeListContainer)).call(this, props));
+	
+	    _this.state = {
+	      categories: []
+	    };
+	    return _this;
+	  }
+	
+	  (0, _createClass3.default)(RecipeListContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      _superagent2.default.get('/api/v1/recipes').set('Accept', 'application/json').end(function (err, response) {
+	        _this2.setState({
+	          categories: response.body
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'onGetData',
+	    value: function onGetData(docs) {
+	      console.log('got data');
+	      this.setState({
+	        categories: docs
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_recipeList2.default, { categories: this.state.categories });
+	    }
+	  }]);
+	  return RecipeListContainer;
+	}(_react2.default.Component);
+	
+	module.exports = RecipeListContainer;
+
+/***/ },
+/* 638 */
+/*!****************************************!*\
+  !*** ./app/components/recipe-list.jsx ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 562);
+	
+	var _capitalize = __webpack_require__(/*! capitalize */ 639);
+	
+	var _capitalize2 = _interopRequireDefault(_capitalize);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var RecipeList = function (_React$Component) {
+	  (0, _inherits3.default)(RecipeList, _React$Component);
+	
+	  function RecipeList() {
+	    (0, _classCallCheck3.default)(this, RecipeList);
+	    return (0, _possibleConstructorReturn3.default)(this, (RecipeList.__proto__ || (0, _getPrototypeOf2.default)(RecipeList)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(RecipeList, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'recipeList' },
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          this.props.categories.map(function (category) {
+	            var label = (0, _capitalize2.default)(category._id);
+	            return _react2.default.createElement(
+	              'li',
+	              { key: category._id },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'category' },
+	                label
+	              ),
+	              _react2.default.createElement(
+	                'ul',
+	                null,
+	                category.recipes.map(function (recipe) {
+	                  var recipeUrl = '/recipes/' + recipe.id;
+	                  return _react2.default.createElement(
+	                    'li',
+	                    { key: recipe.id },
+	                    _react2.default.createElement(
+	                      _reactRouter.Link,
+	                      { to: recipeUrl },
+	                      recipe.title
+	                    )
+	                  );
+	                })
+	              )
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }]);
+	  return RecipeList;
+	}(_react2.default.Component);
+	
+	module.exports = RecipeList;
+
+/***/ },
+/* 639 */
+/*!*******************************!*\
+  !*** ./~/capitalize/index.js ***!
+  \*******************************/
+/***/ function(module, exports) {
+
+	module.exports = function (string) {
+	  return string.charAt(0).toUpperCase() + string.substring(1);
+	}
+	
+	module.exports.words = function (string) {
+	  return string.replace(/(^|[^a-zA-Z\u00C0-\u017F'])([a-zA-Z\u00C0-\u017F])/g, function (m) {
+	    return m.toUpperCase()
+	  })
+	}
+
+
+/***/ },
+/* 640 */
+/*!***********************************!*\
+  !*** ./app/components/footer.jsx ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _getPrototypeOf = __webpack_require__(/*! babel-runtime/core-js/object/get-prototype-of */ 476);
+	
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	
+	var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ 502);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ 503);
+	
+	var _createClass3 = _interopRequireDefault(_createClass2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(/*! babel-runtime/helpers/possibleConstructorReturn */ 507);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(/*! babel-runtime/helpers/inherits */ 554);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _react = __webpack_require__(/*! react */ 299);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Footer = function (_React$Component) {
+	  (0, _inherits3.default)(Footer, _React$Component);
+	
+	  function Footer() {
+	    (0, _classCallCheck3.default)(this, Footer);
+	    return (0, _possibleConstructorReturn3.default)(this, (Footer.__proto__ || (0, _getPrototypeOf2.default)(Footer)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(Footer, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'footer',
+	        null,
+	        'COOKBOOK'
+	      );
+	    }
+	  }]);
+	  return Footer;
+	}(_react2.default.Component);
+	
+	module.exports = Footer;
 
 /***/ }
 /******/ ]);

@@ -10,6 +10,7 @@ class New extends React.Component {
     this.state = {
       title: '',
       category: '',
+      ingredients: '',
       description: '',
       images: []
     };
@@ -28,6 +29,7 @@ class New extends React.Component {
       .attach('image', image, image.name)
       .field('title', this.state.title)
       .field('category', this.state.category)
+      .field('ingredients', this.state.ingredients)
       .field('description', this.state.description)
       .end((err) => {
         browserHistory.push('/');
@@ -56,6 +58,7 @@ class New extends React.Component {
       <RecipeForm 
         title={this.state.title}
         category={this.state.category}
+        ingredients={this.state.ingredients}
         description={this.state.description}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}

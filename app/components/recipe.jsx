@@ -25,15 +25,23 @@ class Recipe extends React.Component {
   render() {
 
     let editUrl = '/edit/' + this.props.params.recipeid;
+    let headerStyle = {
+      backgroundImage: 'url(' + this.state.recipe.imagePath + ')'
+    };
 
     return (
       <div>
-        <div className="recipeHeader">
-          <span className="recipeTitle">{this.state.recipe.title}</span>
+        <div className="recipeHeader" >
+          <div className="recipeTitle">{this.state.recipe.title}</div>
           <Link to={editUrl}><FontAwesome className="editIcon" name='pencil'/></Link>
         </div>
-        <img className="recipeImage" src={this.state.recipe.imagePath}/>
-        <pre className="preFormatted">{this.state.recipe.description}</pre>
+        <div className="recipeImage" style={headerStyle}></div>
+        <div className="recipeBody">
+          <h2>Ingredients</h2>
+          <pre className="preFormatted">{this.state.recipe.ingredients}</pre>
+          <h2 className="recipeDescription">Description</h2>
+          <pre className="preFormatted">{this.state.recipe.description}</pre>
+        </div>
       </div>
     );
   }

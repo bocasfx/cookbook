@@ -5,7 +5,7 @@ import capitalize from 'capitalize';
 class RecipeList extends React.Component {
   render() {
     return (
-      <div>
+      <div className="recipeList">
         <ul>
           {
             this.props.categories.map((category)=> {

@@ -1,8 +1,10 @@
-body {
+
+
+html body {
   font-family: 'Raleway', sans-serif;
-  margin: 48px;
   color: dimgray;
-  width: 640px;
+  width: 100%;
+  margin: 0;
 }
 
 a {
@@ -12,6 +14,10 @@ a {
 
 a:hover {
   color: mistyrose;
+}
+
+ul {
+  padding: 0;
 }
 
 ul li {
@@ -37,66 +43,75 @@ pre{
     white-space: pre-wrap;
 }
 
+footer {
+  border-top: 1px solid #ddd;
+  width: 640px;
+  height: 40px;
+  margin: auto;
+  text-align: center;
+  color: #ddd;
+  padding-top: 20px;
+}
+
 .header {
   display: flex;
+  align-items: center;
+  width: 640px;
+  margin: auto;
+  border-bottom: 1px solid #ccc;
 }
 
 .maintitle {
-  font-size: 36px;
+  font-size: 24px;
+  font-weight: 900;
+  color: mistyrose;
 }
 
 .new {
   font-size: 42px;
-  position: absolute;
-  right: 48px;
-  background-color: mistyrose;
-  padding: 0 16px;
-  border-radius: 100%;
-  cursor: pointer;
+  margin-left: 20px;
 }
 
-.new:hover {
-  background: none;
-}
+/* Recipe */
 
 .recipeTitle {
-  font-size: 25px;
+  font-size: 36px;
+  margin: 50px 0 25px 0;
+  text-transform: uppercase;
 }
 
 .recipeHeader {
   margin-bottom: 25px;
   margin-top: 25px;
+  width: 100%;
+  color: dimgray;
+  text-align: center;
 }
 
-.ingredients {
-  padding: 20px;
-  background-color: mistyrose;
-  display: inline-block;
-  margin: 0 0 25px 25px;
-  width: 400px;
-}
-
-.ingredients li {
+.recipeImage {
+  margin: 25px 0 70px 0;
+  width: 100%;
+  height: 300px;
+  background-size: 100%;
+  background-position-y: 50%;
+  color: #ddd;
   display: flex;
+  max-height: 290px;
 }
 
-.ingredient {
-  margin-left: 5px;
+.recipeBody {
+  margin: 0 auto 70px auto;
+  width: 640px;
 }
 
-.ammount {
-  min-width: 30px;
-  display: inline-block;
+.recipeDescription {
+  margin-top: 50px;
 }
 
-.units {
-  margin-left: 5px;
-  min-width: 30px;
-  display: inline-block;
-}
-
-.steps {
-  max-width: 400px;
+.preFormatted {
+  font-family: inherit;
+  font-size: 1em;
+  
 }
 
 .category {
@@ -105,103 +120,55 @@ pre{
   margin-top: 30px;
 }
 
-/* Ingredient Component */
+/* Recipe List */
 
-.ingredientComponent {
-  margin-bottom: 10px;
-  width: 100%;
-  display: inline-flex;
+.recipeList {
+  width: 640;
+  margin: auto;
 }
-
-.ingredientInput {
-  width: 100%;
-  margin-left: 10px;
-}
-
-.ammountInput {
-  width: 30px;
-}
-
-.unitsInput {
-  width: 30px;
-  margin-left: 10px;
-}
-
-.remove {
-  font-size: 24px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-
-
-/* Step Component */
-
-.stepComponent {
-  margin-bottom: 10px;
-  display: flex;
-}
-
-.stepComponent input {
-  width: 100% ;
-}
-
 
 /* New Recipe */
+
+.recipeForm {
+  width: 640px;
+  margin: auto;
+}
 
 .titleInput {
   margin: 10px 0 20px 0;
 }
 
-.ingredientsHeader {
-  display: flex;
-}
-
-.ingredientsHeader span {
-  font-size: 1.5em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
-  margin-left: 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.stepsHeader {
-  display: flex;
-}
-
-.stepsHeader span {
-  font-size: 1.5em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
-  margin-left: 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 .submit {
-  width: 60px;
+  background-color: dimgray;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius:6px;
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  width: 120px;
+  margin: 25px 0;
+}
+
+.submit:hover {
+  border: none;
+  background-color: mistyrose;
 }
 
 .editIcon {
   margin-left: 15px;
   bottom: 5px;
   position: relative;
+  color: #ccc;
 }
 
 .recipeTextArea {
   width: 100%;
   height: 50%;
   border-color: #ccc;
-}
-
-.preFormatted {
-  font-family: inherit;
-  font-size: 1em;
-}
-
-.recipeImage {
-  max-height: 190px;
+  height: 200px;
 }
 
 .dropzone {
@@ -216,4 +183,12 @@ pre{
 
 .imageIcon {
   font-size: 2em;
+}
+
+.newRecipeImage {
+  max-height: 190px;
+}
+
+.formEntry {
+  margin-top: 50px;
 }

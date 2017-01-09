@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Header from './header.jsx';
+import Footer from './footer.jsx';
 
 class Layout extends React.Component {
   render() {
@@ -8,11 +9,7 @@ class Layout extends React.Component {
       <div className="app-container">
         <Header/>
         <div className="app-content">{this.props.children}</div>
-        <footer>
-          <p>
-            Footer
-          </p>
-        </footer>
+        <Footer/>
       </div>
     );
   }
