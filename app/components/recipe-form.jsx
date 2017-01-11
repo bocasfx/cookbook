@@ -1,10 +1,24 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
+import request from 'superagent';
 
 class RecipeForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      categories: []
+    };
+  }
+
+  componentDidMount() {
+    request.get('/api/v1/categories')
+      .set('Accept', 'application/json')
+      .end((err, response)=> {
+        this.setState({
+          categories: response.body
+        });
+      });
   }
 
   render() {
@@ -17,7 +31,15 @@ class RecipeForm extends React.Component {
           </div>
           <div className="formEntry">
             <h2>Category</h2>
-            <input name="category" type="text" value={this.props.category}  onChange={this.props.handleChange}/>
+            <select value={this.props.category} onChange={this.props.handleCategoryChange}>
+              {
+                this.state.categories.map((category) => {
+                  return (
+                    <option value={category._id} key={category._id}>{category.category}</option>
+                  );
+                })
+              }
+            </select>
           </div>
           <div className="formEntry">
             <h2>Image</h2>

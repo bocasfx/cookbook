@@ -1,10 +1,10 @@
 import React from 'react';
-import RecipeListContainer from './recipe-list-container.jsx';
+import CategoryList from './category-list.jsx';
 
 export default class IndexPage extends React.Component {
   render() {
     return (
-      <RecipeListContainer/>
+      <CategoryList/>
     );
   }
 }

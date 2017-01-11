@@ -1,26 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router';
 import capitalize from 'capitalize';
+import request from 'superagent';
 
 class RecipeList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      recipes: []
+    };
+  }
+
+  componentDidMount() {
+    request
+      .get('/api/v1/categories/' + this.props.params.categoryid + '/recipes')
+      .set('Accept', 'application/json')
+      .end((err, response)=> {
+        this.setState({
+          recipes: response.body
+        });
+      });
+  }
+
+  onGetData(docs) {
+    this.setState({
+      recipes: docs
+    });
+  }
+
   render() {
     return (
       <div className="recipeList">
         <ul>
           {
-            this.props.categories.map((category)=> {
-              let label = capitalize(category._id);
+            this.state.recipes.map((recipe)=> {
+              let label = capitalize(recipe.title);
+              let url = '/recipes/' + recipe._id;
               return (
-                <li key={category._id}>
-                  <div className="category">{label}</div>
-                  <ul>
-                    {
-                      category.recipes.map((recipe)=> {
-                        let recipeUrl = '/recipes/' + recipe.id;
-                        return <li key={recipe.id}><Link to={recipeUrl}>{recipe.title}</Link></li>;
-                      })
-                    }
-                  </ul>
+                <li key={recipe._id}>
+                  <Link to={url} className="recipe">{label}</Link>
                 </li>
               );
             })

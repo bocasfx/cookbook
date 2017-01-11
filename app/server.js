@@ -31,11 +31,42 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json({limit: '50mb'}));
 
-app.get('/api/v1/recipes', (req, res)=> {
+// Categories
+
+app.get('/api/v1/categories', (req, res)=> {
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
-      dal.findDocuments(db, (docs)=> {
+      dal.findCategories(db, (docs)=> {
+        db.close();
+        res.status(200).send(docs);
+      });
+    })
+    .catch((err)=> {
+      errorHandler(err, res);
+    });
+});
+
+app.post('/api/v1/categories', (req, res) => {
+  let category = req.body.category;
+  MongoClient
+    .connect(dbUrl)
+    .then((db) => {
+      dal.insertCategory(db, category, () => {
+        db.close();
+        res.status(200).send('Category added.');
+      });
+    })
+    .catch((err) => {
+      errorHandler(err, res);
+    });
+});
+
+app.get('/api/v1/categories/:categoryid/recipes', (req, res) => {
+  MongoClient
+    .connect(dbUrl)
+    .then((db)=> {
+      dal.findRecipesInCategory(db, req.params.categoryid, (docs)=> {
         db.close();
         res.status(200).send(docs);
       });
@@ -49,7 +80,7 @@ app.get('/api/v1/recipes/:id', (req, res)=> {
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
-      dal.findDocument(ObjectID(req.params.id), db, (docs)=> { // eslint-disable-line new-cap
+      dal.findRecipe(ObjectID(req.params.id), db, (docs)=> { // eslint-disable-line new-cap
         db.close();
         res.status(200).send(docs);
       });
@@ -61,12 +92,12 @@ app.get('/api/v1/recipes/:id', (req, res)=> {
 
 app.post('/api/v1/recipes', upload.single('image'), (req, res)=> {
   
-  let docs = [req.body];
-  docs[0].imagePath = '/images/' + path.basename(req.file.path);
+  let recipe = req.body;
+  recipe.imagePath = '/images/' + path.basename(req.file.path);
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
-      dal.insertDocuments(docs, db, ()=> {
+      dal.insertRecipe(recipe, db, ()=> {
         db.close();
         res.status(201).send('Recipe added.');
       });
@@ -74,14 +105,13 @@ app.post('/api/v1/recipes', upload.single('image'), (req, res)=> {
     .catch((err)=> {
       errorHandler(err, res);
     });
-  // res.status(201).send('Image added.');
 });
 
 app.patch('/api/v1/recipes/:id', (req, res)=> {
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
-      dal.updateDocument(ObjectID(req.params.id), req.body, db, ()=> { // eslint-disable-line new-cap
+      dal.updateRecipe(ObjectID(req.params.id), req.body, db, ()=> { // eslint-disable-line new-cap
         db.close();
         res.status(201).send('PUT request to homepage');
       });
