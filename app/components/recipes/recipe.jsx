@@ -7,7 +7,12 @@ class Recipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipe: {}
+      recipe: {
+        imagePath: '',
+        title: '',
+        ingredients: '',
+        description: ''
+      }
     };
   }
   

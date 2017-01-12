@@ -10,11 +10,13 @@ class RecipeEdit extends React.Component {
       title: '',
       category: '',
       ingredients: '',
-      description: ''
+      description: '',
+      images: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onDrop = this.onDrop.bind(this);
   }
 
   componentDidMount() {
@@ -27,7 +29,8 @@ class RecipeEdit extends React.Component {
           title: recipe.title,
           category: recipe.category,
           ingredients: recipe.ingredients,
-          description: recipe.description
+          description: recipe.description,
+          images: [recipe.imagePath]
         });
       });
   }
@@ -45,25 +48,36 @@ class RecipeEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let updatedRecipe = this.state;
+
+    let image = this.state.images[0];
+
     request.patch('/api/v1/recipes/' + this.props.params.recipeid)
-      .set('Content-Type', 'application/json')
-      .send(updatedRecipe)
+      .attach('image', image, image.name)
+      .field('title', this.state.title)
+      .field('category', this.state.category)
+      .field('ingredients', this.state.ingredients)
+      .field('description', this.state.description)
       .end((err) => {
-        browserHistory.push('/recipes/' + this.props.params.recipeid);
+        browserHistory.push('/');
       });
+  }
+
+  onDrop(acceptedFiles) {
+    let state = this.state;
+    state.images = acceptedFiles;
+    this.setState(state);
   }
 
   render() {
     return (
       <RecipeForm 
         title={this.state.title}
-        category={this.state.category}
         ingredients={this.state.ingredients}
         description={this.state.description}
+        images={this.state.images}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
-      />
+        onDrop={this.onDrop}/>
     );
   }
 }

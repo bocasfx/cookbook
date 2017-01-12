@@ -1,11 +1,29 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
-import request from 'superagent';
 
 class RecipeForm extends React.Component {
   constructor(props) {
     super(props);
+    this.showImage = this.showImage.bind(this);
+  }
+
+  showImage() {
+    let images = this.props.images;
+
+    if (typeof images[0] === 'string') {
+      return (
+        <img name="image" className="newRecipeImage" src={images[0]} />
+      );
+    } else if (images.length > 0) {
+      return (
+        <div>{this.props.images.map((image) => <img name="image" className="newRecipeImage" key={image.name} src={image.preview} /> )}</div>  
+      );
+    } else {
+      return (
+        <div className="newRecipeImage"><FontAwesome className="imageIcon" name='picture-o'/></div>
+      );
+    }
   }
 
   render() {
@@ -19,7 +37,7 @@ class RecipeForm extends React.Component {
           <div className="formEntry">
             <h2>Image</h2>
             <Dropzone className="dropzone" ref={(node) => { this.dropzone = node; }} onDrop={this.props.onDrop}>
-              {(this.props.images && this.props.images.length > 0) ? <div>{this.props.images.map((image) => <img name="image" className="newRecipeImage" key={image.name} src={image.preview} /> )}</div> : <div className="newRecipeImage"><FontAwesome className="imageIcon" name='picture-o'/></div>}
+              {this.showImage()}
             </Dropzone>
           </div>
           <div className="formEntry">
