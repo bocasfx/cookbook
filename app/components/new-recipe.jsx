@@ -8,7 +8,7 @@ class NewRecipe extends React.Component {
     super(props);
     this.state = {
       title: '',
-      category: '',
+      category: props.params.categoryid,
       ingredients: '',
       description: '',
       images: []
@@ -16,7 +16,6 @@ class NewRecipe extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
   }
 
@@ -39,21 +38,11 @@ class NewRecipe extends React.Component {
   handleChange(event) {
     event.preventDefault();
 
-    console.log(event.target.name);
-
     let value = event.target.value;
     let name = event.target.name;
     let state = this.state;
 
     state[name] = value;
-    this.setState(state);
-  }
-
-  handleCategoryChange(event) {
-    event.preventDefault();
-    let value = event.target.value;
-    let state = this.state;
-    state.category = value;
     this.setState(state);
   }
 
@@ -67,11 +56,9 @@ class NewRecipe extends React.Component {
     return (
       <RecipeForm 
         title={this.state.title}
-        category={this.state.category}
         ingredients={this.state.ingredients}
         description={this.state.description}
         handleChange={this.handleChange}
-        handleCategoryChange={this.handleCategoryChange}
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
         images={this.state.images}

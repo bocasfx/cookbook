@@ -7,7 +7,6 @@ class Header extends React.Component {
       <header>
         <div className="header">
           <Link to="/" className="maintitle">COOKBOOK</Link>
-          <Link className="new" to="/new">+</Link>
         </div>
       </header>
     );

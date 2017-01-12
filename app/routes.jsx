@@ -12,11 +12,11 @@ const routes = (
   <div>
     <Route path="/" component={Layout}>
       <IndexRoute component={IndexPage}/>
-      <Route path="recipes/:recipeid" component={Recipe}/>
-      <Route path="new" component={NewRecipe}/>
-      <Route path="edit/:recipeid" component={Edit}/>
-      <Route path="categories/new" component={NewCategory}/>
-      <Route path="categories/:categoryid" component={RecipeList}/>
+      <Route path="/categories/:categoryid/recipes/new" component={NewRecipe}/>
+      <Route path="/categories/:categoryid/recipes/:recipeid" component={Recipe}/>
+      <Route path="/edit/:recipeid" component={Edit}/>
+      <Route path="/categories/new" component={NewCategory}/>
+      <Route path="/categories/:categoryid/recipes" component={RecipeList}/>
     </Route>
   </div>
 );

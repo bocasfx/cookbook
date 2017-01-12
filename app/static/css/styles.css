@@ -68,6 +68,7 @@ footer {
 .maintitle {
   font-size: 24px;
   font-weight: 900;
+  padding: 10px 0;
 }
 
 .maintitle:hover {
@@ -134,13 +135,6 @@ footer {
   margin-top: 30px;
 }
 
-/* Recipe List */
-
-.recipeList {
-  width: 640;
-  margin: auto;
-}
-
 /* New Recipe */
 
 .recipeForm {
@@ -169,6 +163,12 @@ footer {
 .submit:hover {
   border: none;
   background-color: mistyrose;
+}
+
+.disabled,
+.disabled:hover {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .editIcon {
@@ -205,4 +205,45 @@ footer {
 
 .formEntry {
   margin-top: 50px;
+}
+
+.sectionBody {
+  margin: 70px auto;
+  width: 640px;
+}
+
+.newCategory {
+  margin: 70px auto;
+  width: 640px;
+}
+
+.newCategory span {
+  float: left;
+  margin-bottom: 25px;
+}
+
+.newCategory input {
+  width: 100%;
+}
+
+.newCategory .submit {
+  float: right;
+  width: 120px;
+}
+
+.warning {
+  position: fixed;
+  width: auto;
+  margin-top: 11px;
+  color: coral;
+}
+
+.nothing {
+  margin: 70px 0;
+  text-align: center;
+}
+
+.backButton {
+  display: block;
+  margin-top: 40px;
 }

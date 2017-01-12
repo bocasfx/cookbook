@@ -47,6 +47,20 @@ app.get('/api/v1/categories', (req, res)=> {
     });
 });
 
+app.get('/api/v1/categories/:category', (req, res)=> {
+  MongoClient
+    .connect(dbUrl)
+    .then((db)=> {
+      dal.searchCategories(db, req.params.category, (docs)=> {
+        db.close();
+        res.status(200).send(docs);
+      });
+    })
+    .catch((err)=> {
+      errorHandler(err, res);
+    });
+});
+
 app.post('/api/v1/categories', (req, res) => {
   let category = req.body.category;
   MongoClient

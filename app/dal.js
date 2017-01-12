@@ -2,7 +2,15 @@ const assert = require('assert');
 
 function findCategories(db, callback) {
   var collection = db.collection('categories');
-  collection.find().toArray((err, docs)=> {
+  collection.find().sort({category: 1}).toArray((err, docs)=> {
+    assert.equal(err, null);
+    callback(docs);
+  });
+}
+
+function searchCategories(db, category, callback) {
+  var collection = db.collection('categories');
+  collection.find({category}).toArray((err, docs)=> {
     assert.equal(err, null);
     callback(docs);
   });
@@ -11,7 +19,7 @@ function findCategories(db, callback) {
 function insertCategory(db, category, callback) {
   let collection = db.collection('categories');
   let categoryObj = {
-    _id: category.split(' ').join('').toLowerCase(),
+    // _id: category.split(' ').join('').toLowerCase(),
     category
   };
 
@@ -29,9 +37,9 @@ function insertRecipe(doc, db, callback) {
   });
 }
 
-function findRecipesInCategory(db, category, callback) {
+function findRecipesInCategory(db, categoryId, callback) {
   var collection = db.collection('recipes');
-  collection.find({'category': category}).toArray((err, docs)=> {
+  collection.find({'category': categoryId}).toArray((err, docs)=> {
     assert.equal(err, null);
     callback(docs);
   });
@@ -55,7 +63,7 @@ function updateRecipe(id, doc, db, callback) {
 }
 
 function drop(db, callback) {
-  var collection = db.collection('categories');
+  var collection = db.collection('recipes');
   collection.drop((err, result)=> {
     assert.equal(err, null);
     callback(result);
@@ -66,6 +74,7 @@ module.exports = {
   insertCategory,
   insertRecipe,
   findCategories,
+  searchCategories,
   findRecipesInCategory,
   findRecipe,
   updateRecipe,

@@ -30,14 +30,14 @@ class CategoryList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="sectionBody">
         <Link to="/categories/new">Add category</Link>
         <div className="categoryList">
           <ul>
             {
               this.state.categories.map((category)=> {
-                let label = capitalize(category._id);
-                let url = '/categories/' + label;
+                let label = capitalize(category.category);
+                let url = '/categories/' + category._id + '/recipes';
                 return (
                   <li key={category._id}>
                     <Link to={url} className="category">{label}</Link>

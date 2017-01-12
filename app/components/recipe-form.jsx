@@ -6,19 +6,6 @@ import request from 'superagent';
 class RecipeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      categories: []
-    };
-  }
-
-  componentDidMount() {
-    request.get('/api/v1/categories')
-      .set('Accept', 'application/json')
-      .end((err, response)=> {
-        this.setState({
-          categories: response.body
-        });
-      });
   }
 
   render() {
@@ -31,9 +18,9 @@ class RecipeForm extends React.Component {
           </div>
           <div className="formEntry">
             <h2>Category</h2>
-            <select value={this.props.category} onChange={this.props.handleCategoryChange}>
+            <select name="category" value={this.props.category} onChange={this.props.handleChange}>
               {
-                this.state.categories.map((category) => {
+                this.props.categoryList.map((category) => {
                   return (
                     <option value={category._id} key={category._id}>{category.category}</option>
                   );
