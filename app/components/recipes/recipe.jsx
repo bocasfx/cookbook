@@ -24,7 +24,7 @@ class Recipe extends React.Component {
 
   render() {
 
-    let editUrl = '/edit/' + this.props.params.recipeid;
+    let editUrl = '/categories/' + this.props.params.categoryid + '/recipes/edit/' + this.props.params.recipeid;
     let headerStyle = {
       backgroundImage: 'url(' + this.state.recipe.imagePath + ')'
     };

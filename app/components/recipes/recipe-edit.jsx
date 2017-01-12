@@ -3,7 +3,7 @@ import RecipeForm from './recipe-form.jsx';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
 
-class Edit extends React.Component {
+class RecipeEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,4 +68,4 @@ class Edit extends React.Component {
   }
 }
 
-module.exports = Edit;
+module.exports = RecipeEdit;

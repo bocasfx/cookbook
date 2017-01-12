@@ -17,18 +17,6 @@ class RecipeForm extends React.Component {
             <input name="title" type="text" value={this.props.title} onChange={this.props.handleChange}/>
           </div>
           <div className="formEntry">
-            <h2>Category</h2>
-            <select name="category" value={this.props.category} onChange={this.props.handleChange}>
-              {
-                this.props.categoryList.map((category) => {
-                  return (
-                    <option value={category._id} key={category._id}>{category.category}</option>
-                  );
-                })
-              }
-            </select>
-          </div>
-          <div className="formEntry">
             <h2>Image</h2>
             <Dropzone className="dropzone" ref={(node) => { this.dropzone = node; }} onDrop={this.props.onDrop}>
               {(this.props.images && this.props.images.length > 0) ? <div>{this.props.images.map((image) => <img name="image" className="newRecipeImage" key={image.name} src={image.preview} /> )}</div> : <div className="newRecipeImage"><FontAwesome className="imageIcon" name='picture-o'/></div>}
