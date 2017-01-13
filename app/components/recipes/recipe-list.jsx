@@ -33,7 +33,9 @@ class RecipeList extends React.Component {
     let newUrl = '/categories/' + this.props.params.categoryid + '/recipes/new';
     return (
       <div className="sectionBody">
-        <Link to={newUrl}>Add recipe</Link>
+        <div className="centered">
+          <Link className="add" to={newUrl}><FontAwesome name="plus-circle"/> Add Recipe</Link>
+        </div>
         <ul>
           {
             this.state.recipes.map((recipe)=> {

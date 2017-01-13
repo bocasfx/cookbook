@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import capitalize from 'capitalize';
 import request from 'superagent';
+import FontAwesome from 'react-fontawesome';
 
 class CategoryList extends React.Component {
   constructor(props) {
@@ -31,7 +32,9 @@ class CategoryList extends React.Component {
   render() {
     return (
       <div className="sectionBody">
-        <Link to="/categories/new">Add category</Link>
+        <div className="centered">
+          <Link className="add" to="/categories/new"><FontAwesome name="plus-circle"/> Add Category</Link>
+        </div>
         <div className="categoryList">
           <ul>
             {

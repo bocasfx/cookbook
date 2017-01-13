@@ -18,11 +18,13 @@ a:hover {
 
 ul {
   padding: 0;
+  column-count: 2;
+  font-family: 'Rock Salt', cursive;
 }
 
 ul li {
   list-style-type: none;
-  line-height: 1.5em;
+  margin-bottom: 15px;
 }
 
 ol li {
@@ -40,7 +42,7 @@ h2 {
 }
 
 pre{
-    white-space: pre-wrap;
+  white-space: pre-wrap;
 }
 
 header {
@@ -89,6 +91,10 @@ footer {
 
 /* Recipe */
 
+.recipe {
+  font-weight: bold;
+}
+
 .recipeTitle {
   font-size: 36px;
   margin: 50px 0 25px 0;
@@ -124,9 +130,8 @@ footer {
 }
 
 .preFormatted {
-  font-family: inherit;
+  font-family: 'Anonymous Pro', monospace;
   font-size: 1em;
-  
 }
 
 .category {
@@ -147,7 +152,7 @@ footer {
 }
 
 .submit {
-  background-color: dimgray;
+  background-color: mistyrose;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius:6px;
@@ -162,7 +167,7 @@ footer {
 
 .submit:hover {
   border: none;
-  background-color: mistyrose;
+  background-color: dimgray;
 }
 
 .disabled,
@@ -183,6 +188,8 @@ footer {
   height: 50%;
   border-color: #ccc;
   height: 200px;
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 1em;
 }
 
 .dropzone {
@@ -246,4 +253,16 @@ footer {
 .backButton {
   display: block;
   margin-top: 40px;
+}
+
+.add {
+  color: mistyrose;
+}
+
+.add:hover {
+  color: dimgray;
+}
+
+.centered {
+  text-align: center;
 }

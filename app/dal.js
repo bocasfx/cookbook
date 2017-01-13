@@ -19,7 +19,6 @@ function searchCategories(db, category, callback) {
 function insertCategory(db, category, callback) {
   let collection = db.collection('categories');
   let categoryObj = {
-    // _id: category.split(' ').join('').toLowerCase(),
     category
   };
 
@@ -55,7 +54,13 @@ function findRecipe(id, db, callback) {
 
 function updateRecipe(id, doc, db, callback) {
   var collection = db.collection('recipes');
-  collection.updateOne({_id: id}, { $set: { title: doc.title, category: doc.category, description: doc.description, imagePath: doc.imagePath } }, (err, result)=> {
+  let recipe = { 
+    title: doc.title,
+    category: doc.category,
+    description: doc.description,
+    imagePath: doc.imagePath
+  };
+  collection.updateOne({_id: id}, { $set: recipe }, (err, result)=> {
     assert.equal(err, null);
     assert.equal(1, result.result.n);
     callback(result);
