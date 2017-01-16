@@ -1,11 +1,13 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
+import { browserHistory } from 'react-router';
 
 class RecipeForm extends React.Component {
   constructor(props) {
     super(props);
     this.showImage = this.showImage.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   showImage() {
@@ -24,6 +26,10 @@ class RecipeForm extends React.Component {
         <div className="newRecipeImage"><FontAwesome className="imageIcon" name='picture-o'/></div>
       );
     }
+  }
+
+  onCancel() {
+    browserHistory.push(this.props.cancelUrl);
   }
 
   render() {
@@ -48,7 +54,10 @@ class RecipeForm extends React.Component {
             <h2>Description</h2>
             <textarea name="description" type="text" className="recipeTextArea" value={this.props.description} onChange={this.props.handleChange}/>
           </div>
-          <input type="submit" className="submit" value="Add"/>
+          <div className="right">
+            <input type="button" className="submit" value="Cancel" onClick={this.onCancel}/>
+            <input type="submit" className="submit" value="Add"/>
+          </div>
         </form>
       </div>
     );

@@ -1,6 +1,8 @@
 import React from 'react';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
+import FontAwesome from 'react-fontawesome';
 
 class NewCategory extends React.Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class NewCategory extends React.Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   onSubmit(event) {
@@ -52,6 +55,11 @@ class NewCategory extends React.Component {
     this.textInput.focus();
   }
 
+  onClick(event) {
+    event.preventDefault();
+    browserHistory.push('/');
+  }
+
   render() {
     let disabled = {};
     let className = 'submit';
@@ -70,21 +78,26 @@ class NewCategory extends React.Component {
     }
 
     return (
-      <div className="NewCategory">
-        <form onSubmit={this.onSubmit}>
-          <span>New category </span>
-          <input 
-            ref={(input) => {
-              this.textInput = input;
-            }}
-            type="text"
-            name="category"
-            value={this.state.category}
-            onChange={this.onChange}
-            autoComplete="off"/>
-          <div><input type="submit" className={className} value="Add" {...disabled}/></div>
-        </form>
-        <div className="warning">{warningMessage}</div>
+      <div>
+        <div className="newCategory">
+          <form onSubmit={this.onSubmit}>
+            <span>New category </span>
+            <input 
+              ref={(input) => {
+                this.textInput = input;
+              }}
+              type="text"
+              name="category"
+              value={this.state.category}
+              onChange={this.onChange}
+              autoComplete="off"/>
+            <div>
+              <input type="submit" className={className} value="Add" {...disabled}/>
+              <input type="button" className="submit" value="Cancel" onClick={this.onClick}/>
+            </div>
+          </form>
+          <div className="warning">{warningMessage}</div>
+        </div>
       </div>
     );
   }

@@ -69,6 +69,7 @@ class RecipeEdit extends React.Component {
   }
 
   render() {
+    let cancelUrl = '/categories/' + this.state.category + '/recipes/' + this.props.params.recipeid;
     return (
       <RecipeForm 
         title={this.state.title}
@@ -77,7 +78,8 @@ class RecipeEdit extends React.Component {
         images={this.state.images}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
-        onDrop={this.onDrop}/>
+        onDrop={this.onDrop}
+        cancelUrl={cancelUrl}/>
     );
   }
 }

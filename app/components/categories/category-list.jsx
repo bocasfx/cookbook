@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import capitalize from 'capitalize';
 import request from 'superagent';
-import FontAwesome from 'react-fontawesome';
 
 class CategoryList extends React.Component {
   constructor(props) {
@@ -31,24 +30,26 @@ class CategoryList extends React.Component {
 
   render() {
     return (
-      <div className="sectionBody">
-        <div className="centered">
-          <Link className="add" to="/categories/new"><FontAwesome name="plus-circle"/> Add Category</Link>
+      <div>
+        <div className="subheader">
+          <Link className="add" to="/categories/new">Add Category</Link>
         </div>
-        <div className="categoryList">
-          <ul>
-            {
-              this.state.categories.map((category)=> {
-                let label = capitalize(category.category);
-                let url = '/categories/' + category._id + '/recipes';
-                return (
-                  <li key={category._id}>
-                    <Link to={url} className="category">{label}</Link>
-                  </li>
-                );
-              })
-            }
-          </ul>
+        <div className="sectionBody">
+          <div className="categoryList">
+            <ul>
+              {
+                this.state.categories.map((category)=> {
+                  let label = capitalize(category.category);
+                  let url = '/categories/' + category._id + '/recipes';
+                  return (
+                    <li className="category" key={category._id}>
+                      <Link to={url}>{label}</Link>
+                    </li>
+                  );
+                })
+              }
+            </ul>
+          </div>
         </div>
       </div>
     );

@@ -53,6 +53,7 @@ class NewRecipe extends React.Component {
   }
 
   render() {
+    let cancelUrl = '/categories/' + this.state.category + '/recipes';
     return (
       <RecipeForm 
         title={this.state.title}
@@ -62,7 +63,7 @@ class NewRecipe extends React.Component {
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
         images={this.state.images}
-      />
+        cancelUrl={cancelUrl}/>
     );
   }
 }

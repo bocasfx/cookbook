@@ -1,7 +1,7 @@
 
 
 html body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Amatic SC', cursive;
   color: dimgray;
   width: 100%;
   margin: 0;
@@ -18,13 +18,13 @@ a:hover {
 
 ul {
   padding: 0;
-  column-count: 2;
-  font-family: 'Rock Salt', cursive;
+  text-align: center;
 }
 
 ul li {
   list-style-type: none;
   margin-bottom: 15px;
+  font-size: 2em;
 }
 
 ol li {
@@ -38,7 +38,8 @@ input {
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 2em;
+  font-weight: normal;
 }
 
 pre{
@@ -68,7 +69,7 @@ footer {
 }
 
 .maintitle {
-  font-size: 24px;
+  font-size: 2em;
   font-weight: 900;
   padding: 10px 0;
 }
@@ -92,13 +93,14 @@ footer {
 /* Recipe */
 
 .recipe {
-  font-weight: bold;
+  font-weight: normal;
+  margin-top: 30px;
 }
 
 .recipeTitle {
-  font-size: 36px;
-  margin: 50px 0 25px 0;
-  text-transform: uppercase;
+  font-size: 3em;
+  margin: 50px 0 70px 0;
+  text-align: center;
 }
 
 .recipeHeader {
@@ -106,18 +108,28 @@ footer {
   margin-top: 25px;
   width: 100%;
   color: dimgray;
-  text-align: center;
+  display: table;
 }
 
 .recipeImage {
   margin: 25px 0 70px 0;
-  width: 100%;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   background-size: 100%;
-  background-position-y: 50%;
-  color: #ddd;
-  display: flex;
-  max-height: 290px;
+  background-position: 50%;
+  max-height: 250px;
+  max-width: 250px;
+  -webkit-box-shadow: 2px 2px 7px 0px rgba(117,117,117,1);
+  -moz-box-shadow: 2px 2px 7px 0px rgba(117,117,117,1);
+  box-shadow: 2px 2px 7px 0px rgba(117,117,117,1);
+  border: 7px solid white;
+  float: right;
+  max-width: 50%;
+}
+
+.recipeIngredients {
+  float: left;
+  max-width: 50%;
 }
 
 .recipeBody {
@@ -131,13 +143,12 @@ footer {
 
 .preFormatted {
   font-family: 'Anonymous Pro', monospace;
-  font-size: 1em;
+  font-size: 0.9em;
+  line-height: 2em;
 }
 
 .category {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 30px;
+  font-weight: normal;
 }
 
 /* New Recipe */
@@ -152,7 +163,7 @@ footer {
 }
 
 .submit {
-  background-color: mistyrose;
+  background-color: dimgray;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius:6px;
@@ -162,12 +173,18 @@ footer {
   cursor: pointer;
   border: none;
   width: 120px;
-  margin: 25px 0;
+  margin: 25px 0 25px 10px;
+  font-family: 'Amatic SC', cursive;
 }
 
 .submit:hover {
   border: none;
-  background-color: dimgray;
+  background-color: mistyrose;
+  color: dimgray;
+}
+
+.submit:focus {
+  outline: none;
 }
 
 .disabled,
@@ -215,7 +232,7 @@ footer {
 }
 
 .sectionBody {
-  margin: 70px auto;
+  margin: 50px auto;
   width: 640px;
 }
 
@@ -256,13 +273,25 @@ footer {
 }
 
 .add {
-  color: mistyrose;
-}
-
-.add:hover {
-  color: dimgray;
+  margin-left: auto;
 }
 
 .centered {
   text-align: center;
+}
+
+.subheader {
+  width: 640px;
+  margin: 10px auto;
+  font-size: 0.9em;
+  display: flex;
+}
+
+.right {
+  text-align: right;
+}
+
+.logo {
+  margin-left: 15px;
+  font-size: 0.9em;
 }
