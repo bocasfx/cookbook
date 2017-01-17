@@ -225,32 +225,6 @@ footer {
   width: 640px;
 }
 
-.newCategory {
-  margin: 70px auto;
-  width: 640px;
-}
-
-.newCategory span {
-  float: left;
-  margin-bottom: 25px;
-}
-
-.newCategory input {
-  width: 100%;
-}
-
-.newCategory .submit {
-  float: right;
-  width: 120px;
-}
-
-.warning {
-  position: fixed;
-  width: auto;
-  margin-top: 11px;
-  color: coral;
-}
-
 .nothing {
   margin: 70px 0;
   text-align: center;

@@ -1,8 +1,29 @@
 import React from 'react';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
-import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
+import Button from '../button.jsx';
+
+const styles = {
+  buttonBar: {
+    float: 'right'
+  },
+  warning: {
+    position: 'fixed',
+    width: 'auto',
+    marginTop: '25px',
+    color: 'coral'
+  },
+  container: {
+    margin: '70px 0'
+  }, 
+  title: {
+    float: 'left',
+    marginBottom: '25px'
+  },
+  input: {
+    width: '100%'
+  }
+};
 
 class NewCategory extends React.Component {
   constructor(props) {
@@ -14,12 +35,12 @@ class NewCategory extends React.Component {
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onClick = this.onClick.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
   onSubmit(event) {
     event.preventDefault();
-    request.post('/api/v1/categories')
+    request.post(this.props.categoriesUrl)
       .send(this.state)
       .end((err) => {
         browserHistory.push('/');
@@ -39,7 +60,7 @@ class NewCategory extends React.Component {
     }
 
     request
-      .get('/api/v1/categories/' + category)
+      .get(this.props.categoriesUrl + category)
       .set('Accept', 'application/json')
       .send({category})
       .end((err, response)=> {
@@ -51,27 +72,17 @@ class NewCategory extends React.Component {
   }
 
   componentDidMount() {
-    // Explicitly focus the text input using the raw DOM API
     this.textInput.focus();
   }
 
-  onClick(event) {
+  onCancel(event) {
     event.preventDefault();
-    browserHistory.push('/');
+    browserHistory.push(this.props.cancelUrl);
   }
 
   render() {
-    let disabled = {};
-    let className = 'submit';
+    let disabled = this.state.categoryList.length || !this.state.category.length;
     let warningMessage = '';
-
-    if (this.state.categoryList.length || !this.state.category.length) {
-      disabled = {
-        disabled: 'disabled'
-      };
-
-      className = 'submit disabled';
-    }
 
     if (this.state.categoryList.length) {
       warningMessage = 'Category already exists';
@@ -79,24 +90,23 @@ class NewCategory extends React.Component {
 
     return (
       <div>
-        <div className="newCategory">
-          <form onSubmit={this.onSubmit}>
-            <span>New category </span>
-            <input 
-              ref={(input) => {
-                this.textInput = input;
-              }}
-              type="text"
-              name="category"
-              value={this.state.category}
-              onChange={this.onChange}
-              autoComplete="off"/>
-            <div>
-              <input type="submit" className={className} value="Add" {...disabled}/>
-              <input type="button" className="submit" value="Cancel" onClick={this.onClick}/>
-            </div>
-          </form>
-          <div className="warning">{warningMessage}</div>
+        <div style={styles.container}>
+          <span style={styles.title}>New category </span>
+          <input 
+            ref={(input) => {
+              this.textInput = input;
+            }}
+            type="text"
+            name="category"
+            value={this.state.category}
+            onChange={this.onChange}
+            autoComplete="off"
+            style={styles.input}/>
+          <div style={styles.buttonBar}>
+            <Button type="submit" value="Add" onClick={this.onSubmit} disabled={disabled}/>
+            <Button type="button" value="Cancel" onClick={this.onCancel}/>
+          </div>
+          <div style={styles.warning}>{warningMessage}</div>
         </div>
       </div>
     );
