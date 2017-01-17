@@ -2,6 +2,7 @@ import React from 'react';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
 import RecipeForm from './recipe-form.jsx';
+import assert from 'assert';
 
 class NewRecipe extends React.Component {
   constructor(props) {
@@ -26,12 +27,16 @@ class NewRecipe extends React.Component {
 
     request.post('/api/v1/recipes')
       .attach('image', image, image.name)
-      .field('title', this.state.title)
-      .field('category', this.state.category)
-      .field('ingredients', this.state.ingredients)
-      .field('description', this.state.description)
-      .end((err) => {
-        browserHistory.push('/');
+      .field({
+        title: this.state.title,
+        category: this.state.category,
+        ingredients: this.state.ingredients,
+        description: this.state.description
+      })
+      .end((err, response) => {
+        assert.equal(err, null);
+        let recipeId = response.body.insertedIds[0];
+        browserHistory.push('/categories/' + this.state.category + '/recipes/' + recipeId);
       });
   }
 
@@ -63,7 +68,8 @@ class NewRecipe extends React.Component {
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
         images={this.state.images}
-        cancelUrl={cancelUrl}/>
+        cancelUrl={cancelUrl}
+        submitLabel="Add"/>
     );
   }
 }

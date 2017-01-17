@@ -54,12 +54,10 @@ function findRecipe(id, db, callback) {
 
 function updateRecipe(id, doc, db, callback) {
   var collection = db.collection('recipes');
-  let recipe = { 
-    title: doc.title,
-    category: doc.category,
-    description: doc.description,
-    imagePath: doc.imagePath
-  };
+  let recipe = {};
+  Object.keys(doc).forEach((key) => {
+    recipe[key] = doc[key];
+  });
   collection.updateOne({_id: id}, { $set: recipe }, (err, result)=> {
     assert.equal(err, null);
     assert.equal(1, result.result.n);
@@ -69,9 +67,12 @@ function updateRecipe(id, doc, db, callback) {
 
 function drop(db, callback) {
   var collection = db.collection('recipes');
-  collection.drop((err, result)=> {
+  collection.drop((err)=> {
     assert.equal(err, null);
-    callback(result);
+    var categories = db.collection('categories');
+    categories.drop((err2, result) => {
+      callback(result);
+    });
   });    
 }
 

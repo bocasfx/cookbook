@@ -113,12 +113,6 @@ footer {
 
 .recipeImage {
   margin: 25px 0 70px 0;
-  width: 250px;
-  height: 250px;
-  background-size: 100%;
-  background-position: 50%;
-  max-height: 250px;
-  max-width: 250px;
   -webkit-box-shadow: 2px 2px 7px 0px rgba(117,117,117,1);
   -moz-box-shadow: 2px 2px 7px 0px rgba(117,117,117,1);
   box-shadow: 2px 2px 7px 0px rgba(117,117,117,1);
@@ -163,7 +157,7 @@ footer {
 }
 
 .submit {
-  background-color: dimgray;
+  background-color: silver;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius:6px;

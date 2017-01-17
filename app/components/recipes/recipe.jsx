@@ -2,7 +2,6 @@ import React from 'react';
 import request from 'superagent';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
-import Breadcrumbs from 'react-breadcrumbs';
 
 class Recipe extends React.Component {
   constructor(props) {
@@ -31,14 +30,21 @@ class Recipe extends React.Component {
   render() {
 
     let editUrl = '/categories/' + this.props.params.categoryid + '/recipes/edit/' + this.props.params.recipeid;
-    let backUrl = '/categories/' + this.props.params.categoryid + '/recipes';
     let headerStyle = {
-      backgroundImage: 'url(' + this.state.recipe.imagePath + ')'
+      backgroundImage: 'url(' + this.state.recipe.imagePath + ')',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center center',
+      width: '300px',
+      height: '200px'
     };
+
+    let recipesUrl = '/categories/' + this.props.params.categoryid + '/recipes';
 
     return (
       <div>
         <div className="subheader">
+          <Link to={recipesUrl}>Recipes</Link>
           <Link className="add" to={editUrl}>Edit</Link>
         </div>
         <div className="sectionBody">

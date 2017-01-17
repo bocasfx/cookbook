@@ -13,19 +13,33 @@ class RecipeForm extends React.Component {
   showImage() {
     let images = this.props.images;
 
-    if (typeof images[0] === 'string') {
-      return (
-        <img name="image" className="newRecipeImage" src={images[0]} />
-      );
-    } else if (images.length > 0) {
-      return (
-        <div>{this.props.images.map((image) => <img name="image" className="newRecipeImage" key={image.name} src={image.preview} /> )}</div>  
-      );
-    } else {
-      return (
+    if (images.length === 0) {
+    return (
         <div className="newRecipeImage"><FontAwesome className="imageIcon" name='picture-o'/></div>
       );
     }
+
+    let imageSrc = '';
+
+    if (typeof images[0] === 'string') {
+      imageSrc = images[0];
+    } else {
+      imageSrc = images[0].preview;
+    }
+
+    let imgStyle = {
+      backgroundImage: 'url(' + imageSrc + ')',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center center',
+      width: '300px',
+      height: '200px'
+    };
+
+    return (
+      <div name="image" className="newRecipeImage" style={imgStyle}></div>
+    );
+    
   }
 
   onCancel() {
@@ -56,7 +70,7 @@ class RecipeForm extends React.Component {
           </div>
           <div className="right">
             <input type="button" className="submit" value="Cancel" onClick={this.onCancel}/>
-            <input type="submit" className="submit" value="Add"/>
+            <input type="submit" className="submit" value={this.props.submitLabel}/>
           </div>
         </form>
       </div>

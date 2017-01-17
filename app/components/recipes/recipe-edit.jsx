@@ -58,7 +58,7 @@ class RecipeEdit extends React.Component {
       .field('ingredients', this.state.ingredients)
       .field('description', this.state.description)
       .end((err) => {
-        browserHistory.push('/');
+        browserHistory.push('/categories/' + this.state.category + '/recipes/' + this.props.params.recipeid);
       });
   }
 
@@ -79,7 +79,8 @@ class RecipeEdit extends React.Component {
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
-        cancelUrl={cancelUrl}/>
+        cancelUrl={cancelUrl}
+        submitLabel="Save"/>
     );
   }
 }

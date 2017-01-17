@@ -111,9 +111,9 @@ app.post('/api/v1/recipes', upload.single('image'), (req, res)=> {
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
-      dal.insertRecipe(recipe, db, ()=> {
+      dal.insertRecipe(recipe, db, (result)=> {
         db.close();
-        res.status(201).send('Recipe added.');
+        res.status(201).send(result);
       });
     })
     .catch((err)=> {
@@ -124,13 +124,16 @@ app.post('/api/v1/recipes', upload.single('image'), (req, res)=> {
 app.patch('/api/v1/recipes/:id', upload.single('image'), (req, res)=> {
 
   let recipe = req.body;
-  recipe.imagePath = '/images/' + path.basename(req.file.path);
+  if (req.file) {
+    recipe.imagePath = '/images/' + path.basename(req.file.path);
+  }
+
   MongoClient
     .connect(dbUrl)
     .then((db)=> {
-      dal.updateRecipe(ObjectID(req.params.id), recipe, db, ()=> { // eslint-disable-line new-cap
+      dal.updateRecipe(ObjectID(req.params.id), recipe, db, (result)=> { // eslint-disable-line new-cap
         db.close();
-        res.status(201).send('PUT request to homepage');
+        res.status(201).send(result);
       });
     })
     .catch((err)=> {
