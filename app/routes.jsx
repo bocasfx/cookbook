@@ -5,7 +5,7 @@ import RecipeNew from './components/recipes/recipe-new.jsx';
 import RecipeEdit from './components/recipes/recipe-edit.jsx';
 import Layout from './components/layout.jsx';
 import IndexPage from './components/index-page.jsx';
-import RecipeList from './components/recipes/recipe-list.jsx';
+import RecipeListContainer from './components/recipes/recipe-list-container.jsx';
 import CategoryNew from './components/categories/category-new.jsx';
 
 const routes = (
@@ -16,7 +16,7 @@ const routes = (
       <Route name="Recipe" path="/categories/:categoryid/recipes/:recipeid" component={Recipe} staticName={true}/>
       <Route name="Edit Recipe" path="/categories/:categoryid/recipes/edit/:recipeid" component={RecipeEdit}/>
       <Route name="New Category" path="/categories/new" component={CategoryNew}/>
-      <Route name="Recipes" path="/categories/:categoryid/recipes" component={RecipeList}/>
+      <Route name="Recipes" path="/categories/:categoryid/recipes" component={RecipeListContainer}/>
     </Route>
   </div>
 );
