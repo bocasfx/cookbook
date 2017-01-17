@@ -2,12 +2,49 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
 import { browserHistory } from 'react-router';
+import Button from '../button.jsx';
+
+const styles = {
+  formEntry: {
+    marginTop: '50px'
+  },
+  dropzone: {
+    width: '300px',
+    height: '200px',
+    border: '1px solid #ccc',
+    marginBottom: '25px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: '2px 2px 7px 0px rgba(117,117,117,1)',
+    border: '7px solid white',
+    backgroundColor: '#eee'
+  },
+  image: {
+    maxHeight: '190px'
+  },
+  icon: {
+    fontSize: '2em'
+  },
+  buttonBar: {
+    textAlign: 'right'
+  },
+  textArea: {
+    width: '100%',
+    height: '50%',
+    borderColor: '#ccc',
+    height: '200px',
+    fontFamily: '\'Anonymous Pro\', monospace',
+    fontSize: '1em'
+  }
+};
 
 class RecipeForm extends React.Component {
   constructor(props) {
     super(props);
     this.showImage = this.showImage.bind(this);
     this.onCancel = this.onCancel.bind(this);
+    this.getRef = this.getRef.bind(this);
   }
 
   showImage() {
@@ -15,7 +52,7 @@ class RecipeForm extends React.Component {
 
     if (images.length === 0) {
     return (
-        <div className="newRecipeImage"><FontAwesome className="imageIcon" name='picture-o'/></div>
+        <div style={styles.image}><FontAwesome style={styles.icon} name='picture-o'/></div>
       );
     }
 
@@ -37,7 +74,7 @@ class RecipeForm extends React.Component {
     };
 
     return (
-      <div name="image" className="newRecipeImage" style={imgStyle}></div>
+      <div name="image" style={imgStyle}></div>
     );
     
   }
@@ -46,33 +83,35 @@ class RecipeForm extends React.Component {
     browserHistory.push(this.props.cancelUrl);
   }
 
+  getRef(node) { 
+    this.dropzone = node; 
+  }
+
   render() {
     return (
-      <div className="recipeForm">
-        <form onSubmit={this.props.handleSubmit}>
-          <div className="formEntry">
-            <h2>Title</h2>
-            <input name="title" type="text" value={this.props.title} onChange={this.props.handleChange}/>
-          </div>
-          <div className="formEntry">
-            <h2>Image</h2>
-            <Dropzone className="dropzone" ref={(node) => { this.dropzone = node; }} onDrop={this.props.onDrop}>
-              {this.showImage()}
-            </Dropzone>
-          </div>
-          <div className="formEntry">
-            <h2>Ingredients</h2>
-            <textarea name="ingredients" type="text" className="recipeTextArea" value={this.props.ingredients} onChange={this.props.handleChange}/>
-          </div>
-          <div className="formEntry">
-            <h2>Description</h2>
-            <textarea name="description" type="text" className="recipeTextArea" value={this.props.description} onChange={this.props.handleChange}/>
-          </div>
-          <div className="right">
-            <input type="button" className="submit" value="Cancel" onClick={this.onCancel}/>
-            <input type="submit" className="submit" value={this.props.submitLabel}/>
-          </div>
-        </form>
+      <div>
+        <div style={styles.formEntry}>
+          <h2>Title</h2>
+          <input name="title" type="text" value={this.props.title} onChange={this.props.handleChange}/>
+        </div>
+        <div style={styles.formEntry}>
+          <h2>Image</h2>
+          <Dropzone style={styles.dropzone} ref={this.getRef} onDrop={this.props.onDrop}>
+            {this.showImage()}
+          </Dropzone>
+        </div>
+        <div style={styles.formEntry}>
+          <h2>Ingredients</h2>
+          <textarea name="ingredients" type="text" style={styles.textArea} value={this.props.ingredients} onChange={this.props.handleChange}/>
+        </div>
+        <div style={styles.formEntry}>
+          <h2>Description</h2>
+          <textarea name="description" type="text" style={styles.textArea} value={this.props.description} onChange={this.props.handleChange}/>
+        </div>
+        <div style={styles.buttonBar}>
+          <Button type="button" value="Cancel" onClick={this.onCancel}/>
+          <Button type="submit" value={this.props.submitLabel} onClick={this.props.handleSubmit}/>
+        </div>
       </div>
     );
   }
