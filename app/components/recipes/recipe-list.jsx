@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import capitalize from 'capitalize';
 import request from 'superagent';
+import Subheader from '../subheader.jsx';
 
 class RecipeList extends React.Component {
   constructor(props) {
@@ -32,9 +33,7 @@ class RecipeList extends React.Component {
     let newUrl = '/categories/' + this.props.params.categoryid + '/recipes/new';
     return (
       <div>
-        <div className="subheader">
-          <Link className="add" to={newUrl}>Add Recipe</Link>
-        </div>
+        <Subheader rightUrl={newUrl} rightLabel="Add Recipe"/>
         <div className="sectionBody">
           <ul>
             {

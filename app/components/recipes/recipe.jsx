@@ -2,6 +2,7 @@ import React from 'react';
 import request from 'superagent';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
+import Subheader from '../subheader.jsx';
 
 class Recipe extends React.Component {
   constructor(props) {
@@ -43,10 +44,7 @@ class Recipe extends React.Component {
 
     return (
       <div>
-        <div className="subheader">
-          <Link to={recipesUrl}>Recipes</Link>
-          <Link className="add" to={editUrl}>Edit</Link>
-        </div>
+        <Subheader leftUrl={recipesUrl} leftLabel="Recipes" rightUrl={editUrl} rightLabel="Edit"/>
         <div className="sectionBody">
           <div className="recipeTitle">{this.state.recipe.title}</div>
           <div className="recipeHeader" >

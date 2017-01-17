@@ -266,19 +266,8 @@ footer {
   margin-top: 40px;
 }
 
-.add {
-  margin-left: auto;
-}
-
 .centered {
   text-align: center;
-}
-
-.subheader {
-  width: 640px;
-  margin: 10px auto;
-  font-size: 0.9em;
-  display: flex;
 }
 
 .right {
