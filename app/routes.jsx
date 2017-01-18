@@ -7,16 +7,21 @@ import Layout from './components/layout.jsx';
 import IndexPage from './components/index-page.jsx';
 import RecipeListContainer from './components/recipes/recipe-list-container.jsx';
 import CategoryNewContainer from './components/categories/category-new-container.jsx';
+import EnsureLoggedInContainer from './components/ensure-logged-in-container.jsx';
+import Login from './components/login.jsx';
 
 const routes = (
   <div>
     <Route name="Home" path="/" component={Layout}>
       <IndexRoute component={IndexPage}/>
-      <Route name="New Recipe" path="/categories/:categoryid/recipes/new" component={RecipeNew}/>
+      <Route component={EnsureLoggedInContainer}>
+        <Route name="New Recipe" path="/categories/:categoryid/recipes/new" component={RecipeNew}/>
+        <Route name="New Category" path="/categories/new" component={CategoryNewContainer}/>
+      </Route>
       <Route name="Recipe" path="/categories/:categoryid/recipes/:recipeid" component={RecipeContainer} staticName={true}/>
       <Route name="Edit Recipe" path="/categories/:categoryid/recipes/edit/:recipeid" component={RecipeEdit}/>
-      <Route name="New Category" path="/categories/new" component={CategoryNewContainer}/>
       <Route name="Recipes" path="/categories/:categoryid/recipes" component={RecipeListContainer}/>
+      <Route name="Login" path="/login" component={Login}/>
     </Route>
   </div>
 );

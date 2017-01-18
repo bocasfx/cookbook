@@ -21,7 +21,9 @@ const styles = {
     marginBottom: '25px'
   },
   input: {
-    width: '100%'
+    width: '100%',
+    outline: 'none',
+    paddingLeft: '7px'
   }
 };
 
@@ -89,25 +91,23 @@ class NewCategory extends React.Component {
     }
 
     return (
-      <div>
-        <div style={styles.container}>
-          <span style={styles.title}>New category </span>
-          <input 
-            ref={(input) => {
-              this.textInput = input;
-            }}
-            type="text"
-            name="category"
-            value={this.state.category}
-            onChange={this.onChange}
-            autoComplete="off"
-            style={styles.input}/>
-          <div style={styles.buttonBar}>
-            <Button type="button" value="Cancel" onClick={this.onCancel}/>
-            <Button type="submit" value="Add" onClick={this.onSubmit} disabled={disabled}/>
-          </div>
-          <div style={styles.warning}>{warningMessage}</div>
+      <div style={styles.container}>
+        <span style={styles.title}>New category </span>
+        <input 
+          ref={(input) => {
+            this.textInput = input;
+          }}
+          type="text"
+          name="category"
+          value={this.state.category}
+          onChange={this.onChange}
+          autoComplete="off"
+          style={styles.input}/>
+        <div style={styles.buttonBar}>
+          <Button type="button" value="Cancel" onClick={this.onCancel}/>
+          <Button type="submit" value="Add" onClick={this.onSubmit} disabled={disabled}/>
         </div>
+        <div style={styles.warning}>{warningMessage}</div>
       </div>
     );
   }

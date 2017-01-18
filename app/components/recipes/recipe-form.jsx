@@ -35,7 +35,13 @@ const styles = {
     borderColor: '#ccc',
     height: '200px',
     fontFamily: '\'Anonymous Pro\', monospace',
-    fontSize: '1em'
+    fontSize: '1em',
+    outline: 'none',
+    padding: '7px'
+  },
+  input: {
+    outline: 'none',
+    paddingLeft: '7px'
   }
 };
 
@@ -92,7 +98,7 @@ class RecipeForm extends React.Component {
       <div>
         <div style={styles.formEntry}>
           <h2>Title</h2>
-          <input name="title" type="text" value={this.props.title} onChange={this.props.handleChange}/>
+          <input style={styles.input} name="title" type="text" value={this.props.title} onChange={this.props.handleChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Image</h2>
