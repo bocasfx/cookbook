@@ -103,8 +103,8 @@ class NewCategory extends React.Component {
             autoComplete="off"
             style={styles.input}/>
           <div style={styles.buttonBar}>
-            <Button type="submit" value="Add" onClick={this.onSubmit} disabled={disabled}/>
             <Button type="button" value="Cancel" onClick={this.onCancel}/>
+            <Button type="submit" value="Add" onClick={this.onSubmit} disabled={disabled}/>
           </div>
           <div style={styles.warning}>{warningMessage}</div>
         </div>
