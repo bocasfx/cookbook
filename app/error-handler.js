@@ -1,6 +1,5 @@
-const errorHandler = (err, res)=> {
+const errorHandler = (err)=> {
   console.log(err);
-  res.status(500).send('Whoops!');
 };
 
 module.exports = errorHandler;

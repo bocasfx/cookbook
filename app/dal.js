@@ -28,9 +28,9 @@ function insertCategory(db, category, callback) {
   });
 }
 
-function insertRecipe(doc, db, callback) {
+function insertRecipe(db, recipe, callback) {
   var collection = db.collection('recipes');
-  collection.insert(doc, (err, result)=> {
+  collection.insert(recipe, (err, result)=> {
     assert.equal(err, null);
     callback(result);
   });
@@ -44,7 +44,7 @@ function findRecipesInCategory(db, categoryId, callback) {
   });
 }
 
-function findRecipe(id, db, callback) {
+function findRecipe(db, id, callback) {
   var collection = db.collection('recipes');
   collection.find({_id: id}).toArray((err, docs)=> {
     assert.equal(err, null);
@@ -52,13 +52,13 @@ function findRecipe(id, db, callback) {
   });
 }
 
-function updateRecipe(id, doc, db, callback) {
+function updateRecipe(db, id, recipe, callback) {
   var collection = db.collection('recipes');
-  let recipe = {};
-  Object.keys(doc).forEach((key) => {
-    recipe[key] = doc[key];
+  let newRecipe = {};
+  Object.keys(recipe).forEach((key) => {
+    newRecipe[key] = recipe[key];
   });
-  collection.updateOne({_id: id}, { $set: recipe }, (err, result)=> {
+  collection.updateOne({_id: id}, { $set: newRecipe }, (err, result)=> {
     assert.equal(err, null);
     assert.equal(1, result.result.n);
     callback(result);

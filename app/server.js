@@ -1,6 +1,6 @@
 import path from 'path';
 import Express from 'express';
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes.jsx';
@@ -23,6 +23,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({ storage: storage });
 const dbUrl = 'mongodb://localhost:27017/recipes';
+const urlPrefix = '/api/v1';
 
 const app = new Express();
 app.set('view engine', 'ejs');
@@ -31,128 +32,92 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json({limit: '50mb'}));
 
-// Categories
-
-app.get('/api/v1/categories', (req, res)=> {
+function connect(callback) {
   MongoClient
     .connect(dbUrl)
-    .then((db)=> {
-      dal.findCategories(db, (docs)=> {
-        db.close();
-        res.status(200).send(docs);
-      });
-    })
+    .then(callback)
     .catch((err)=> {
-      errorHandler(err, res);
+      errorHandler(err);
     });
+}
+
+app.get(urlPrefix + '/categories', (req, res)=> {
+  connect((db)=> {
+    dal.findCategories(db, (docs)=> {
+      db.close();
+      res.status(200).send(docs);
+    });
+  });
 });
 
-app.get('/api/v1/categories/:category', (req, res)=> {
-  MongoClient
-    .connect(dbUrl)
-    .then((db)=> {
-      dal.searchCategories(db, req.params.category, (docs)=> {
-        db.close();
-        res.status(200).send(docs);
-      });
-    })
-    .catch((err)=> {
-      errorHandler(err, res);
+app.get(urlPrefix + '/categories/:category', (req, res)=> {
+  connect((db)=> {
+    dal.searchCategories(db, req.params.category, (docs)=> {
+      db.close();
+      res.status(200).send(docs);
     });
+  });
 });
 
-app.post('/api/v1/categories', (req, res) => {
+app.post(urlPrefix + '/categories', (req, res) => {
   let category = req.body.category;
-  MongoClient
-    .connect(dbUrl)
-    .then((db) => {
-      dal.insertCategory(db, category, () => {
-        db.close();
-        res.status(200).send('Category added.');
-      });
-    })
-    .catch((err) => {
-      errorHandler(err, res);
+  connect((db) => {
+    dal.insertCategory(db, category, () => {
+      db.close();
+      res.status(200).send('Category added.');
     });
+  });
 });
 
-app.get('/api/v1/categories/:categoryid/recipes', (req, res) => {
-  MongoClient
-    .connect(dbUrl)
-    .then((db)=> {
-      dal.findRecipesInCategory(db, req.params.categoryid, (docs)=> {
-        db.close();
-        res.status(200).send(docs);
-      });
-    })
-    .catch((err)=> {
-      errorHandler(err, res);
+app.get(urlPrefix + '/categories/:categoryid/recipes', (req, res) => {
+  connect((db)=> {
+    dal.findRecipesInCategory(db, req.params.categoryid, (docs)=> {
+      db.close();
+      res.status(200).send(docs);
     });
+  });
 });
 
-app.get('/api/v1/recipes/:id', (req, res)=> {
-  MongoClient
-    .connect(dbUrl)
-    .then((db)=> {
-      dal.findRecipe(ObjectID(req.params.id), db, (docs)=> { // eslint-disable-line new-cap
-        db.close();
-        res.status(200).send(docs);
-      });
-    })
-    .catch((err)=> {
-      errorHandler(err, res);
+app.get(urlPrefix + '/recipes/:id', (req, res)=> {
+  connect((db)=> {
+    dal.findRecipe(db, ObjectID(req.params.id), (docs)=> { // eslint-disable-line new-cap
+      db.close();
+      res.status(200).send(docs);
     });
+  });
 });
 
-app.post('/api/v1/recipes', upload.single('image'), (req, res)=> {
-  
+app.post(urlPrefix + '/recipes', upload.single('image'), (req, res)=> {
   let recipe = req.body;
   recipe.imagePath = '/images/' + path.basename(req.file.path);
-  MongoClient
-    .connect(dbUrl)
-    .then((db)=> {
-      dal.insertRecipe(recipe, db, (result)=> {
-        db.close();
-        res.status(201).send(result);
-      });
-    })
-    .catch((err)=> {
-      errorHandler(err, res);
+  connect((db)=> {
+    dal.insertRecipe(db, recipe, (result)=> {
+      db.close();
+      res.status(201).send(result);
     });
+  });
 });
 
-app.patch('/api/v1/recipes/:id', upload.single('image'), (req, res)=> {
-
+app.patch(urlPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
   let recipe = req.body;
   if (req.file) {
     recipe.imagePath = '/images/' + path.basename(req.file.path);
   }
-
-  MongoClient
-    .connect(dbUrl)
-    .then((db)=> {
-      dal.updateRecipe(ObjectID(req.params.id), recipe, db, (result)=> { // eslint-disable-line new-cap
-        db.close();
-        res.status(201).send(result);
-      });
-    })
-    .catch((err)=> {
-      errorHandler(err, res);
+  connect((db)=> {
+    dal.updateRecipe(db, ObjectID(req.params.id), recipe, (result)=> { // eslint-disable-line new-cap
+      db.close();
+      res.status(201).send(result);
     });
+  });
 });
 
 app.delete('/drop', (req, res)=> {
-  MongoClient
-    .connect(dbUrl)
-    .then((db)=> {
-      dal.drop(db, ()=> {
-        db.close();
-        res.status(200).send('Dropped DB');
-      });
-    })
-    .catch((err)=> {
-      errorHandler(err, res);
+  connect((db)=> {
+    dal.drop(db, ()=> {
+      db.close();
+      res.status(200).send('Dropped DB');
     });
+  });
 });
 
 app.get('*', (req, res) => {
