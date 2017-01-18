@@ -22,7 +22,7 @@ let storage = multer.diskStorage({
 });
 
 let upload = multer({ storage: storage });
-const dbUrl = 'mongodb://localhost:27017/recipes';
+const dbUrl = 'mongodb://cookbook:koobkooccookbook@localhost:27017/recipes';
 const urlPrefix = '/api/v1';
 
 const app = new Express();
