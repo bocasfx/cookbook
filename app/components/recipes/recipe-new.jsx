@@ -35,7 +35,8 @@ class NewRecipe extends React.Component {
       })
       .end((err, response) => {
         assert.equal(err, null);
-        let recipeId = response.body.insertedIds[0];
+        console.log(response);
+        let recipeId = response.body._id;
         browserHistory.push('/categories/' + this.state.category + '/recipes/' + recipeId);
       });
   }

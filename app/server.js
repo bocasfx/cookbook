@@ -5,11 +5,16 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes.jsx';
 import NotFoundPage from './not-found-page.jsx';
-import { MongoClient, ObjectID } from 'mongodb';
-import dal from './dal.js';
 import errorHandler from './error-handler.js';
 import bodyParser from 'body-parser';
 import multer from 'multer';
+import config from './config/config.js';
+import morgan from 'morgan';
+import User from './models/user.js';
+import Category from './models/category.js';
+import Recipe from './models/recipe.js';
+import crypto from 'crypto';
+import mongoose from 'mongoose';
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -22,102 +27,140 @@ let storage = multer.diskStorage({
 });
 
 let upload = multer({ storage: storage });
-const dbUrl = 'mongodb://cookbook:koobkooccookbook@localhost:27017/recipes';
-const urlPrefix = '/api/v1';
+const dbUrl = config.dbUrl;
+const apiPrefix = '/api/v1';
 
 const app = new Express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json({limit: '50mb'}));
+app.use(morgan('dev'));
 
-function connect(callback) {
-  MongoClient
-    .connect(dbUrl)
-    .then(callback)
-    .catch((err)=> {
+mongoose.Promise = global.Promise;
+mongoose.connect(dbUrl);
+
+app.get(apiPrefix + '/categories', (req, res)=> {
+  Category
+    .find({})
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
       errorHandler(err);
     });
-}
-
-app.get(urlPrefix + '/categories', (req, res)=> {
-  connect((db)=> {
-    dal.findCategories(db, (docs)=> {
-      db.close();
-      res.status(200).send(docs);
-    });
-  });
 });
 
-app.get(urlPrefix + '/categories/:category', (req, res)=> {
-  connect((db)=> {
-    dal.searchCategories(db, req.params.category, (docs)=> {
-      db.close();
-      res.status(200).send(docs);
+app.get(apiPrefix + '/categories/:category', (req, res)=> {
+  Category
+    .find({category: req.params.category})
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
     });
-  });
 });
 
-app.post(urlPrefix + '/categories', (req, res) => {
-  let category = req.body.category;
-  connect((db) => {
-    dal.insertCategory(db, category, () => {
-      db.close();
-      res.status(200).send('Category added.');
-    });
+app.post(apiPrefix + '/categories', (req, res) => {
+  let newCategory = req.body.category;
+  let category = new Category({
+    category: newCategory
   });
+
+  category
+    .save()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
 });
 
-app.get(urlPrefix + '/categories/:categoryid/recipes', (req, res) => {
-  connect((db)=> {
-    dal.findRecipesInCategory(db, req.params.categoryid, (docs)=> {
-      db.close();
-      res.status(200).send(docs);
+app.get(apiPrefix + '/categories/:categoryid/recipes', (req, res) => {
+  Recipe
+    .find({category: req.params.categoryid})
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
     });
-  });
 });
 
-app.get(urlPrefix + '/recipes/:id', (req, res)=> {
-  connect((db)=> {
-    dal.findRecipe(db, ObjectID(req.params.id), (docs)=> { // eslint-disable-line new-cap
-      db.close();
-      res.status(200).send(docs);
+app.get(apiPrefix + '/recipes/:id', (req, res)=> {
+  Recipe
+    .find({_id: req.params.id})
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
     });
-  });
 });
 
-app.post(urlPrefix + '/recipes', upload.single('image'), (req, res)=> {
-  let recipe = req.body;
-  recipe.imagePath = '/images/' + path.basename(req.file.path);
-  connect((db)=> {
-    dal.insertRecipe(db, recipe, (result)=> {
-      db.close();
-      res.status(201).send(result);
+app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
+  let newRecipe = req.body;
+  console.log(req.body);
+  newRecipe.imagePath = req.file ? '/images/' + path.basename(req.file.path) : '';
+  let recipe = new Recipe(newRecipe);
+  recipe
+    .save()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
     });
-  });
 });
 
-app.patch(urlPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
+app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
   let recipe = req.body;
   if (req.file) {
     recipe.imagePath = '/images/' + path.basename(req.file.path);
   }
-  connect((db)=> {
-    dal.updateRecipe(db, ObjectID(req.params.id), recipe, (result)=> { // eslint-disable-line new-cap
-      db.close();
-      res.status(201).send(result);
+  Recipe
+    .findOneAndUpdate({_id: req.params.id}, recipe)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
     });
-  });
 });
 
-app.delete('/drop', (req, res)=> {
-  connect((db)=> {
-    dal.drop(db, ()=> {
-      db.close();
-      res.status(200).send('Dropped DB');
-    });
+app.get('/setup', (req, res) => {
+
+  const hashedPassword = crypto.createHmac('sha256', config.secret)
+    .update('password')
+    .digest('hex');
+
+  let newUser = new User({ 
+    name: 'bocas', 
+    password: hashedPassword,
+    admin: true 
   });
+
+  newUser
+    .save()
+    .then(() => {
+      res.json({ success: true });
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+});
+
+app.get('/user', (req, res) => {
+  User
+    .find({})
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });;
 });
 
 app.get('*', (req, res) => {
