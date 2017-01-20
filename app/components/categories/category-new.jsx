@@ -42,9 +42,17 @@ class NewCategory extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
+    let payload = {
+      category: this.state.category,
+      token: sessionStorage.getItem('accessToken')
+    };
     request.post(this.props.categoriesUrl)
-      .send(this.state)
+      .send(payload)
       .end((err) => {
+        if (err && err.status === 403) {
+          browserHistory.push('/login');
+          return;
+        }
         browserHistory.push('/');
       });
   }

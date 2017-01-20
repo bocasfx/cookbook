@@ -15,6 +15,7 @@ import Category from './models/category.js';
 import Recipe from './models/recipe.js';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -62,22 +63,6 @@ app.get(apiPrefix + '/categories/:category', (req, res)=> {
     });
 });
 
-app.post(apiPrefix + '/categories', (req, res) => {
-  let newCategory = req.body.category;
-  let category = new Category({
-    category: newCategory
-  });
-
-  category
-    .save()
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      errorHandler(err);
-    });
-});
-
 app.get(apiPrefix + '/categories/:categoryid/recipes', (req, res) => {
   Recipe
     .find({category: req.params.categoryid})
@@ -92,21 +77,6 @@ app.get(apiPrefix + '/categories/:categoryid/recipes', (req, res) => {
 app.get(apiPrefix + '/recipes/:id', (req, res)=> {
   Recipe
     .find({_id: req.params.id})
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      errorHandler(err);
-    });
-});
-
-app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
-  let newRecipe = req.body;
-  console.log(req.body);
-  newRecipe.imagePath = req.file ? '/images/' + path.basename(req.file.path) : '';
-  let recipe = new Recipe(newRecipe);
-  recipe
-    .save()
     .then((result) => {
       res.json(result);
     })
@@ -130,6 +100,39 @@ app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
     });
 });
 
+app.post(apiPrefix + '/authenticate', (req, res) => {
+  User
+    .findOne({name: req.body.username})
+    .then((user) => {
+      if (!user) {
+        return res.json({ success: false, message: 'Authentication failed. User not found.' });
+      }
+
+      const hashedPassword = crypto.createHmac('sha256', config.secret)
+        .update(req.body.password)
+        .digest('hex');
+
+      if (user.password !== hashedPassword) {
+        return res.json({ success: false, message: 'Invalid password.' });
+      }
+
+      delete user.passowrd;
+
+      let token = jwt.sign(user, config.secret, {
+        expiresIn: '24h'
+      });
+
+      res.json({
+        success: true,
+        message: 'Authenticated',
+        token: token
+      });
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+});
+
 app.get('/setup', (req, res) => {
 
   const hashedPassword = crypto.createHmac('sha256', config.secret)
@@ -137,7 +140,7 @@ app.get('/setup', (req, res) => {
     .digest('hex');
 
   let newUser = new User({ 
-    name: 'bocas', 
+    name: 'user', 
     password: hashedPassword,
     admin: true 
   });
@@ -195,6 +198,57 @@ app.get('*', (req, res) => {
   );
 });
 
-app.listen(3000, ()=> {
-  console.log('Example app listening on port 3000!');
+app.listen(3000);
+
+app.use((req, res, next) => {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (!token) {
+    return res.status(403).send({ 
+      success: false, 
+      message: 'No token provided.' 
+    });
+  }
+    
+  jwt.verify(token, config.secret, (err, decoded) => {      
+    if (err) {
+      return res.json({
+        success: false,
+        message: 'Failed to authenticate token.'
+      });    
+    }
+
+    req.decoded = decoded;    
+    next();
+  });
+});
+
+app.post(apiPrefix + '/categories', (req, res) => {
+  let newCategory = req.body.category;
+  let category = new Category({
+    category: newCategory
+  });
+
+  category
+    .save()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+});
+
+app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
+  let newRecipe = req.body;
+  newRecipe.imagePath = req.file ? '/images/' + path.basename(req.file.path) : '';
+  let recipe = new Recipe(newRecipe);
+  recipe
+    .save()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
 });

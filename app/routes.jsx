@@ -17,9 +17,9 @@ const routes = (
       <Route component={EnsureLoggedInContainer}>
         <Route name="New Recipe" path="/categories/:categoryid/recipes/new" component={RecipeNew}/>
         <Route name="New Category" path="/categories/new" component={CategoryNewContainer}/>
+        <Route name="Edit Recipe" path="/categories/:categoryid/recipes/edit/:recipeid" component={RecipeEdit}/>
       </Route>
       <Route name="Recipe" path="/categories/:categoryid/recipes/:recipeid" component={RecipeContainer} staticName={true}/>
-      <Route name="Edit Recipe" path="/categories/:categoryid/recipes/edit/:recipeid" component={RecipeEdit}/>
       <Route name="Recipes" path="/categories/:categoryid/recipes" component={RecipeListContainer}/>
       <Route name="Login" path="/login" component={Login}/>
     </Route>

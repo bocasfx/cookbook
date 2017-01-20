@@ -27,6 +27,7 @@ class NewRecipe extends React.Component {
 
     request.post('/api/v1/recipes')
       .attach('image', image, image.name)
+      .set('x-access-token', sessionStorage.getItem('accessToken'))
       .field({
         title: this.state.title,
         category: this.state.category,
@@ -35,7 +36,6 @@ class NewRecipe extends React.Component {
       })
       .end((err, response) => {
         assert.equal(err, null);
-        console.log(response);
         let recipeId = response.body._id;
         browserHistory.push('/categories/' + this.state.category + '/recipes/' + recipeId);
       });

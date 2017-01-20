@@ -1,22 +1,24 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
-const isLoggedIn = true;
 
 class EnsureLoggedInContainer extends React.Component {
-  componentDidMount() {
+  isServer() {
+   return ! (typeof window !== 'undefined' && window.document);
+  }
 
-    if (!isLoggedIn) {
-      browserHistory.replace('/login');
+  componentDidMount() {
+    if (!this.isServer() && !sessionStorage.getItem('accessToken')) {
+      let query = this.props.children.props.location.pathname;
+      browserHistory.replace({pathname: '/login', query: {pathname: query}});
     }
   }
 
   render() {
-    if (isLoggedIn) {
-      return this.props.children;
+    if (this.isServer()) {
+      return null;
     }
-    
-    return null;
+    return sessionStorage.getItem('accessToken') ? this.props.children : null;
   }
 }
 
