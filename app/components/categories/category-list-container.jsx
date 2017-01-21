@@ -6,7 +6,8 @@ class CategoryListContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: []
+      categories: [],
+      done: false
     };
   }
 
@@ -16,14 +17,15 @@ class CategoryListContainer extends React.Component {
       .set('Accept', 'application/json')
       .end((err, response)=> {
         this.setState({
-          categories: response.body
+          categories: response.body,
+          done: true
         });
       });
   }
 
   render() {
     return (
-      <CategoryList categories={this.state.categories}/>
+      <CategoryList categories={this.state.categories} done={this.state.done}/>
     );
   }
 }

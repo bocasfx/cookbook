@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import capitalize from 'capitalize';
 import Subheader from '../subheader.jsx';
+import FontAwesome from 'react-fontawesome';
 
 const styles = {
   categoryList: {
@@ -19,7 +20,15 @@ class CategoryList extends React.Component {
   }
 
   getCategories() {
-    let categories = this.props.categories.map((category)=> {
+    if (!this.props.done) {
+      return <FontAwesome name="cog" size="2x" spin/>;
+    }
+
+    if (!this.props.categories.length && this.props.done) {
+      return <div style={styles.nothing}>Nothing to see here. Try adding a category.</div>;
+    }
+
+    return this.props.categories.map((category)=> {
       let label = capitalize(category.category);
       let url = '/categories/' + category._id + '/recipes';
       return (
@@ -28,12 +37,6 @@ class CategoryList extends React.Component {
         </li>
       );
     });
-
-    if (!categories.length) {
-      categories = <div style={styles.nothing}>Nothing to see here. Try adding a category.</div>;
-    }
-
-    return categories;
   }
 
   render() {

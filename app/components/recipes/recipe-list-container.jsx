@@ -6,7 +6,8 @@ class RecipeListContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipes: []
+      recipes: [],
+      done: false
     };
   }
 
@@ -16,7 +17,8 @@ class RecipeListContainer extends React.Component {
       .set('Accept', 'application/json')
       .end((err, response)=> {
         this.setState({
-          recipes: response.body
+          recipes: response.body,
+          done: true
         });
       });
   }
@@ -24,7 +26,7 @@ class RecipeListContainer extends React.Component {
   render() {
     let baseUrl = '/categories/' + this.props.params.categoryid + '/recipes';
     return (
-      <RecipeList recipes={this.state.recipes} baseUrl={baseUrl}/>
+      <RecipeList recipes={this.state.recipes} baseUrl={baseUrl} done={this.state.done}/>
     );
   }
 }

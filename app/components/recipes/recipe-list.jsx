@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import capitalize from 'capitalize';
 import Subheader from '../subheader.jsx';
+import FontAwesome from 'react-fontawesome';
 
 const styles = {
   recipeList: {
@@ -19,7 +20,15 @@ class RecipeList extends React.Component {
   }
 
   getRecipes() {
-    let recipes = this.props.recipes.map((recipe)=> {
+    if (!this.props.done) {
+      return <FontAwesome name="cog" size="2x" spin/>;
+    }
+
+    if (!this.props.recipes.length && this.props.done) {
+      return <div style={styles.nothing}>Nothing to see here. Try adding a recipe.</div>;
+    }
+    
+    return this.props.recipes.map((recipe)=> {
       let label = capitalize(recipe.title);
       let url = this.props.baseUrl + '/' + recipe._id;
       return (
@@ -28,12 +37,6 @@ class RecipeList extends React.Component {
         </li>
       );
     });
-
-    if (!recipes.length) {
-      recipes = <div style={styles.nothing}>Nothing to see here. Try adding a recipe.</div>;
-    }
-
-    return recipes;
   }
 
   render() {
