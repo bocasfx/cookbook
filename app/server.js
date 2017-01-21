@@ -16,6 +16,8 @@ import Recipe from './models/recipe.js';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import https from 'https';
+import fs from 'fs';
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -198,8 +200,6 @@ app.get('*', (req, res) => {
   );
 });
 
-app.listen(3000);
-
 app.use((req, res, next) => {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -252,3 +252,8 @@ app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
       errorHandler(err);
     });
 });
+
+https.createServer({
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+}, app).listen(3000);

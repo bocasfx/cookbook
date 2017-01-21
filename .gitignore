@@ -1,3 +1,4 @@
 node_modules/
 app/static/bundle.js*
 app/static/images
+*.pem
