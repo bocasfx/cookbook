@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import capitalize from 'capitalize';
 import Subheader from '../subheader.jsx';
-import FontAwesome from 'react-fontawesome';
+import Spinner from '../spinner.jsx';
 
 const styles = {
   categoryList: {
@@ -21,11 +21,11 @@ class CategoryList extends React.Component {
 
   getCategories() {
     if (!this.props.done) {
-      return <FontAwesome name="cog" size="2x" spin/>;
+      return <Spinner message="Food will be ready soon..." spin={true}/>;
     }
 
     if (!this.props.categories.length && this.props.done) {
-      return <div style={styles.nothing}>Nothing to see here. Try adding a category.</div>;
+      return <Spinner message="Nothing to see here. Try adding a category." spin={false}/>;
     }
 
     return this.props.categories.map((category)=> {

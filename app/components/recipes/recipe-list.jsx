@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import capitalize from 'capitalize';
 import Subheader from '../subheader.jsx';
-import FontAwesome from 'react-fontawesome';
+import Spinner from '../spinner.jsx';
 
 const styles = {
   recipeList: {
@@ -10,6 +10,13 @@ const styles = {
   },
   nothing: {
     fontSize: '2em'
+  },
+  spinner: {
+    fontSize: '1.2em',
+    color: '#ddd',
+    border: '1px dashed #ddd',
+    padding: '10px 12px',
+    borderRadius: '50px'
   }
 };
 
@@ -20,12 +27,13 @@ class RecipeList extends React.Component {
   }
 
   getRecipes() {
+    
     if (!this.props.done) {
-      return <FontAwesome name="cog" size="2x" spin/>;
+      return <Spinner message="Food will be ready soon..." spin={true}/>;
     }
 
     if (!this.props.recipes.length && this.props.done) {
-      return <div style={styles.nothing}>Nothing to see here. Try adding a recipe.</div>;
+      return <Spinner message="Nothing to see here. Try adding a recipe." spin={false}/>;
     }
     
     return this.props.recipes.map((recipe)=> {

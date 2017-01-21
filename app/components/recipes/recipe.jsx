@@ -1,5 +1,6 @@
 import React from 'react';
 import Subheader from '../subheader.jsx';
+import Spinner from '../spinner.jsx';
 
 let styles = {
   title: {
@@ -37,6 +38,9 @@ let styles = {
     fontFamily: '\'Anonymous Pro\', monospace',
     fontSize: '0.9em',
     lineHeight: '2em'
+  },
+  container: {
+    margin: '50px 0'
   }
 };
 
@@ -59,7 +63,15 @@ class Recipe extends React.Component {
     return imageStyle;
   }
 
-  render() {
+  recipe() {
+    if (!this.props.done) {
+      return (
+        <div style={styles.container}>
+          <Spinner message="Food will be ready soon..." spin={true}/>
+        </div>
+      );
+    }
+
     return (
       <div>
         <Subheader leftUrl={this.props.recipesUrl} leftLabel="Recipes" rightUrl={this.props.editUrl} rightLabel="Edit"/>
@@ -77,6 +89,10 @@ class Recipe extends React.Component {
         </div>
       </div>
     );
+  }
+
+  render() {
+    return this.recipe();
   }
 }
 
