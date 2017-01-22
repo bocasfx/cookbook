@@ -14,15 +14,45 @@ const styles = {
   },
   message: {
     fontSize: '1.2em'
+  },
+  error: {
+    color: 'indianred'
   }
 };
 
 class Spinner extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      errorMessage: props.errorMessage || 'Oops... it smells like something is burning.',
+      spinMessage: props.spinMessage || 'The food will be ready soon...'
+    };
+  }
+
   render() {
+    if (this.props.error) {
+      return (
+        <div style={styles.error}>
+          <FontAwesome name="cutlery" style={styles.spinner}/>
+          <div style={styles.message}>{this.state.errorMessage}</div>
+        </div>
+      );
+    }
+
+    if (this.props.spin) {
+      return (
+        <div style={styles.container}>
+          <FontAwesome name="cutlery" spin style={styles.spinner}/>
+          <div style={styles.message}>{this.state.spinMessage}</div>
+        </div>
+      );
+    }
+
     return (
       <div style={styles.container}>
-        <FontAwesome name="cutlery" spin={this.props.spin} style={styles.spinner}/>
-        <div style={styles.message}>{this.props.message}</div>
+        <FontAwesome name="cutlery" style={styles.spinner}/>
+        <div style={styles.message}>{this.props.staticMessage}</div>
       </div>
     );
   }

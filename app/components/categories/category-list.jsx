@@ -20,12 +20,9 @@ class CategoryList extends React.Component {
   }
 
   getCategories() {
-    if (!this.props.done) {
-      return <Spinner message="Food will be ready soon..." spin={true}/>;
-    }
 
-    if (!this.props.categories.length && this.props.done) {
-      return <Spinner message="Nothing to see here. Try adding a category." spin={false}/>;
+    if (!this.props.categories.length || this.props.error) {
+      return <Spinner error={this.props.error} spin={!this.props.done} staticMessage="Nothing to see here. Try adding a category."/>;
     }
 
     return this.props.categories.map((category)=> {

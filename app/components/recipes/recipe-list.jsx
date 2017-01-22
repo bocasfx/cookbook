@@ -13,8 +13,8 @@ const styles = {
   },
   spinner: {
     fontSize: '1.2em',
-    color: '#ddd',
-    border: '1px dashed #ddd',
+    color: 'gainsboro',
+    border: '1px dashed gainsboro',
     padding: '10px 12px',
     borderRadius: '50px'
   }

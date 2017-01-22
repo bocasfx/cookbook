@@ -51,11 +51,11 @@ header {
 }
 
 footer {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid gainsboro;
   width: 640px;
   height: 40px;
   margin: auto;
   text-align: center;
-  color: #ddd;
+  color: gainsboro;
   padding-top: 20px;
 }

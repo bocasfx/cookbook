@@ -7,7 +7,9 @@ class CategoryListContainer extends React.Component {
     super(props);
     this.state = {
       categories: [],
-      done: false
+      done: false,
+      error: false,
+      message: ''
     };
   }
 
@@ -16,6 +18,14 @@ class CategoryListContainer extends React.Component {
       .get('/api/v1/categories')
       .set('Accept', 'application/json')
       .end((err, response)=> {
+        if (err) {
+          return this.setState({
+            error: true,
+            done: true,
+            message: 'Oops... Something went wrong.'
+          });
+        }
+
         this.setState({
           categories: response.body,
           done: true
@@ -25,7 +35,11 @@ class CategoryListContainer extends React.Component {
 
   render() {
     return (
-      <CategoryList categories={this.state.categories} done={this.state.done}/>
+      <CategoryList
+        categories={this.state.categories}
+        done={this.state.done}
+        error={this.state.error}
+        message={this.state.message}/>
     );
   }
 }
