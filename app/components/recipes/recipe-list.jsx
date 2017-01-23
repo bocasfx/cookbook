@@ -28,12 +28,8 @@ class RecipeList extends React.Component {
 
   getRecipes() {
     
-    if (!this.props.done) {
-      return <Spinner message="Food will be ready soon..." spin={true}/>;
-    }
-
-    if (!this.props.recipes.length && this.props.done) {
-      return <Spinner message="Nothing to see here. Try adding a recipe." spin={false}/>;
+    if (!this.props.recipes.length || this.props.error) {
+      return <Spinner error={this.props.error} spin={!this.props.done} staticMessage="Nothing to see here. Try adding a recipe."/>;
     }
     
     return this.props.recipes.map((recipe)=> {

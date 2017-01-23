@@ -116,7 +116,7 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.buttonBar}>
           <Button type="button" value="Cancel" onClick={this.onCancel}/>
-          <Button type="submit" value={this.props.submitLabel} onClick={this.props.handleSubmit}/>
+          <Button type="submit" value={this.props.submitLabel} onClick={this.props.handleSubmit} disabled={this.props.disabled}/>
         </div>
       </div>
     );

@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from './button.jsx';
 import request from 'superagent';
-import assert from 'assert';
 import { browserHistory } from 'react-router';
+import Toaster from './toaster.jsx';
 
 const styles = {
   buttonBar: {
@@ -38,7 +38,9 @@ class Login extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      error: false,
+      errorMessage: ''
     };
 
     this.usernameRef = this.usernameRef.bind(this);
@@ -62,9 +64,19 @@ class Login extends React.Component {
         password: this.state.password
       })
       .end((err, response) => {
-        assert.equal(err, null);
+        if (response.status === 403) {
+          return this.setState({
+            error: true,
+            errorMessage: response.body.message
+          });
+        }
         window.sessionStorage.accessToken = response.body.token;
-        browserHistory.push(this.props.location.query.pathname);
+        let pathName = this.props.location.query.pathname;
+        if (pathName) {
+          return browserHistory.push(pathName);
+        }
+
+        browserHistory.push('/');
       });
   }
 
@@ -80,8 +92,15 @@ class Login extends React.Component {
   }
 
   render() {
+    let errorMessage = '';
+
+    if (this.state.error) {
+      errorMessage = <Toaster message={this.state.errorMessage}/>
+    }
+
     return (
       <div style={styles.container}>
+        {errorMessage}
         <span style={styles.username}>Username</span>
         <input
           type="text"

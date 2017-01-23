@@ -107,7 +107,7 @@ app.post(apiPrefix + '/authenticate', (req, res) => {
     .findOne({name: req.body.username})
     .then((user) => {
       if (!user) {
-        return res.json({ success: false, message: 'Authentication failed. User not found.' });
+        return res.status(403).json({ success: false, message: 'Authentication failed. User not found.' });
       }
 
       const hashedPassword = crypto.createHmac('sha256', config.secret)
@@ -115,7 +115,7 @@ app.post(apiPrefix + '/authenticate', (req, res) => {
         .digest('hex');
 
       if (user.password !== hashedPassword) {
-        return res.json({ success: false, message: 'Invalid password.' });
+        return res.status(403).json({ success: false, message: 'Invalid password.' });
       }
 
       delete user.passowrd;
@@ -212,7 +212,7 @@ app.use((req, res, next) => {
     
   jwt.verify(token, config.secret, (err, decoded) => {      
     if (err) {
-      return res.json({
+      return res.status(403).json({
         success: false,
         message: 'Failed to authenticate token.'
       });    

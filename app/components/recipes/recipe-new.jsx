@@ -2,7 +2,6 @@ import React from 'react';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
 import RecipeForm from './recipe-form.jsx';
-import assert from 'assert';
 
 class NewRecipe extends React.Component {
   constructor(props) {
@@ -12,7 +11,10 @@ class NewRecipe extends React.Component {
       category: props.params.categoryid,
       ingredients: '',
       description: '',
-      images: []
+      images: [],
+      error: false,
+      done: false,
+      disabled: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,6 +24,10 @@ class NewRecipe extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    this.setState({
+      disabled: true
+    });
 
     let image = this.state.images[0];
 
@@ -35,7 +41,19 @@ class NewRecipe extends React.Component {
         description: this.state.description
       })
       .end((err, response) => {
-        assert.equal(err, null);
+        if (response.status === 403) {
+          console.log(err);
+          return browserHistory.push('/login');
+        }
+
+        if (err) {
+          console.log(err);
+          return this.setState({
+            error: true,
+            done: true
+          });
+        }
+
         let recipeId = response.body._id;
         browserHistory.push('/categories/' + this.state.category + '/recipes/' + recipeId);
       });
@@ -70,7 +88,10 @@ class NewRecipe extends React.Component {
         onDrop={this.onDrop}
         images={this.state.images}
         cancelUrl={cancelUrl}
-        submitLabel="Add"/>
+        submitLabel="Add"
+        error={this.state.error}
+        done={this.state.done}
+        disabled={this.state.disabled}/>
     );
   }
 }

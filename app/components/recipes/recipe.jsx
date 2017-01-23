@@ -45,18 +45,6 @@ let styles = {
 };
 
 class Recipe extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      recipe: {
-        imagePath: '',
-        title: '',
-        ingredients: '',
-        description: ''
-      }
-    };
-  }
-
   getImageStyle() {
     let imageStyle = JSON.parse(JSON.stringify(styles.image));
     imageStyle.backgroundImage = 'url(' + this.props.recipe.imagePath + ')';
@@ -64,10 +52,10 @@ class Recipe extends React.Component {
   }
 
   recipe() {
-    if (!this.props.done) {
+    if (!this.props.recipe || this.props.error) {
       return (
         <div style={styles.container}>
-          <Spinner message="Food will be ready soon..." spin={true}/>
+          <Spinner error={this.props.error} spin={!this.props.done} staticMessage="Nothing to see here. Try adding a recipe."/>
         </div>
       );
     }

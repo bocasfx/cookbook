@@ -6,8 +6,9 @@ class RecipeContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipe: {},
-      done: false
+      recipe: null,
+      done: false,
+      error: false
     };
   }
 
@@ -16,6 +17,13 @@ class RecipeContainer extends React.Component {
       .get('/api/v1/recipes/' + this.props.params.recipeid)
       .set('Accept', 'application/json')
       .end((err, response)=> {
+        if (err) {
+          console.log(err);
+          return this.setState({
+            error: true,
+            done: true
+          });
+        }
         this.setState({
           recipe: response.body[0],
           done: true
@@ -31,7 +39,8 @@ class RecipeContainer extends React.Component {
         editUrl={editUrl}
         recipesUrl={baseUrl}
         recipe={this.state.recipe}
-        done={this.state.done}/>
+        done={this.state.done}
+        error={this.state.error}/>
     );
   }
 }
