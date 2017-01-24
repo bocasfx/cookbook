@@ -38,6 +38,10 @@ class NewCategory extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCancel = this.onCancel.bind(this);
+    this.fetchCategoryList = this.fetchCategoryList.bind(this);
+
+    this.keyDelay = 500;
+    this.lastKeyStroke = 0;
   }
 
   onSubmit(event) {
@@ -61,6 +65,10 @@ class NewCategory extends React.Component {
     event.preventDefault();
     let category = event.target.value;
 
+    this.setState({
+      category: category
+    });
+
     if (category === '') {
       this.setState({
         category,
@@ -69,6 +77,18 @@ class NewCategory extends React.Component {
       return;
     }
 
+    let elapsedTime = Date.now() - this.lastKeyStroke;
+
+    if (elapsedTime < this.keyDelay && category.length > 1) {
+      clearTimeout(this.timeout);
+    }
+
+    this.lastKeyStroke = Date.now();
+    this.timeout = setTimeout(this.fetchCategoryList.bind(this, category), this.keyDelay);
+    
+  }
+
+  fetchCategoryList(category) {
     request
       .get(this.props.categoriesUrl + category)
       .set('Accept', 'application/json')

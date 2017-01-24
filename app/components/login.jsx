@@ -40,7 +40,8 @@ class Login extends React.Component {
       username: '',
       password: '',
       error: false,
-      errorMessage: ''
+      errorMessage: '',
+      disabled: true
     };
 
     this.usernameRef = this.usernameRef.bind(this);
@@ -88,6 +89,7 @@ class Login extends React.Component {
     let state = this.state;
 
     state[name] = value;
+    state.disabled = !(state.username && state.password);
     this.setState(state);
   }
 
@@ -95,7 +97,7 @@ class Login extends React.Component {
     let errorMessage = '';
 
     if (this.state.error) {
-      errorMessage = <Toaster message={this.state.errorMessage}/>
+      errorMessage = <Toaster message={this.state.errorMessage}/>;
     }
 
     return (
@@ -117,7 +119,7 @@ class Login extends React.Component {
           style={styles.input}
           onChange={this.onChange}/>
         <div style={styles.buttonBar}>
-          <Button type="submit" value="Login" onClick={this.onSubmit}/>
+          <Button type="submit" value="Login" onClick={this.onSubmit} disabled={this.state.disabled}/>
         </div>
         <div style={styles.warning}></div>
       </div>
