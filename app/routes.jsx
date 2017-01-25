@@ -19,7 +19,7 @@ const routes = (
         <Route name="New Category" path="/categories/new" component={CategoryNewContainer}/>
         <Route name="Edit Recipe" path="/categories/:categoryid/recipes/edit/:recipeid" component={RecipeEdit}/>
       </Route>
-      <Route name="Recipe" path="/categories/:categoryid/recipes/:recipeid" component={RecipeContainer} staticName={true}/>
+      <Route name="Recipe" path="/recipes/:recipeid" component={RecipeContainer} staticName={true}/>
       <Route name="Recipes" path="/categories/:categoryid/recipes" component={RecipeListContainer}/>
       <Route name="Login" path="/login" component={Login}/>
     </Route>

@@ -34,7 +34,7 @@ class RecipeList extends React.Component {
     
     return this.props.recipes.map((recipe)=> {
       let label = capitalize(recipe.title);
-      let url = this.props.baseUrl + '/' + recipe._id;
+      let url = '/recipes/' + recipe._id;
       return (
         <li key={recipe._id}>
           <Link to={url}>{label}</Link>

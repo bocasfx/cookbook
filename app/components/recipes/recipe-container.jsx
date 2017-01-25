@@ -31,12 +31,9 @@ class RecipeContainer extends React.Component {
   }
 
   render() {
-    let baseUrl = '/categories/' + this.props.params.categoryid + '/recipes';
-    let editUrl = baseUrl + '/edit/' + this.props.params.recipeid;
+    
     return(
       <Recipe
-        editUrl={editUrl}
-        recipesUrl={baseUrl}
         recipe={this.state.recipe}
         done={this.state.done}
         error={this.state.error}/>

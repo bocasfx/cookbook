@@ -60,9 +60,12 @@ class Recipe extends React.Component {
       );
     }
 
+    let recipesUrl = '/categories/' + this.props.recipe.category + '/recipes';
+    let editUrl = recipesUrl + '/edit/' + this.props.recipe._id;
+
     return (
       <div>
-        <Subheader leftUrl={this.props.recipesUrl} leftLabel="Recipes" rightUrl={this.props.editUrl} rightLabel="Edit"/>
+        <Subheader leftUrl={recipesUrl} leftLabel="Recipes" rightUrl={editUrl} rightLabel="Edit"/>
         <div style={styles.title}>{this.props.recipe.title}</div>
         <div style={styles.header}>
           <div style={styles.ingredients}>

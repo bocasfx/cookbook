@@ -55,7 +55,7 @@ class NewRecipe extends React.Component {
         }
 
         let recipeId = response.body._id;
-        browserHistory.push('/categories/' + this.state.recipe.category + '/recipes/' + recipeId);
+        browserHistory.push('/recipes/' + recipeId);
       });
   }
 

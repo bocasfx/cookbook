@@ -74,7 +74,7 @@ class RecipeEdit extends React.Component {
         this.setState({
           done: true
         });
-        browserHistory.push('/categories/' + this.state.recipe.category + '/recipes/' + this.props.params.recipeid);
+        browserHistory.push('/recipes/' + this.props.params.recipeid);
       });
   }
 
