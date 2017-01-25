@@ -30,6 +30,12 @@ class RecipeEdit extends React.Component {
       .get('/api/v1/recipes/' + this.props.params.recipeid)
       .set('Accept', 'application/json')
       .end((err, response)=> {
+        if (err) {
+          return this.setState({
+            error: true,
+            done: true
+          });
+        }
         this.setState({
           recipe: response.body[0]
         });

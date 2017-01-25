@@ -18,7 +18,6 @@ class RecipeContainer extends React.Component {
       .set('Accept', 'application/json')
       .end((err, response)=> {
         if (err) {
-          console.log(err);
           return this.setState({
             error: true,
             done: true
