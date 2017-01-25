@@ -135,7 +135,7 @@ app.post(apiPrefix + '/authenticate', (req, res) => {
     });
 });
 
-app.get('/setup', (req, res) => {
+app.get('/newuser', (req, res) => {
 
   const hashedPassword = crypto.createHmac('sha256', config.secret)
     .update('password')
@@ -157,15 +157,35 @@ app.get('/setup', (req, res) => {
     });
 });
 
-app.get('/user', (req, res) => {
-  User
-    .find({})
-    .then((users) => {
-      res.json(users);
-    })
-    .catch((err) => {
-      errorHandler(err);
-    });;
+app.get('/initialize', (req, res) => {
+  let categories = [
+    'appetizers',
+    'soups',
+    'salads',
+    'pasta & rice',
+    'veggies',
+    'meat',
+    'fish',
+    'dessert',
+    'cakes',
+    'breakfast',
+    'bread',
+    'preserves'
+  ];
+
+  categories.forEach((cat) => {
+    let category = new Category({
+      category: cat
+    });
+
+    category
+      .save()
+      .catch((err) => {
+        errorHandler(err);
+        res.json({success: false});
+      });
+  });
+  res.json({success: true});
 });
 
 app.get('*', (req, res) => {

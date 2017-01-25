@@ -1,6 +1,7 @@
 import React from 'react';
 import Subheader from '../subheader.jsx';
 import Spinner from '../spinner.jsx';
+import SectionHeader from '../section-header.jsx';
 
 let styles = {
   title: {
@@ -18,7 +19,7 @@ let styles = {
     maxWidth: '50%'
   },
   image: {
-    margin: '25px 0 70px 0',
+    margin: '0 0 70px 0',
     boxShadow: '2px 2px 7px 0px rgba(117,117,117,1)',
     border: '7px solid white',
     float: 'right',
@@ -26,7 +27,7 @@ let styles = {
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
     width: '300px',
-    height: '200px'
+    height: '300px'
   },
   body: {
     marginBottom: '70px'
@@ -69,13 +70,13 @@ class Recipe extends React.Component {
         <div style={styles.title}>{this.props.recipe.title}</div>
         <div style={styles.header}>
           <div style={styles.ingredients}>
-            <h2>Ingredients</h2>
+            <SectionHeader text="Ingredients"/>
             <pre style={styles.preFormatted}>{this.props.recipe.ingredients}</pre>
           </div>
           <div style={this.getImageStyle()}></div>
         </div>
         <div style={styles.body}>
-          <h2 style={styles.description}>Preparation</h2>
+          <SectionHeader text="Preparation"/>
           <pre style={styles.preFormatted}>{this.props.recipe.description}</pre>
         </div>
       </div>

@@ -10,6 +10,9 @@ const styles = {
   },
   nothing: {
     fontSize: '2em'
+  },
+  container: {
+    margin: '70px 0'
   }
 };
 
@@ -20,10 +23,6 @@ class CategoryList extends React.Component {
   }
 
   getCategories() {
-
-    if (!this.props.categories.length || this.props.error) {
-      return <Spinner error={this.props.error} spin={!this.props.done} staticMessage="Nothing to see here. Try adding a category."/>;
-    }
 
     return this.props.categories.map((category)=> {
       let label = capitalize(category.category);
@@ -37,6 +36,14 @@ class CategoryList extends React.Component {
   }
 
   render() {
+    if (!this.props.categories.length || this.props.error) {
+      return (
+        <div style={styles.container}>
+          <Spinner error={this.props.error} spin={!this.props.done} staticMessage="Nothing to see here. Try adding a category."/>;
+        </div>
+      );
+    }
+
     return (
       <div>
         <Subheader rightUrl="/categories/new" rightLabel="Add Category"/>
