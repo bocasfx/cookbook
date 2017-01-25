@@ -16,7 +16,8 @@ const styles = {
     fontSize: '1.2em'
   },
   error: {
-    color: 'indianred'
+    color: 'indianred',
+    textAlign: 'center'
   }
 };
 

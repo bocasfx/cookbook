@@ -41,13 +41,11 @@ class NewRecipe extends React.Component {
         description: this.state.description
       })
       .end((err, response) => {
-        if (response.status === 403) {
-          console.log(err);
+        if (response && response.status === 403) {
           return browserHistory.push('/login');
         }
 
         if (err) {
-          console.log(err);
           return this.setState({
             error: true,
             done: true

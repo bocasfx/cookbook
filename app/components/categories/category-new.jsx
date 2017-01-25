@@ -2,16 +2,11 @@ import React from 'react';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
 import Button from '../button.jsx';
+import Toaster from '../toaster.jsx';
 
 const styles = {
   buttonBar: {
     float: 'right'
-  },
-  warning: {
-    position: 'fixed',
-    width: 'auto',
-    marginTop: '25px',
-    color: 'coral'
   },
   container: {
     margin: '70px 0'
@@ -32,7 +27,8 @@ class NewCategory extends React.Component {
     super(props);
     this.state = {
       category: '',
-      categoryList: []
+      categoryList: [],
+      error: false
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -47,7 +43,7 @@ class NewCategory extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     let payload = {
-      category: this.state.category,
+      category: this.state.category.toLowerCase(),
       token: sessionStorage.getItem('accessToken')
     };
     request.post(this.props.categoriesUrl)
@@ -85,18 +81,25 @@ class NewCategory extends React.Component {
 
     this.lastKeyStroke = Date.now();
     this.timeout = setTimeout(this.fetchCategoryList.bind(this, category), this.keyDelay);
-    
   }
 
   fetchCategoryList(category) {
+    category = category.toLowerCase();
     request
       .get(this.props.categoriesUrl + category)
       .set('Accept', 'application/json')
       .send({category})
       .end((err, response)=> {
+        if (err) {
+          return this.setState({
+            error: true,
+            errorMessage: 'Oops... Something went wrong.'
+          });
+        }
         this.setState({
           category,
-          categoryList: response.body
+          categoryList: response.body,
+          error: false
         });
       });
   }
@@ -111,15 +114,20 @@ class NewCategory extends React.Component {
   }
 
   render() {
-    let disabled = this.state.categoryList.length || !this.state.category.length;
-    let warningMessage = '';
+    let disabled = this.state.categoryList.length || !this.state.category.length || this.state.error;
+    let errorMessage = '';
 
     if (this.state.categoryList.length) {
-      warningMessage = 'Category already exists';
+      errorMessage = <Toaster message="A category with that name already exists."/>;
+    }
+
+    if (this.state.error) {
+      errorMessage = <Toaster message={this.state.errorMessage}/>;
     }
 
     return (
       <div style={styles.container}>
+        {errorMessage}
         <span style={styles.title}>New category </span>
         <input 
           ref={(input) => {
@@ -135,7 +143,6 @@ class NewCategory extends React.Component {
           <Button type="button" value="Cancel" onClick={this.onCancel}/>
           <Button type="submit" value="Add" onClick={this.onSubmit} disabled={disabled}/>
         </div>
-        <div style={styles.warning}>{warningMessage}</div>
       </div>
     );
   }

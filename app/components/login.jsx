@@ -65,12 +65,17 @@ class Login extends React.Component {
         password: this.state.password
       })
       .end((err, response) => {
-        if (response.status === 403) {
+        if (err) {
+          let message = (response && response.body.message) ? response.body.message : 'Oops... something went wrong.'
           return this.setState({
             error: true,
-            errorMessage: response.body.message
+            errorMessage: message
           });
         }
+        this.setState({
+          error: false,
+          errorMessage: ''
+        });
         window.sessionStorage.accessToken = response.body.token;
         let pathName = this.props.location.query.pathname;
         if (pathName) {
