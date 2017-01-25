@@ -47,7 +47,7 @@ let styles = {
 class Recipe extends React.Component {
   getImageStyle() {
     let imageStyle = JSON.parse(JSON.stringify(styles.image));
-    imageStyle.backgroundImage = 'url(' + this.props.recipe.imagePath + ')';
+    imageStyle.backgroundImage = 'url(' + this.props.recipe.image + ')';
     return imageStyle;
   }
 

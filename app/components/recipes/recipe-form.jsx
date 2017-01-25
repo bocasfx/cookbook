@@ -54,9 +54,9 @@ class RecipeForm extends React.Component {
   }
 
   showImage() {
-    let images = this.props.images;
+    let image = this.props.recipe.image;
 
-    if (images.length === 0) {
+    if (!image) {
     return (
         <div style={styles.image}><FontAwesome style={styles.icon} name='picture-o'/></div>
       );
@@ -64,10 +64,10 @@ class RecipeForm extends React.Component {
 
     let imageSrc = '';
 
-    if (typeof images[0] === 'string') {
-      imageSrc = images[0];
+    if (typeof image === 'string') {
+      imageSrc = image;
     } else {
-      imageSrc = images[0].preview;
+      imageSrc = image.preview;
     }
 
     let imgStyle = {
@@ -98,7 +98,7 @@ class RecipeForm extends React.Component {
       <div>
         <div style={styles.formEntry}>
           <h2>Title</h2>
-          <input style={styles.input} name="title" type="text" value={this.props.title} onChange={this.props.handleChange}/>
+          <input style={styles.input} name="title" type="text" value={this.props.recipe.title} onChange={this.props.handleChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Image</h2>
@@ -108,11 +108,11 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.formEntry}>
           <h2>Ingredients</h2>
-          <textarea name="ingredients" type="text" style={styles.textArea} value={this.props.ingredients} onChange={this.props.handleChange}/>
+          <textarea name="ingredients" type="text" style={styles.textArea} value={this.props.recipe.ingredients} onChange={this.props.handleChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Description</h2>
-          <textarea name="description" type="text" style={styles.textArea} value={this.props.description} onChange={this.props.handleChange}/>
+          <textarea name="description" type="text" style={styles.textArea} value={this.props.recipe.description} onChange={this.props.handleChange}/>
         </div>
         <div style={styles.buttonBar}>
           <Button type="button" value="Cancel" onClick={this.onCancel}/>

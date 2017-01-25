@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
 
 let recipeModel = mongoose.model('Recipe', new Schema({ 
   title: String, 
-  imagePath: String, 
+  image: String, 
   ingredients: String,
   description: String,
   category: String

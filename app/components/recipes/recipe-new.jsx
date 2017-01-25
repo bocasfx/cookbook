@@ -7,11 +7,13 @@ class NewRecipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      category: props.params.categoryid,
-      ingredients: '',
-      description: '',
-      images: [],
+      recipe: {
+        title: '',
+        category: this.props.params.categoryid,
+        ingredients: '',
+        description: '',
+        image: ''
+      },
       error: false,
       done: false,
       disabled: false
@@ -29,16 +31,16 @@ class NewRecipe extends React.Component {
       disabled: true
     });
 
-    let image = this.state.images[0];
+    let image = this.state.recipe.image;
 
     request.post('/api/v1/recipes')
       .attach('image', image, image.name)
       .set('x-access-token', sessionStorage.getItem('accessToken'))
       .field({
-        title: this.state.title,
-        category: this.state.category,
-        ingredients: this.state.ingredients,
-        description: this.state.description
+        title: this.state.recipe.title,
+        category: this.state.recipe.category,
+        ingredients: this.state.recipe.ingredients,
+        description: this.state.recipe.description
       })
       .end((err, response) => {
         if (response && response.status === 403) {
@@ -53,7 +55,7 @@ class NewRecipe extends React.Component {
         }
 
         let recipeId = response.body._id;
-        browserHistory.push('/categories/' + this.state.category + '/recipes/' + recipeId);
+        browserHistory.push('/categories/' + this.state.recipe.category + '/recipes/' + recipeId);
       });
   }
 
@@ -64,27 +66,24 @@ class NewRecipe extends React.Component {
     let name = event.target.name;
     let state = this.state;
 
-    state[name] = value;
+    state.recipe[name] = value;
     this.setState(state);
   }
 
   onDrop(acceptedFiles) {
     let state = this.state;
-    state.images = acceptedFiles;
+    state.recipe.image = acceptedFiles[0];
     this.setState(state);
   }
 
   render() {
-    let cancelUrl = '/categories/' + this.state.category + '/recipes';
+    let cancelUrl = '/categories/' + this.state.recipe.category + '/recipes';
     return (
-      <RecipeForm 
-        title={this.state.title}
-        ingredients={this.state.ingredients}
-        description={this.state.description}
+      <RecipeForm
+        recipe={this.state.recipe}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
-        images={this.state.images}
         cancelUrl={cancelUrl}
         submitLabel="Add"
         error={this.state.error}

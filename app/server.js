@@ -90,7 +90,7 @@ app.get(apiPrefix + '/recipes/:id', (req, res)=> {
 app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
   let recipe = req.body;
   if (req.file) {
-    recipe.imagePath = '/images/' + path.basename(req.file.path);
+    recipe.image = '/images/' + path.basename(req.file.path);
   }
   Recipe
     .findOneAndUpdate({_id: req.params.id}, recipe)
@@ -241,7 +241,7 @@ app.post(apiPrefix + '/categories', (req, res) => {
 
 app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
   let newRecipe = req.body;
-  newRecipe.imagePath = req.file ? '/images/' + path.basename(req.file.path) : '';
+  newRecipe.image = req.file ? '/images/' + path.basename(req.file.path) : '';
   let recipe = new Recipe(newRecipe);
   recipe
     .save()
