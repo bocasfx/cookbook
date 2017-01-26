@@ -43,6 +43,7 @@ h2 {
 
 pre{
   white-space: pre-wrap;
+  text-align: justify;
 }
 
 header {
@@ -58,4 +59,36 @@ footer {
   text-align: center;
   color: gainsboro;
   padding-top: 20px;
+}
+
+.toc {
+  margin: 50px auto;
+  text-align: left;
+}
+
+.toc li {
+  position: relative;
+  overflow: hidden;
+}
+
+.toc li:after {
+  content: "..............................";
+  text-indent:  -1px;
+  display: block;
+  letter-spacing: 16px;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  z-index: -1;
+}
+
+.toc li span {
+  display: inline;
+  background-color: #FFF;
+  padding-right: 5px;
+}
+
+.toc li .tocCount {
+  float: right;
+  padding-left: 5px;
 }

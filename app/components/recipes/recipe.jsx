@@ -5,9 +5,8 @@ import SectionHeader from '../section-header.jsx';
 
 let styles = {
   title: {
-    fontSize: '3em',
-    margin: '50px 0 70px 0',
-    textAlign: 'center'
+    margin: '70px auto',
+    display: 'table'
   },
   header: {
     margin: '25px 0',
@@ -67,7 +66,9 @@ class Recipe extends React.Component {
     return (
       <div>
         <Subheader leftUrl={recipesUrl} leftLabel="Recipes" rightUrl={editUrl} rightLabel="Edit"/>
-        <div style={styles.title}>{this.props.recipe.title}</div>
+        <div style={styles.title}>
+          <SectionHeader text={this.props.recipe.title} size="big"/>
+        </div>
         <div style={styles.header}>
           <div style={styles.ingredients}>
             <SectionHeader text="Ingredients"/>

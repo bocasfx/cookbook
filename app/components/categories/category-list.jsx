@@ -3,16 +3,18 @@ import { Link } from 'react-router';
 import capitalize from 'capitalize';
 import Subheader from '../subheader.jsx';
 import Spinner from '../spinner.jsx';
+import SectionHeader from '../section-header.jsx';
 
 const styles = {
-  categoryList: {
-    margin: '50px auto'
-  },
-  nothing: {
-    fontSize: '2em'
-  },
   container: {
     margin: '70px 0'
+  },
+  li: {
+    margin: '0 0 .6em 0'
+  },
+  sectionHeader: {
+    margin: '50px auto',
+    display: 'table'
   }
 };
 
@@ -28,8 +30,11 @@ class CategoryList extends React.Component {
       let label = capitalize(category.category);
       let url = '/categories/' + category._id + '/recipes';
       return (
-        <li key={category._id}>
-          <Link to={url}>{label}</Link>
+        <li style={styles.li} key={category._id}>
+          <Link to={url}>
+            <span>{label}</span>
+            <span className="tocCount">{category.recipeCount}</span>
+          </Link>
         </li>
       );
     });
@@ -47,7 +52,10 @@ class CategoryList extends React.Component {
     return (
       <div>
         <Subheader rightUrl="/categories/new" rightLabel="Add Category"/>
-        <ul style={styles.categoryList}>
+        <div style={styles.sectionHeader}>
+          <SectionHeader text="Categories" size="big"/>
+        </div>
+        <ul className="toc">
           {this.getCategories()}
         </ul>
       </div>

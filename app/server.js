@@ -46,8 +46,22 @@ mongoose.connect(dbUrl);
 app.get(apiPrefix + '/categories', (req, res)=> {
   Category
     .find({})
-    .then((result) => {
-      res.json(result);
+    .then((categories) => {
+      let outstanding = categories.length;
+      categories.forEach((category, idx) => {
+        Recipe
+          .count({category: category._id})
+          .then(((index, count) => {
+            categories[index].recipeCount = count;
+            outstanding--;
+            if (!outstanding) {
+              res.json(categories);
+            }
+          }).bind(this, idx))
+          .catch((err) => {
+            errorHandler(err);
+          });
+      });
     })
     .catch((err) => {
       errorHandler(err);
