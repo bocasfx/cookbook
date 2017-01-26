@@ -72,7 +72,7 @@ class RecipeList extends React.Component {
     let newUrl = this.props.baseUrl + '/new';
     return (
       <div>
-        <Subheader rightUrl={newUrl} rightLabel="Add Recipe"/>
+        <Subheader leftUrl='/' leftLabel="Categories" rightUrl={newUrl} rightLabel="Add Recipe"/>
         <div style={styles.recipeList}>
           {this.recipeIndex()}
         </div>
