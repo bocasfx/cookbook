@@ -71,12 +71,15 @@ class Search extends React.Component {
         if (err) {
           return this.setState({
             error: true,
-            done: true
+            done: true,
+            errorMessage: 'Unable to search for recipes.'
           });
         }
         this.setState({
           recipeList: response.body,
-          done: true
+          done: true,
+          errorMessage: '',
+          error: false
         });
       });
   }
@@ -93,6 +96,7 @@ class Search extends React.Component {
     if (!state.searchStr) {
       state.recipeList = [];
       state.done = false;
+      state.error = false;
     }
     this.setState(state);
   }
