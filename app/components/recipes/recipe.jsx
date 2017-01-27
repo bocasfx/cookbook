@@ -25,8 +25,8 @@ let styles = {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
-    width: '300px',
-    height: '300px'
+    width: '250px',
+    height: '250px'
   },
   body: {
     marginBottom: '70px'

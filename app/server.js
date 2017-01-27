@@ -47,6 +47,10 @@ app.get(apiPrefix + '/categories', (req, res)=> {
   Category
     .find({})
     .then((categories) => {
+      if (!categories.length) {
+        res.json(categories);
+        return;
+      }
       let outstanding = categories.length;
       categories.forEach((category, idx) => {
         Recipe
@@ -108,6 +112,18 @@ app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
   }
   Recipe
     .findOneAndUpdate({_id: req.params.id}, recipe)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+});
+
+app.post(apiPrefix + '/search', (req, res) => {
+  let query = req.body.query || '';
+  Recipe
+    .find({title: new RegExp('^.*' + query + '.*$', 'i')})
     .then((result) => {
       res.json(result);
     })

@@ -23,6 +23,7 @@ class RecipeEdit extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
 
   componentDidMount() {
@@ -57,25 +58,38 @@ class RecipeEdit extends React.Component {
     event.preventDefault();
 
     let image = this.state.recipe.image;
+    let url = '/api/v1/recipes/' + this.props.params.recipeid;
 
-    request.patch('/api/v1/recipes/' + this.props.params.recipeid)
-      .attach('image', image, image.name)
-      .field('title', this.state.recipe.title)
-      .field('category', this.state.recipe.category)
-      .field('ingredients', this.state.recipe.ingredients)
-      .field('description', this.state.recipe.description)
-      .end((err) => {
-        if (err) {
-          return this.setState({
-            error: true,
-            done: true
-          });
-        }
-        this.setState({
-          done: true
-        });
-        browserHistory.push('/recipes/' + this.props.params.recipeid);
+    if (typeof image === Object) {
+      request.patch(url)
+        .attach('image', image, image.name)
+        .field('title', this.state.recipe.title)
+        .field('category', this.state.recipe.category)
+        .field('ingredients', this.state.recipe.ingredients)
+        .field('description', this.state.recipe.description)
+        .end(this.handleError);
+    } else {
+      request.patch(url)
+        .field('title', this.state.recipe.title)
+        .field('category', this.state.recipe.category)
+        .field('ingredients', this.state.recipe.ingredients)
+        .field('description', this.state.recipe.description)
+        .field('image', this.state.recipe.image)
+        .end(this.handleError);
+    }
+  }
+
+  handleError(err) {
+    if (err) {
+      return this.setState({
+        error: true,
+        done: true
       });
+    }
+    this.setState({
+      done: true
+    });
+    browserHistory.push('/recipes/' + this.props.params.recipeid);
   }
 
   onDrop(acceptedFiles) {
@@ -93,7 +107,7 @@ class RecipeEdit extends React.Component {
       );
     }
 
-    let cancelUrl = '/categories/' + this.state.category + '/recipes/' + this.props.params.recipeid;
+    let cancelUrl = '/recipes/' + this.props.params.recipeid;
     return (
       <RecipeForm 
         recipe={this.state.recipe}

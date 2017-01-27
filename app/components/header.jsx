@@ -4,57 +4,38 @@ import FontAwesome from 'react-fontawesome';
 
 const styles = {
   header: {
-    display: 'flex',
-    alignItems: 'center',
     width: '640px',
-    margin: 'auto'
+    margin: 'auto',
+    padding: '10px 0',
+    display: 'table-cell',
+    fontSize: '2em'
   },
-  title: {
-    
+  search: {
+    display: 'table-cell',
+    verticalAlign: 'middle',
   },
   logo: {
     marginLeft: '15px',
     fontSize: '0.9em'
+  },
+  container: {
+    display: 'table',
+    width: '640px',
+    margin: 'auto'
   }
 };
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hovered: false
-    };
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
-  }
-
-  titleStyle() {
-    let titleStyle = {
-      fontSize: '2em',
-      fontWeight: '900',
-      padding: '10px 0'
-    };
-
-    if (this.state && this.state.hovered) {
-      titleStyle.color = 'white';
-    }
-
-    return titleStyle;
-  }
-
-  onMouseOver() {
-    this.setState({ hovered:true });
-  }
-
-  onMouseOut() {
-    this.setState({ hovered:false });
-  }
-
   render() {
     return (
       <header>
-        <div style={styles.header}>
-          <Link to="/" style={this.titleStyle()} onMouseOut={this.onMouseOut} onMouseOver={this.onMouseOver}>COOKBOOK<FontAwesome style={styles.logo} name="cutlery"/></Link>
+        <div style={styles.container}>
+          <div style={styles.header}>
+            <Link to="/" className="headerLink">COOKBOOK<FontAwesome style={styles.logo} name="cutlery"/></Link>
+          </div>
+          <div style={styles.search}>
+            <Link to="/search" className="headerLink"><FontAwesome name="search"/></Link>
+          </div>
         </div>
       </header>
     );

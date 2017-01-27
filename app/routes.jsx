@@ -9,6 +9,7 @@ import RecipeListContainer from './components/recipes/recipe-list-container.jsx'
 import CategoryNewContainer from './components/categories/category-new-container.jsx';
 import EnsureLoggedInContainer from './components/ensure-logged-in-container.jsx';
 import Login from './components/login.jsx';
+import Search from './components/search.jsx';
 
 const routes = (
   <div>
@@ -22,6 +23,7 @@ const routes = (
       <Route name="Recipe" path="/recipes/:recipeid" component={RecipeContainer} staticName={true}/>
       <Route name="Recipes" path="/categories/:categoryid/recipes" component={RecipeListContainer}/>
       <Route name="Login" path="/login" component={Login}/>
+      <Route name="Search" path="/search" component={Search}/>
     </Route>
   </div>
 );

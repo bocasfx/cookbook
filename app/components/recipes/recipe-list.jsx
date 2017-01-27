@@ -41,9 +41,9 @@ class RecipeList extends React.Component {
       let label = capitalize(recipe.title);
       let url = '/recipes/' + recipe._id;
       return (
-        <div style={styles.recipeEntry} key={recipe._id}>
-          <Link to={url}>{label}</Link>
-        </div>
+        <Link to={url} key={recipe._id}>
+          <div style={styles.recipeEntry}>{label}</div>
+        </Link>
       );
     });
   }

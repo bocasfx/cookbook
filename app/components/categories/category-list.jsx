@@ -30,12 +30,12 @@ class CategoryList extends React.Component {
       let label = capitalize(category.category);
       let url = '/categories/' + category._id + '/recipes';
       return (
-        <li style={styles.li} key={category._id}>
-          <Link to={url}>
+        <Link to={url} key={category._id}>
+          <li style={styles.li}>
             <span>{label}</span>
             <span className="tocCount">{category.recipeCount}</span>
-          </Link>
-        </li>
+          </li>
+        </Link>
       );
     });
   }
@@ -43,8 +43,11 @@ class CategoryList extends React.Component {
   render() {
     if (!this.props.categories.length || this.props.error) {
       return (
-        <div style={styles.container}>
-          <Spinner error={this.props.error} spin={!this.props.done} staticMessage="Nothing to see here. Try adding a category."/>;
+        <div>
+          <Subheader rightUrl="/categories/new" rightLabel="Add Category"/>
+          <div style={styles.container}>
+            <Spinner error={this.props.error} spin={!this.props.done} staticMessage="Nothing to see here. Try adding a category."/>
+          </div>
         </div>
       );
     }

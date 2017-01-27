@@ -17,7 +17,7 @@ a:hover {
 
 ul {
   padding: 0;
-  text-align: center;
+  text-align: left;
 }
 
 ul li {
@@ -91,4 +91,12 @@ footer {
 .toc li .tocCount {
   float: right;
   padding-left: 5px;
+}
+
+.headerLink {
+  font-size: 1em;
+}
+
+.headerLink:hover {
+  color: white;
 }
