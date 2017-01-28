@@ -34,6 +34,10 @@ ol li {
 input {
   height: 30px;
   width: 50%;
+  color: dimgray;
+  font-size: 1em;
+  font-family: "Anonymous Pro", monospace;
+  border: 1px solid gainsboro;
 }
 
 h2 {
@@ -59,6 +63,13 @@ footer {
   text-align: center;
   color: gainsboro;
   padding-top: 20px;
+}
+
+textarea {
+  color: dimgray;
+  font-size: 1em;
+  font-family: "Anonymous Pro", monospace;
+  border: 1px solid gainsboro;
 }
 
 .toc {

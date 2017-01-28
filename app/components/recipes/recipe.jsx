@@ -19,7 +19,7 @@ let styles = {
   },
   image: {
     margin: '0 0 70px 0',
-    boxShadow: '2px 2px 7px 0px rgba(117,117,117,1)',
+    boxShadow: '0px 0px 1px 1px gainsboro',
     border: '7px solid white',
     float: 'right',
     backgroundSize: 'cover',

@@ -11,12 +11,12 @@ const styles = {
   dropzone: {
     width: '300px',
     height: '200px',
-    border: '1px solid #ccc',
+    border: '1px solid gainsboro',
     marginBottom: '25px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    boxShadow: '2px 2px 7px 0px rgba(117,117,117,1)',
+    boxShadow: '2px 2px 7px 0px gainsboro',
     border: '7px solid white',
     backgroundColor: '#eee'
   },
@@ -32,10 +32,7 @@ const styles = {
   textArea: {
     width: '100%',
     height: '50%',
-    borderColor: '#ccc',
     height: '200px',
-    fontFamily: '\'Anonymous Pro\', monospace',
-    fontSize: '1em',
     outline: 'none',
     padding: '7px'
   },
