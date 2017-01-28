@@ -12,7 +12,6 @@ const styles = {
   },
   input: {
     width: '100%',
-    outline: 'none',
     paddingLeft: '7px'
   },
   buttonBar: {

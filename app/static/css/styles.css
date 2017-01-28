@@ -38,6 +38,8 @@ input {
   font-size: 1em;
   font-family: "Anonymous Pro", monospace;
   border: 1px solid gainsboro;
+  outline: none;
+  padding: 0 7px;
 }
 
 h2 {
@@ -70,6 +72,8 @@ textarea {
   font-size: 1em;
   font-family: "Anonymous Pro", monospace;
   border: 1px solid gainsboro;
+  outline: none;
+  padding: 7px;
 }
 
 .toc {

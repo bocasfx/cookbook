@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
 import { browserHistory } from 'react-router';
 import Button from '../button.jsx';
+import Ingredient from './ingredient.jsx';
 
 const styles = {
   formEntry: {
@@ -11,12 +12,11 @@ const styles = {
   dropzone: {
     width: '300px',
     height: '200px',
-    border: '1px solid gainsboro',
     marginBottom: '25px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    boxShadow: '2px 2px 7px 0px gainsboro',
+    boxShadow: '0px 0px 1px 1px gainsboro',
     border: '7px solid white',
     backgroundColor: '#eee'
   },
@@ -31,14 +31,7 @@ const styles = {
   },
   textArea: {
     width: '100%',
-    height: '50%',
-    height: '200px',
-    outline: 'none',
-    padding: '7px'
-  },
-  input: {
-    outline: 'none',
-    paddingLeft: '7px'
+    height: '200px'
   }
 };
 
@@ -48,6 +41,13 @@ class RecipeForm extends React.Component {
     this.showImage = this.showImage.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.getRef = this.getRef.bind(this);
+
+    this.state = {
+      ingredientList: []
+    };
+
+    this.getIngredientList = this.getIngredientList.bind(this);
+    this.onAddIngredient = this.onAddIngredient.bind(this);
   }
 
   showImage() {
@@ -90,12 +90,42 @@ class RecipeForm extends React.Component {
     this.dropzone = node; 
   }
 
+  getIngredientList() {
+    return (
+      <ul>
+        {
+          this.state.ingredientList.map((ingredient, idx) => {
+            return (
+              <li key={idx}>
+                <span>{ingredient.ammount}</span>
+                <span>{ingredient.units}</span>
+                <span>{ingredient.ingredient}</span>
+              </li>
+            );
+          })
+        }
+      </ul>
+    );
+  }
+
+  onAddIngredient(ingredient) {
+    let ingredientList = this.state.ingredientList;
+    ingredientList.push({
+      ammount: ingredient.ammount,
+      units: ingredient.units,
+      ingredient: ingredient.ingredient
+    });
+    this.setState({
+      ingredientList: ingredientList
+    });
+  }
+
   render() {
     return (
       <div>
         <div style={styles.formEntry}>
           <h2>Title</h2>
-          <input style={styles.input} name="title" type="text" value={this.props.recipe.title} onChange={this.props.handleChange}/>
+          <input name="title" type="text" value={this.props.recipe.title} onChange={this.props.handleChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Image</h2>
@@ -105,6 +135,8 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.formEntry}>
           <h2>Ingredients</h2>
+          <Ingredient ingredientList={this.state.ingredientList} onAddIngredient={this.onAddIngredient}/>
+          {this.getIngredientList()}
           <textarea name="ingredients" type="text" style={styles.textArea} value={this.props.recipe.ingredients} onChange={this.props.handleChange}/>
         </div>
         <div style={styles.formEntry}>

@@ -26,7 +26,6 @@ class Button extends React.Component {
       width: '120px',
       margin: '25px 0 25px 10px',
       fontFamily: '\'Amatic SC\', cursive',
-      outline: 'none'
     };
 
     if (this.state && this.state.hovered) {
