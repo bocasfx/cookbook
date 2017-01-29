@@ -32,28 +32,6 @@ const styles = {
   textArea: {
     width: '100%',
     height: '200px'
-  },
-  table: {
-    margin: '0',
-    fontSize: '1em',
-    fontFamily: '"Anonymous Pro", monospace',
-    border: '1px dashed mistyrose',
-    width: '100%',
-    padding: '10px'
-  },
-  tr: {
-    verticalAlign: 'top'
-  },
-  ammount: {
-    maxWidth: '50px',
-    wordWrap: 'break-word'
-  },
-  units: {
-    maxWidth: '50px',
-    wordWrap: 'break-word'
-  },
-  ingredient: {
-    wordWrap: 'break-word'
   }
 };
 
@@ -63,8 +41,6 @@ class RecipeForm extends React.Component {
     this.showImage = this.showImage.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.getRef = this.getRef.bind(this);
-    this.getIngredientList = this.getIngredientList.bind(this);
-    this.onAddIngredient = this.onAddIngredient.bind(this);
   }
 
   showImage() {
@@ -107,31 +83,6 @@ class RecipeForm extends React.Component {
     this.dropzone = node; 
   }
 
-  getIngredientList() {
-    return (
-      <table style={styles.table}>
-        <tbody>
-          {
-            this.props.recipe.ingredients.map((ingredient, idx) => {
-              return (
-                <tr key={idx} style={styles.tr}>
-                  <td style={styles.ammount}>{ingredient.ammount}</td>
-                  <td style={styles.units}>{ingredient.units}</td>
-                  <td style={styles.ingredient}>{ingredient.ingredient}</td>
-                  <td onClick={this.props.onRemoveIngredient.bind(this, idx)}><FontAwesome name="times"/></td>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
-    );
-  }
-
-  onAddIngredient(ingredient) {
-    this.props.onAddIngredient(ingredient);
-  }
-
   render() {
     return (
       <div>
@@ -147,8 +98,7 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.formEntry}>
           <h2>Ingredients</h2>
-          <Ingredient onAddIngredient={this.onAddIngredient}/>
-          {this.getIngredientList()}
+          <Ingredient/>
         </div>
         <div style={styles.formEntry}>
           <h2>Description</h2>

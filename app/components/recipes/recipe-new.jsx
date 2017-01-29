@@ -22,8 +22,6 @@ class NewRecipe extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
-    this.onAddIngredient = this.onAddIngredient.bind(this);
-    this.onRemoveIngredient = this.onRemoveIngredient.bind(this);
   }
 
   handleSubmit(event) {
@@ -75,23 +73,6 @@ class NewRecipe extends React.Component {
   onDrop(acceptedFiles) {
     let state = this.state;
     state.recipe.image = acceptedFiles[0];
-    this.setState(state);
-  }
-
-  onAddIngredient(ingredient) {
-    let state = this.state;
-    state.recipe.ingredients.push({
-      ammount: ingredient.ammount,
-      units: ingredient.units,
-      ingredient: ingredient.ingredient
-    });
-    this.setState(state);
-    console.log(this.state);
-  }
-
-  onRemoveIngredient(idx) {
-    let state = this.state;
-    state.recipe.ingredients.splice(idx, 1);
     this.setState(state);
   }
 
