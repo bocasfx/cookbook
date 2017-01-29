@@ -32,6 +32,28 @@ const styles = {
   textArea: {
     width: '100%',
     height: '200px'
+  },
+  table: {
+    margin: '0',
+    fontSize: '1em',
+    fontFamily: '"Anonymous Pro", monospace',
+    border: '1px dashed mistyrose',
+    width: '100%',
+    padding: '10px'
+  },
+  tr: {
+    verticalAlign: 'top'
+  },
+  ammount: {
+    maxWidth: '50px',
+    wordWrap: 'break-word'
+  },
+  units: {
+    maxWidth: '50px',
+    wordWrap: 'break-word'
+  },
+  ingredient: {
+    wordWrap: 'break-word'
   }
 };
 
@@ -48,6 +70,7 @@ class RecipeForm extends React.Component {
 
     this.getIngredientList = this.getIngredientList.bind(this);
     this.onAddIngredient = this.onAddIngredient.bind(this);
+    this.onRemoveIngredient = this.onRemoveIngredient.bind(this);
   }
 
   showImage() {
@@ -92,19 +115,22 @@ class RecipeForm extends React.Component {
 
   getIngredientList() {
     return (
-      <ul>
-        {
-          this.state.ingredientList.map((ingredient, idx) => {
-            return (
-              <li key={idx}>
-                <span>{ingredient.ammount}</span>
-                <span>{ingredient.units}</span>
-                <span>{ingredient.ingredient}</span>
-              </li>
-            );
-          })
-        }
-      </ul>
+      <table style={styles.table}>
+        <tbody>
+          {
+            this.state.ingredientList.map((ingredient, idx) => {
+              return (
+                <tr key={idx} style={styles.tr}>
+                  <td style={styles.ammount}>{ingredient.ammount}</td>
+                  <td style={styles.units}>{ingredient.units}</td>
+                  <td style={styles.ingredient}>{ingredient.ingredient}</td>
+                  <td onClick={this.onRemoveIngredient.bind(this, idx)}><FontAwesome name="times"/></td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
     );
   }
 
@@ -118,6 +144,12 @@ class RecipeForm extends React.Component {
     this.setState({
       ingredientList: ingredientList
     });
+  }
+
+  onRemoveIngredient(idx) {
+    let state = this.state;
+    state.ingredientList.splice(idx, 1);
+    this.setState(state);
   }
 
   render() {
@@ -137,7 +169,6 @@ class RecipeForm extends React.Component {
           <h2>Ingredients</h2>
           <Ingredient ingredientList={this.state.ingredientList} onAddIngredient={this.onAddIngredient}/>
           {this.getIngredientList()}
-          <textarea name="ingredients" type="text" style={styles.textArea} value={this.props.recipe.ingredients} onChange={this.props.handleChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Description</h2>

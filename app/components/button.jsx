@@ -24,7 +24,7 @@ class Button extends React.Component {
       cursor: 'pointer',
       border: 'none',
       width: '120px',
-      margin: '25px 0 25px 10px',
+      margin: '25px 0 25px 15px',
       fontFamily: '\'Amatic SC\', cursive',
     };
 

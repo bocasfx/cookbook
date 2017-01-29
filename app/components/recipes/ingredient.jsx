@@ -3,14 +3,15 @@ import Button from '../button.jsx';
 
 const styles = {
   ammount: {
-    width: '50px'
+    width: '70px'
   },
   units: {
-    marginLeft: '20px',
-    width: '50px'
+    marginLeft: '15px',
+    width: '70px'
   },
   ingredient: {
-    marginLeft: '20px'
+    marginLeft: '15px',
+    width: '335px'
   }
 };
 
