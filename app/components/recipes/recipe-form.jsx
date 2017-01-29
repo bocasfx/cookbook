@@ -63,14 +63,8 @@ class RecipeForm extends React.Component {
     this.showImage = this.showImage.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.getRef = this.getRef.bind(this);
-
-    this.state = {
-      ingredientList: []
-    };
-
     this.getIngredientList = this.getIngredientList.bind(this);
     this.onAddIngredient = this.onAddIngredient.bind(this);
-    this.onRemoveIngredient = this.onRemoveIngredient.bind(this);
   }
 
   showImage() {
@@ -118,13 +112,13 @@ class RecipeForm extends React.Component {
       <table style={styles.table}>
         <tbody>
           {
-            this.state.ingredientList.map((ingredient, idx) => {
+            this.props.recipe.ingredients.map((ingredient, idx) => {
               return (
                 <tr key={idx} style={styles.tr}>
                   <td style={styles.ammount}>{ingredient.ammount}</td>
                   <td style={styles.units}>{ingredient.units}</td>
                   <td style={styles.ingredient}>{ingredient.ingredient}</td>
-                  <td onClick={this.onRemoveIngredient.bind(this, idx)}><FontAwesome name="times"/></td>
+                  <td onClick={this.props.onRemoveIngredient.bind(this, idx)}><FontAwesome name="times"/></td>
                 </tr>
               );
             })
@@ -135,21 +129,7 @@ class RecipeForm extends React.Component {
   }
 
   onAddIngredient(ingredient) {
-    let ingredientList = this.state.ingredientList;
-    ingredientList.push({
-      ammount: ingredient.ammount,
-      units: ingredient.units,
-      ingredient: ingredient.ingredient
-    });
-    this.setState({
-      ingredientList: ingredientList
-    });
-  }
-
-  onRemoveIngredient(idx) {
-    let state = this.state;
-    state.ingredientList.splice(idx, 1);
-    this.setState(state);
+    this.props.onAddIngredient(ingredient);
   }
 
   render() {
@@ -167,7 +147,7 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.formEntry}>
           <h2>Ingredients</h2>
-          <Ingredient ingredientList={this.state.ingredientList} onAddIngredient={this.onAddIngredient}/>
+          <Ingredient onAddIngredient={this.onAddIngredient}/>
           {this.getIngredientList()}
         </div>
         <div style={styles.formEntry}>
