@@ -1,33 +1,11 @@
 import React from 'react';
 import Microbutton from '../microbutton.jsx';
-import FontAwesome from 'react-fontawesome';
+import StepList from './step-list.jsx';
 
 const styles = {
   stepInput: {
     width: '575px',
     height: '180px'
-  },
-  ol: {
-    margin: '0',
-    fontSize: '1em',
-    fontFamily: '"Anonymous Pro", monospace',
-    border: '1px dashed mistyrose',
-    width: '100%',
-    padding: '10px'
-  },
-  row: {
-  },
-  cell: {
-    display: 'table-cell',
-    width: '30px',
-    textAlign: 'center'
-  },
-  step: {
-    display: 'table-cell',
-    textAlign: 'justify',
-    paddingRight: '15px',
-    maxWidth: '525px',
-    wordWrap: 'break-word'
   },
   container: {
     display: 'flex',
@@ -35,6 +13,9 @@ const styles = {
   },
   button: {
     marginLeft: '15px'
+  },
+  dashed: {
+    border: '1px dashed mistyrose'
   }
 };
 
@@ -45,7 +26,7 @@ class Steps extends React.Component {
       currentStep: '',
       icon: 'plus',
       disabled: true,
-      steps: [],
+      steps: props.steps,
       idx: null,
       editing: false
     };
@@ -120,20 +101,13 @@ class Steps extends React.Component {
     }
 
     return (
-      <div style={styles.ol}>
-        <ol>
-          {
-            this.state.steps.map((step, idx) => {
-              return (
-                <li style={styles.row} key={idx}>
-                  <span style={styles.step}>{step}</span>
-                  <span onClick={this.loadStep.bind(this, idx)} style={styles.cell}><FontAwesome name="pencil"/></span>
-                  <span onClick={this.removeStep.bind(this, idx)} style={styles.cell}><FontAwesome name="times"/></span>
-                </li>
-              );
-            })
-          }
-        </ol>
+      <div style={styles.dashed}>
+        <StepList
+          steps={this.state.steps}
+          loadStep={this.loadStep}
+          removeStep={this.removeStep}
+          editButton={true}
+          removeButton={true}/>
       </div>
     );
   }

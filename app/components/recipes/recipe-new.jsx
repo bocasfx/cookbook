@@ -29,8 +29,6 @@ class NewRecipe extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    console.log(this.state);
-
     this.setState({
       disabled: true
     });
@@ -71,7 +69,6 @@ class NewRecipe extends React.Component {
     let state = this.state;
 
     state.recipe[name] = value;
-    console.log(state);
     this.setState(state);
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Microbutton from '../microbutton.jsx';
-import FontAwesome from 'react-fontawesome';
+import IngredientList from './ingredient-list.jsx';
 
 const styles = {
   ammount: {
@@ -14,35 +14,15 @@ const styles = {
     marginLeft: '15px',
     width: '405px'
   },
-  table: {
-    margin: '0',
-    fontSize: '1em',
-    fontFamily: '"Anonymous Pro", monospace',
-    border: '1px dashed mistyrose',
-    width: '100%',
-    padding: '10px'
-  },
-  tr: {
-    verticalAlign: 'top'
-  },
-  ammountCell: {
-    maxWidth: '50px',
-    wordWrap: 'break-word'
-  },
-  unitsCell: {
-    maxWidth: '50px',
-    wordWrap: 'break-word'
-  },
-  ingredientCell: {
-    maxWidth: '250px',
-    wordWrap: 'break-word'
-  },
   button: {
     marginLeft: '15px'
   },
   container: {
     display: 'flex',
     marginBottom: '50px'
+  },
+  ingredients: {
+    border: '1px dashed mistyrose'
   }
 };
 
@@ -56,7 +36,7 @@ class Ingredient extends React.Component {
         ingredient: ''
       },
       disabled: true,
-      ingredients: [],
+      ingredients: props.ingredients,
       editing: false,
       idx: null,
       icon: 'plus'
@@ -149,23 +129,14 @@ class Ingredient extends React.Component {
     }
 
     return (
-      <table style={styles.table}>
-        <tbody>
-          {
-            this.state.ingredients.map((ingredient, idx) => {
-              return (
-                <tr key={idx} style={styles.tr}>
-                  <td style={styles.ammountCell}>{ingredient.ammount}</td>
-                  <td style={styles.unitsCell}>{ingredient.units}</td>
-                  <td style={styles.ingredientCell}>{ingredient.ingredient}</td>
-                  <td onClick={this.loadIngredient.bind(this, idx)}><FontAwesome name="pencil"/></td>
-                  <td onClick={this.removeIngredient.bind(this, idx)}><FontAwesome name="times"/></td>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
+      <div style={styles.ingredients}>
+        <IngredientList
+          ingredients={this.state.ingredients}
+          loadIngredient={this.loadIngredient}
+          removeIngredient={this.removeIngredient}
+          editButton={true}
+          removeButton={true}/>
+      </div>
     );
   }
 

@@ -1,6 +1,6 @@
 
 html body {
-  font-family: 'Amatic SC', cursive;
+  font-family: 'Amatic SC', sans-serif;
   color: dimgray;
   width: 100%;
   margin: 0;
@@ -74,6 +74,11 @@ textarea {
   border: 1px solid gainsboro;
   outline: none;
   padding: 7px;
+  line-height: 2em;
+}
+
+td {
+  padding: 5px;
 }
 
 .toc {
@@ -126,7 +131,6 @@ textarea {
   border: none;
   width: 50px;
   height: 30px;
-  font-family: "Amatic SC", cursive;
   text-align: center;
 }
 
@@ -145,6 +149,5 @@ textarea {
   border: none;
   width: 50px;
   height: 30px;
-  font-family: "Amatic SC", cursive;
   text-align: center;
 }

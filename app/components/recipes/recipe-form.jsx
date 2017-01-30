@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
 import { browserHistory } from 'react-router';
 import Button from '../button.jsx';
-import Ingredient from './ingredient.jsx';
+import Ingredients from './ingredients.jsx';
 import Steps from './steps.jsx';
 
 const styles = {
@@ -99,11 +99,15 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.formEntry}>
           <h2>Ingredients</h2>
-          <Ingredient onChange={this.props.onIngredientsChange}/>
+          <Ingredients
+            ingredients={this.props.recipe.ingredients}
+            onChange={this.props.onIngredientsChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Steps</h2>
-          <Steps onChange={this.props.onStepsChange}/>
+          <Steps
+            steps={this.props.recipe.steps}
+            onChange={this.props.onStepsChange}/>
         </div>
         <div style={styles.buttonBar}>
           <Button type="button" value="Cancel" onClick={this.onCancel}/>

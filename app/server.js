@@ -105,21 +105,6 @@ app.get(apiPrefix + '/recipes/:id', (req, res)=> {
     });
 });
 
-app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
-  let recipe = req.body;
-  if (req.file) {
-    recipe.image = '/images/' + path.basename(req.file.path);
-  }
-  Recipe
-    .findOneAndUpdate({_id: req.params.id}, recipe)
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      errorHandler(err);
-    });
-});
-
 app.post(apiPrefix + '/search', (req, res) => {
   let query = req.body.query || '';
   Recipe
@@ -298,6 +283,23 @@ app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
   let recipe = new Recipe(newRecipe);
   recipe
     .save()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+});
+
+app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
+  let recipe = req.body;
+  recipe.steps = JSON.parse(recipe.steps);
+  recipe.ingredients = JSON.parse(recipe.ingredients);
+  if (req.file) {
+    recipe.image = '/images/' + path.basename(req.file.path);
+  }
+  Recipe
+    .findOneAndUpdate({_id: req.params.id}, recipe)
     .then((result) => {
       res.json(result);
     })
