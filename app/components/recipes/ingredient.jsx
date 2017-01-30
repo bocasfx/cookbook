@@ -34,6 +34,7 @@ const styles = {
     wordWrap: 'break-word'
   },
   ingredientCell: {
+    maxWidth: '250px',
     wordWrap: 'break-word'
   },
   button: {
@@ -82,6 +83,10 @@ class Ingredient extends React.Component {
   }
 
   addIngredient() {
+    if (this.state.disabled) {
+      return;
+    }
+
     let state = this.state;
     if (state.editing) {
       this.editIngredient();
@@ -93,6 +98,8 @@ class Ingredient extends React.Component {
       units: '',
       ingredient: ''
     };
+    state.disabled = true;
+    this.props.onChange(state.ingredients);
     this.setState(state);
   }
 
@@ -130,7 +137,9 @@ class Ingredient extends React.Component {
     };
     state.idx = null;
     state.editing = false;
+    state.disabled = true;
     state.icon = 'plus';
+    this.props.onChange(this.ingredients);
     this.setState(state);
   }
 

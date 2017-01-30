@@ -11,7 +11,7 @@ class NewRecipe extends React.Component {
         title: '',
         category: this.props.params.categoryid,
         ingredients: [],
-        description: '',
+        steps: [],
         image: ''
       },
       error: false,
@@ -20,12 +20,16 @@ class NewRecipe extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
+    this.onIngredientsChange = this.onIngredientsChange.bind(this);
+    this.onStepsChange = this.onStepsChange.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+
+    console.log(this.state);
 
     this.setState({
       disabled: true
@@ -39,8 +43,8 @@ class NewRecipe extends React.Component {
       .field({
         title: this.state.recipe.title,
         category: this.state.recipe.category,
-        ingredients: this.state.recipe.ingredients,
-        description: this.state.recipe.description
+        ingredients: JSON.stringify(this.state.recipe.ingredients),
+        steps: JSON.stringify(this.state.recipe.steps)
       })
       .end((err, response) => {
         if (response && response.status === 403) {
@@ -59,7 +63,7 @@ class NewRecipe extends React.Component {
       });
   }
 
-  handleChange(event) {
+  onChange(event) {
     event.preventDefault();
 
     let value = event.target.value;
@@ -67,6 +71,19 @@ class NewRecipe extends React.Component {
     let state = this.state;
 
     state.recipe[name] = value;
+    console.log(state);
+    this.setState(state);
+  }
+
+  onIngredientsChange(ingredients) {
+    let state = this.state;
+    state.recipe.ingredients = ingredients;
+    this.setState(state);
+  }
+
+  onStepsChange(steps) {
+    let state = this.state;
+    state.recipe.steps = steps;
     this.setState(state);
   }
 
@@ -81,7 +98,7 @@ class NewRecipe extends React.Component {
     return (
       <RecipeForm
         recipe={this.state.recipe}
-        handleChange={this.handleChange}
+        onChange={this.onChange}
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
         cancelUrl={cancelUrl}
@@ -89,8 +106,8 @@ class NewRecipe extends React.Component {
         error={this.state.error}
         done={this.state.done}
         disabled={this.state.disabled}
-        onAddIngredient={this.onAddIngredient}
-        onRemoveIngredient={this.onRemoveIngredient}/>
+        onIngredientsChange={this.onIngredientsChange}
+        onStepsChange={this.onStepsChange}/>
     );
   }
 }

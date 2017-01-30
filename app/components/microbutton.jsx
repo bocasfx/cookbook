@@ -26,7 +26,7 @@ class Microbutton extends React.Component {
     let cls = 'button' + disabled;
 
     return (
-      <div className={cls} onClick={this.props.onClick} {...disabled}>
+      <div className={cls} onClick={this.props.onClick}>
         <Fontawesome style={styles.icon} name={this.props.icon}/>
       </div>
     );

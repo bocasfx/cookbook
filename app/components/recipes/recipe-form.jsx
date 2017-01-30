@@ -89,7 +89,7 @@ class RecipeForm extends React.Component {
       <div>
         <div style={styles.formEntry}>
           <h2>Title</h2>
-          <input name="title" type="text" value={this.props.recipe.title} onChange={this.props.handleChange}/>
+          <input name="title" type="text" value={this.props.recipe.title} onChange={this.props.onChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Image</h2>
@@ -99,11 +99,11 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.formEntry}>
           <h2>Ingredients</h2>
-          <Ingredient/>
+          <Ingredient onChange={this.props.onIngredientsChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Steps</h2>
-          <Steps/>
+          <Steps onChange={this.props.onStepsChange}/>
         </div>
         <div style={styles.buttonBar}>
           <Button type="button" value="Cancel" onClick={this.onCancel}/>

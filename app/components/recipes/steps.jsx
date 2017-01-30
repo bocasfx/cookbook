@@ -25,7 +25,9 @@ const styles = {
   step: {
     display: 'table-cell',
     textAlign: 'justify',
-    paddingRight: '15px'
+    paddingRight: '15px',
+    maxWidth: '525px',
+    wordWrap: 'break-word'
   },
   container: {
     display: 'flex',
@@ -80,6 +82,7 @@ class Steps extends React.Component {
     state.steps.push(state.currentStep);
     state.currentStep = '';
     state.disabled = true;
+    this.props.onChange(state.steps);
     this.setState(state);
   }
 
@@ -107,6 +110,7 @@ class Steps extends React.Component {
     state.editing = false;
     state.disabled = true;
     state.icon = 'plus';
+    this.props.onChange(state.steps);
     this.setState(state);
   }
 

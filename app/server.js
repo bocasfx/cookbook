@@ -291,6 +291,9 @@ app.post(apiPrefix + '/categories', (req, res) => {
 
 app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
   let newRecipe = req.body;
+  newRecipe.steps = JSON.parse(newRecipe.steps);
+  newRecipe.ingredients = JSON.parse(newRecipe.ingredients);
+  console.log(JSON.stringify(newRecipe));
   newRecipe.image = req.file ? '/images/' + path.basename(req.file.path) : '';
   let recipe = new Recipe(newRecipe);
   recipe
