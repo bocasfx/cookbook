@@ -115,3 +115,36 @@ textarea {
 .headerLink:hover {
   color: white;
 }
+
+.button {
+  background-color: silver;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  width: 50px;
+  height: 30px;
+  font-family: "Amatic SC", cursive;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: mistyrose;
+  color: dimgray;
+}
+
+.buttonDisabled {
+  cursor: not-allowed;
+  background-color: whitesmoke;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  text-decoration: none;
+  border: none;
+  width: 50px;
+  height: 30px;
+  font-family: "Amatic SC", cursive;
+  text-align: center;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../button.jsx';
+import Microbutton from '../microbutton.jsx';
 import FontAwesome from 'react-fontawesome';
 
 const styles = {
@@ -12,8 +12,9 @@ const styles = {
   },
   ingredient: {
     marginLeft: '15px',
-    width: '335px'
-  },table: {
+    width: '405px'
+  },
+  table: {
     margin: '0',
     fontSize: '1em',
     fontFamily: '"Anonymous Pro", monospace',
@@ -34,6 +35,13 @@ const styles = {
   },
   ingredientCell: {
     wordWrap: 'break-word'
+  },
+  button: {
+    marginLeft: '15px'
+  },
+  container: {
+    display: 'flex',
+    marginBottom: '50px'
   }
 };
 
@@ -50,7 +58,7 @@ class Ingredient extends React.Component {
       ingredients: [],
       editing: false,
       idx: null,
-      buttonLabel: 'Add'
+      icon: 'plus'
     };
 
     this.onChange = this.onChange.bind(this);
@@ -97,7 +105,7 @@ class Ingredient extends React.Component {
       ingredient: state.ingredients[idx].ingredient
     };
     state.editing = true;
-    state.buttonLabel = 'Apply';
+    state.icon = 'check';
     this.setState(state);
   }
 
@@ -122,11 +130,15 @@ class Ingredient extends React.Component {
     };
     state.idx = null;
     state.editing = false;
-    state.buttonLabel = 'Add';
+    state.icon = 'plus';
     this.setState(state);
   }
 
   renderIngredients() {
+    if (!this.state.ingredients.length) {
+      return null;
+    }
+
     return (
       <table style={styles.table}>
         <tbody>
@@ -151,7 +163,7 @@ class Ingredient extends React.Component {
   render() {
     return (
       <div>
-        <div>
+        <div style={styles.container}>
           <input
             style={styles.ammount}
             name="ammount"
@@ -173,12 +185,12 @@ class Ingredient extends React.Component {
             value={this.state.ingredient.ingredient}
             onChange={this.onChange}
             autoComplete="off"/>
-          <Button
-            type="button"
-            value={this.state.buttonLabel}
-            onClick={this.addIngredient}
-            onChange={this.onChange}
-            disabled={this.state.disabled}/>
+          <div style={styles.button}>
+            <Microbutton
+              icon={this.state.icon}
+              onClick={this.addIngredient}
+              disabled={this.state.disabled}/>
+          </div>
         </div>
         {this.renderIngredients()}
       </div>

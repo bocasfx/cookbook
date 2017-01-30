@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import { browserHistory } from 'react-router';
 import Button from '../button.jsx';
 import Ingredient from './ingredient.jsx';
+import Steps from './steps.jsx';
 
 const styles = {
   formEntry: {
@@ -101,8 +102,8 @@ class RecipeForm extends React.Component {
           <Ingredient/>
         </div>
         <div style={styles.formEntry}>
-          <h2>Description</h2>
-          <textarea name="description" type="text" style={styles.textArea} value={this.props.recipe.description} onChange={this.props.handleChange}/>
+          <h2>Steps</h2>
+          <Steps/>
         </div>
         <div style={styles.buttonBar}>
           <Button type="button" value="Cancel" onClick={this.onCancel}/>
