@@ -3,6 +3,8 @@ import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
 import { browserHistory } from 'react-router';
 import Button from '../button.jsx';
+import Ingredients from './ingredients.jsx';
+import Steps from './steps.jsx';
 
 const styles = {
   formEntry: {
@@ -11,12 +13,11 @@ const styles = {
   dropzone: {
     width: '300px',
     height: '200px',
-    border: '1px solid gainsboro',
     marginBottom: '25px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    boxShadow: '2px 2px 7px 0px gainsboro',
+    boxShadow: '0px 0px 1px 1px gainsboro',
     border: '7px solid white',
     backgroundColor: '#eee'
   },
@@ -31,14 +32,7 @@ const styles = {
   },
   textArea: {
     width: '100%',
-    height: '50%',
-    height: '200px',
-    outline: 'none',
-    padding: '7px'
-  },
-  input: {
-    outline: 'none',
-    paddingLeft: '7px'
+    height: '200px'
   }
 };
 
@@ -95,7 +89,7 @@ class RecipeForm extends React.Component {
       <div>
         <div style={styles.formEntry}>
           <h2>Title</h2>
-          <input style={styles.input} name="title" type="text" value={this.props.recipe.title} onChange={this.props.handleChange}/>
+          <input name="title" type="text" value={this.props.recipe.title} onChange={this.props.onChange}/>
         </div>
         <div style={styles.formEntry}>
           <h2>Image</h2>
@@ -105,11 +99,15 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.formEntry}>
           <h2>Ingredients</h2>
-          <textarea name="ingredients" type="text" style={styles.textArea} value={this.props.recipe.ingredients} onChange={this.props.handleChange}/>
+          <Ingredients
+            ingredients={this.props.recipe.ingredients}
+            onChange={this.props.onIngredientsChange}/>
         </div>
         <div style={styles.formEntry}>
-          <h2>Description</h2>
-          <textarea name="description" type="text" style={styles.textArea} value={this.props.recipe.description} onChange={this.props.handleChange}/>
+          <h2>Steps</h2>
+          <Steps
+            steps={this.props.recipe.steps}
+            onChange={this.props.onStepsChange}/>
         </div>
         <div style={styles.buttonBar}>
           <Button type="button" value="Cancel" onClick={this.onCancel}/>

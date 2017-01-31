@@ -24,6 +24,8 @@ class RecipeEdit extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.handleError = this.handleError.bind(this);
+    this.onIngredientsChange = this.onIngredientsChange.bind(this);
+    this.onStepsChange = this.onStepsChange.bind(this);
   }
 
   componentDidMount() {
@@ -38,7 +40,8 @@ class RecipeEdit extends React.Component {
           });
         }
         this.setState({
-          recipe: response.body[0]
+          recipe: response.body[0],
+          done: true
         });
       });
   }
@@ -62,18 +65,20 @@ class RecipeEdit extends React.Component {
 
     if (typeof image === Object) {
       request.patch(url)
+        .set('x-access-token', sessionStorage.getItem('accessToken'))
         .attach('image', image, image.name)
         .field('title', this.state.recipe.title)
         .field('category', this.state.recipe.category)
-        .field('ingredients', this.state.recipe.ingredients)
-        .field('description', this.state.recipe.description)
+        .field('ingredients', JSON.stringify(this.state.recipe.ingredients))
+        .field('steps', JSON.stringify(this.state.recipe.steps))
         .end(this.handleError);
     } else {
       request.patch(url)
+        .set('x-access-token', sessionStorage.getItem('accessToken'))
         .field('title', this.state.recipe.title)
         .field('category', this.state.recipe.category)
-        .field('ingredients', this.state.recipe.ingredients)
-        .field('description', this.state.recipe.description)
+        .field('ingredients', JSON.stringify(this.state.recipe.ingredients))
+        .field('steps', JSON.stringify(this.state.recipe.steps))
         .field('image', this.state.recipe.image)
         .end(this.handleError);
     }
@@ -98,6 +103,18 @@ class RecipeEdit extends React.Component {
     this.setState(state);
   }
 
+  onIngredientsChange(ingredients) {
+    let state = this.state;
+    state.recipe.ingredients = ingredients;
+    this.setState(state);
+  }
+
+  onStepsChange(steps) {
+    let state = this.state;
+    state.recipe.steps = steps;
+    this.setState(state);
+  }
+
   render() {
     if (!this.state.recipe || this.error) {
       return (
@@ -111,14 +128,16 @@ class RecipeEdit extends React.Component {
     return (
       <RecipeForm 
         recipe={this.state.recipe}
-        handleChange={this.handleChange}
+        onChange={this.handleChange}
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
         cancelUrl={cancelUrl}
         submitLabel="Save"
         error={this.state.error}
         done={this.state.done}
-        disabled={this.state.disabled}/>
+        disabled={this.state.disabled}
+        onIngredientsChange={this.onIngredientsChange}
+        onStepsChange={this.onStepsChange}/>
     );
   }
 }

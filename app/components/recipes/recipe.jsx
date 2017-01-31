@@ -2,6 +2,8 @@ import React from 'react';
 import Subheader from '../subheader.jsx';
 import Spinner from '../spinner.jsx';
 import SectionHeader from '../section-header.jsx';
+import IngredientList from './ingredient-list.jsx';
+import StepList from './step-list.jsx';
 
 let styles = {
   title: {
@@ -30,9 +32,6 @@ let styles = {
   },
   body: {
     marginBottom: '70px'
-  },
-  description: {
-    marginTop: '50px'
   },
   preFormatted: {
     fontFamily: '\'Anonymous Pro\', monospace',
@@ -72,13 +71,19 @@ class Recipe extends React.Component {
         <div style={styles.header}>
           <div style={styles.ingredients}>
             <SectionHeader text="Ingredients"/>
-            <pre style={styles.preFormatted}>{this.props.recipe.ingredients}</pre>
+            <IngredientList
+              ingredients={this.props.recipe.ingredients}
+              editButton={false}
+              removeButton={false}/>
           </div>
           <div style={this.getImageStyle()}></div>
         </div>
         <div style={styles.body}>
           <SectionHeader text="Preparation"/>
-          <pre style={styles.preFormatted}>{this.props.recipe.description}</pre>
+          <StepList
+            steps={this.props.recipe.steps}
+            editButton={false}
+            removeButton={false}/>
         </div>
       </div>
     );

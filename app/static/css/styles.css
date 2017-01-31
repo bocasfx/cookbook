@@ -1,6 +1,6 @@
 
 html body {
-  font-family: 'Amatic SC', cursive;
+  font-family: 'Amatic SC', sans-serif;
   color: dimgray;
   width: 100%;
   margin: 0;
@@ -38,6 +38,8 @@ input {
   font-size: 1em;
   font-family: "Anonymous Pro", monospace;
   border: 1px solid gainsboro;
+  outline: none;
+  padding: 0 7px;
 }
 
 h2 {
@@ -70,6 +72,13 @@ textarea {
   font-size: 1em;
   font-family: "Anonymous Pro", monospace;
   border: 1px solid gainsboro;
+  outline: none;
+  padding: 7px;
+  line-height: 2em;
+}
+
+td {
+  padding: 5px;
 }
 
 .toc {
@@ -110,4 +119,35 @@ textarea {
 
 .headerLink:hover {
   color: white;
+}
+
+.button {
+  background-color: silver;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  width: 50px;
+  height: 30px;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: mistyrose;
+  color: dimgray;
+}
+
+.buttonDisabled {
+  cursor: not-allowed;
+  background-color: whitesmoke;
+  color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  text-decoration: none;
+  border: none;
+  width: 50px;
+  height: 30px;
+  text-align: center;
 }

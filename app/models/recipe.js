@@ -4,8 +4,12 @@ let Schema = mongoose.Schema;
 let recipeModel = mongoose.model('Recipe', new Schema({ 
   title: String, 
   image: String, 
-  ingredients: String,
-  description: String,
+  ingredients: [{
+    ammount: String,
+    units: String,
+    ingredient: String
+  }],
+  steps: [String],
   category: String
 }));
 
