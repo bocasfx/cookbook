@@ -39,7 +39,8 @@ class Ingredient extends React.Component {
       ingredients: props.ingredients,
       editing: false,
       idx: null,
-      icon: 'plus'
+      icon: 'plus',
+      tabBlur: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -48,6 +49,8 @@ class Ingredient extends React.Component {
     this.loadIngredient = this.loadIngredient.bind(this);
     this.editIngredient = this.editIngredient.bind(this);
     this.removeIngredient = this.removeIngredient.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   onChange(event) {
@@ -81,6 +84,7 @@ class Ingredient extends React.Component {
     state.disabled = true;
     this.props.onChange(state.ingredients);
     this.setState(state);
+    this.ammountInput.focus();
   }
 
   loadIngredient(idx) {
@@ -119,8 +123,25 @@ class Ingredient extends React.Component {
     state.editing = false;
     state.disabled = true;
     state.icon = 'plus';
-    this.props.onChange(this.ingredients);
+    this.props.onChange(state.ingredients);
     this.setState(state);
+    this.ammountInput.focus();
+  }
+
+  onBlur(event) {
+    event.preventDefault();
+    if (!this.state.tabBlur) {
+      return;
+    }
+    if (this.state.editing) {
+      this.editIngredient();
+      return;
+    }
+    this.addIngredient();
+  }
+
+  onKeyDown(event) {
+    this.state.tabBlur = (event.keyCode === 9);
   }
 
   renderIngredients() {
@@ -147,6 +168,7 @@ class Ingredient extends React.Component {
           <input
             style={styles.ammount}
             name="ammount"
+            ref={(input) => { this.ammountInput = input; }}
             type="text"
             value={this.state.ingredient.ammount}
             onChange={this.onChange}
@@ -164,6 +186,8 @@ class Ingredient extends React.Component {
             type="text"
             value={this.state.ingredient.ingredient}
             onChange={this.onChange}
+            onBlur={this.onBlur}
+            onKeyDown={this.onKeyDown}
             autoComplete="off"/>
           <div style={styles.button}>
             <Microbutton

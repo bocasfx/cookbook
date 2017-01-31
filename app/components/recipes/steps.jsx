@@ -28,7 +28,8 @@ class Steps extends React.Component {
       disabled: true,
       steps: props.steps,
       idx: null,
-      editing: false
+      editing: false,
+      tabBlur: false
     };
 
     this.renderSteps = this.renderSteps.bind(this);
@@ -37,6 +38,8 @@ class Steps extends React.Component {
     this.loadStep = this.loadStep.bind(this);
     this.editStep = this.editStep.bind(this);
     this.removeStep = this.removeStep.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   onChange(event) {
@@ -65,6 +68,7 @@ class Steps extends React.Component {
     state.disabled = true;
     this.props.onChange(state.steps);
     this.setState(state);
+    this.stepInput.focus();
   }
 
   loadStep(idx) {
@@ -93,6 +97,23 @@ class Steps extends React.Component {
     state.icon = 'plus';
     this.props.onChange(state.steps);
     this.setState(state);
+    this.stepInput.focus();
+  }
+
+  onBlur(event) {
+    event.preventDefault();
+    if (!this.state.tabBlur) {
+      return;
+    }
+    if (this.state.editing) {
+      this.editStep();
+      return;
+    }
+    this.addStep();
+  }
+
+  onKeyDown(event) {
+    this.state.tabBlur = (event.keyCode === 9);
   }
 
   renderSteps() {
@@ -118,9 +139,12 @@ class Steps extends React.Component {
         <div style={styles.container}>
           <textarea
             style={styles.stepInput}
+            ref={(input) => { this.stepInput = input; }}
             name="step"
             value={this.state.currentStep}
             onChange={this.onChange}
+            onBlur={this.onBlur}
+            onKeyDown={this.onKeyDown}
             autoComplete="off"/>
           <div style={styles.button}>
             <Microbutton
