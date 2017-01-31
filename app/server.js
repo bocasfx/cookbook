@@ -17,6 +17,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import https from 'https';
 import fs from 'fs';
+import Bluebird from 'bluebird';
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -38,7 +39,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json({limit: '50mb'}));
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = Bluebird;
 mongoose.connect(dbUrl);
 
 app.get(apiPrefix + '/categories', (req, res)=> {
@@ -276,7 +277,6 @@ app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
   let newRecipe = req.body;
   newRecipe.steps = JSON.parse(newRecipe.steps);
   newRecipe.ingredients = JSON.parse(newRecipe.ingredients);
-  console.log(JSON.stringify(newRecipe));
   newRecipe.image = req.file ? '/images/' + path.basename(req.file.path) : '';
   let recipe = new Recipe(newRecipe);
   recipe
