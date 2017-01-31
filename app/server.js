@@ -9,7 +9,6 @@ import errorHandler from './error-handler.js';
 import bodyParser from 'body-parser';
 import multer from 'multer';
 import config from './config/config.js';
-import morgan from 'morgan';
 import User from './models/user.js';
 import Category from './models/category.js';
 import Recipe from './models/recipe.js';
@@ -38,7 +37,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use(bodyParser.json({limit: '50mb'}));
-app.use(morgan('dev'));
 
 mongoose.Promise = global.Promise;
 mongoose.connect(dbUrl);
