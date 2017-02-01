@@ -26,3 +26,4 @@ db.createUser(
 )
 
 pm2 start npm -- run-script doit
+pm2 start npm --name cookbook -- run-script doit
