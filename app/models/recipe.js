@@ -10,7 +10,9 @@ let recipeModel = mongoose.model('Recipe', new Schema({
     ingredient: String
   }],
   steps: [String],
-  category: String
+  category: String,
+  notes: String,
+  footnotes: String
 }));
 
 module.exports = recipeModel;

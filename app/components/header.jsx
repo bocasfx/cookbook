@@ -22,6 +22,10 @@ const styles = {
     display: 'table',
     width: '640px',
     margin: 'auto'
+  },
+  beta: {
+    marginLeft: '15px',
+    fontSize: '.4em'
   }
 };
 
@@ -31,7 +35,11 @@ class Header extends React.Component {
       <header>
         <div style={styles.container}>
           <div style={styles.header}>
-            <Link to="/" className="headerLink">COOKBOOK<FontAwesome style={styles.logo} name="cutlery"/></Link>
+            <Link to="/" className="headerLink">
+              <span>COOKBOOK</span>
+              <FontAwesome style={styles.logo} name="cutlery"/>
+              <span style={styles.beta}>(beta)</span>
+            </Link>
           </div>
           <div style={styles.search}>
             <Link to="/search" className="headerLink"><FontAwesome name="search"/></Link>

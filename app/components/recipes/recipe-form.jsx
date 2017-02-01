@@ -28,7 +28,8 @@ const styles = {
     fontSize: '2em'
   },
   buttonBar: {
-    textAlign: 'right'
+    textAlign: 'right',
+    marginTop: '30px'
   },
   textArea: {
     width: '100%',
@@ -98,6 +99,10 @@ class RecipeForm extends React.Component {
           </Dropzone>
         </div>
         <div style={styles.formEntry}>
+          <h2>Notes</h2>
+          <textarea name="notes" style={styles.textArea} value={this.props.recipe.notes} onChange={this.props.onChange}/> 
+        </div>
+        <div style={styles.formEntry}>
           <h2>Ingredients</h2>
           <Ingredients
             ingredients={this.props.recipe.ingredients}
@@ -108,6 +113,10 @@ class RecipeForm extends React.Component {
           <Steps
             steps={this.props.recipe.steps}
             onChange={this.props.onStepsChange}/>
+        </div>
+        <div style={styles.formEntry}>
+          <h2>Footnotes</h2>
+          <textarea name="footnotes" style={styles.textArea} value={this.props.recipe.footnotes} onChange={this.props.onChange}/> 
         </div>
         <div style={styles.buttonBar}>
           <Button type="button" value="Cancel" onClick={this.onCancel}/>

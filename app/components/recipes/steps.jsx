@@ -113,7 +113,9 @@ class Steps extends React.Component {
   }
 
   onKeyDown(event) {
-    this.state.tabBlur = (event.keyCode === 9);
+    let state = this.state;
+    state.tabBlur = (event.keyCode === 9);
+    this.setState(state);
   }
 
   renderSteps() {

@@ -108,7 +108,7 @@ class Ingredient extends React.Component {
 
   editIngredient() {
     let state = this.state;
-    let idx = this.state.idx;
+    let idx = state.idx;
     state.ingredients[idx] = {
       ammount: state.ingredient.ammount,
       units: state.ingredient.units,
@@ -141,7 +141,9 @@ class Ingredient extends React.Component {
   }
 
   onKeyDown(event) {
-    this.state.tabBlur = (event.keyCode === 9);
+    let state = this.state;
+    state.tabBlur = (event.keyCode === 9);
+    this.setState(state);
   }
 
   renderIngredients() {

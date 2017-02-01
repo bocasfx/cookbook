@@ -67,19 +67,27 @@ class RecipeEdit extends React.Component {
       request.patch(url)
         .set('x-access-token', sessionStorage.getItem('accessToken'))
         .attach('image', image, image.name)
-        .field('title', this.state.recipe.title)
-        .field('category', this.state.recipe.category)
-        .field('ingredients', JSON.stringify(this.state.recipe.ingredients))
-        .field('steps', JSON.stringify(this.state.recipe.steps))
+        .field({
+          title: this.state.recipe.title,
+          category: this.state.recipe.category,
+          ingredients: JSON.stringify(this.state.recipe.ingredients),
+          steps: JSON.stringify(this.state.recipe.steps),
+          notes: this.state.recipe.notes,
+          footnotes: this.state.recipe.footnotes
+        })
         .end(this.handleError);
     } else {
       request.patch(url)
         .set('x-access-token', sessionStorage.getItem('accessToken'))
-        .field('title', this.state.recipe.title)
-        .field('category', this.state.recipe.category)
-        .field('ingredients', JSON.stringify(this.state.recipe.ingredients))
-        .field('steps', JSON.stringify(this.state.recipe.steps))
-        .field('image', this.state.recipe.image)
+        .field({
+          title: this.state.recipe.title,
+          category: this.state.recipe.category,
+          ingredients: JSON.stringify(this.state.recipe.ingredients),
+          steps: JSON.stringify(this.state.recipe.steps),
+          notes: this.state.recipe.notes,
+          footnotes: this.state.recipe.footnotes,
+          image: this.state.recipe.image
+        })
         .end(this.handleError);
     }
   }

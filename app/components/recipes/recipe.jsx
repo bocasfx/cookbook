@@ -78,12 +78,14 @@ class Recipe extends React.Component {
           </div>
           <div style={this.getImageStyle()}></div>
         </div>
-        <div style={styles.body}>
+        <div style={styles.body}>"
           <SectionHeader text="Preparation"/>
+          <div style={styles.preFormatted}>{this.props.recipe.notes}</div>
           <StepList
             steps={this.props.recipe.steps}
             editButton={false}
             removeButton={false}/>
+          <div style={styles.preFormatted}>{this.props.recipe.footnotes}</div>
         </div>
       </div>
     );

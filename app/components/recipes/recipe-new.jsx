@@ -12,7 +12,9 @@ class NewRecipe extends React.Component {
         category: this.props.params.categoryid,
         ingredients: [],
         steps: [],
-        image: ''
+        image: '',
+        notes: '',
+        footnotes: ''
       },
       error: false,
       done: false,
@@ -42,7 +44,9 @@ class NewRecipe extends React.Component {
         title: this.state.recipe.title,
         category: this.state.recipe.category,
         ingredients: JSON.stringify(this.state.recipe.ingredients),
-        steps: JSON.stringify(this.state.recipe.steps)
+        steps: JSON.stringify(this.state.recipe.steps),
+        notes: this.state.recipe.notes,
+        footnotes: this.state.recipe.footnotes
       })
       .end((err, response) => {
         if (response && response.status === 403) {

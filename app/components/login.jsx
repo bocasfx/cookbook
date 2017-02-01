@@ -46,6 +46,7 @@ class Login extends React.Component {
     this.usernameRef = this.usernameRef.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +59,10 @@ class Login extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
+    this.submitRequest();
+  }
+
+  submitRequest() {
     request.post('/api/v1/authenticate')
       .send({
         username: this.state.username,
@@ -65,7 +70,7 @@ class Login extends React.Component {
       })
       .end((err, response) => {
         if (err) {
-          let message = (response && response.body.message) ? response.body.message : 'Oops... something went wrong.'
+          let message = (response && response.body.message) ? response.body.message : 'Oops... something went wrong.';
           return this.setState({
             error: true,
             errorMessage: message
@@ -97,6 +102,12 @@ class Login extends React.Component {
     this.setState(state);
   }
 
+  onKeyDown(event) {
+    if (event.keyCode === 13) {
+      this.submitRequest();
+    }
+  }
+
   render() {
     let errorMessage = '';
 
@@ -121,7 +132,8 @@ class Login extends React.Component {
           name="password"
           autoComplete="off"
           style={styles.input}
-          onChange={this.onChange}/>
+          onChange={this.onChange}
+          onKeyDown={this.onKeyDown}/>
         <div style={styles.buttonBar}>
           <Button type="submit" value="Login" onClick={this.onSubmit} disabled={this.state.disabled}/>
         </div>
