@@ -290,9 +290,7 @@ app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
 });
 
 app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
-  let recipe = req.body;
-  recipe.steps = JSON.parse(recipe.steps);
-  recipe.ingredients = JSON.parse(recipe.ingredients);
+  let recipe = JSON.parse(req.body.recipe);
   if (req.file) {
     recipe.image = '/images/' + path.basename(req.file.path);
   }

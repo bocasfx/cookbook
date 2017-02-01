@@ -33,10 +33,11 @@ let styles = {
   body: {
     marginBottom: '70px'
   },
-  preFormatted: {
+  notes: {
     fontFamily: '\'Anonymous Pro\', monospace',
-    fontSize: '0.9em',
-    lineHeight: '2em'
+    lineHeight: '2em',
+    margin: '30px 0',
+    textAlign: 'justify'
   },
   container: {
     margin: '50px 0'
@@ -78,14 +79,14 @@ class Recipe extends React.Component {
           </div>
           <div style={this.getImageStyle()}></div>
         </div>
-        <div style={styles.body}>"
+        <div style={styles.body}>
           <SectionHeader text="Preparation"/>
-          <div style={styles.preFormatted}>{this.props.recipe.notes}</div>
+          <div style={styles.notes}>{this.props.recipe.notes}</div>
           <StepList
             steps={this.props.recipe.steps}
             editButton={false}
             removeButton={false}/>
-          <div style={styles.preFormatted}>{this.props.recipe.footnotes}</div>
+          <div style={styles.notes}>{this.props.recipe.footnotes}</div>
         </div>
       </div>
     );

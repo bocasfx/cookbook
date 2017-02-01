@@ -50,6 +50,7 @@ class Search extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.getRecipes = this.getRecipes.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   componentDidMount() {
@@ -62,6 +63,10 @@ class Search extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
+    this.submitRequest();
+  }
+
+  submitRequest() {
     request
       .post('/api/v1/search')
       .set('Accept', 'application/json')
@@ -98,6 +103,12 @@ class Search extends React.Component {
       state.error = false;
     }
     this.setState(state);
+  }
+
+  onKeyDown(event) {
+    if (event.keyCode === 13) {
+      this.submitRequest();
+    }
   }
 
   getRecipes() {
@@ -146,7 +157,8 @@ class Search extends React.Component {
             ref={this.searchStrRef}
             autoComplete="off"
             style={styles.input}
-            onChange={this.onChange}/>
+            onChange={this.onChange}
+            onKeyDown={this.onKeyDown}/>
           <div style={styles.buttonBar}>
             <Button type="submit" value="Search" onClick={this.onSubmit} disabled={this.state.disabled}/>
           </div>

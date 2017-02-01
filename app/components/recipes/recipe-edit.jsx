@@ -63,31 +63,35 @@ class RecipeEdit extends React.Component {
     let image = this.state.recipe.image;
     let url = '/api/v1/recipes/' + this.props.params.recipeid;
 
-    if (typeof image === Object) {
+    if (typeof image === 'object') {
+      let recipe = JSON.stringify({
+        title: this.state.recipe.title,
+        category: this.state.recipe.category,
+        ingredients: this.state.recipe.ingredients,
+        steps: this.state.recipe.steps,
+        notes: this.state.recipe.notes,
+        footnotes: this.state.recipe.footnotes
+      });
+
       request.patch(url)
         .set('x-access-token', sessionStorage.getItem('accessToken'))
         .attach('image', image, image.name)
-        .field({
-          title: this.state.recipe.title,
-          category: this.state.recipe.category,
-          ingredients: JSON.stringify(this.state.recipe.ingredients),
-          steps: JSON.stringify(this.state.recipe.steps),
-          notes: this.state.recipe.notes,
-          footnotes: this.state.recipe.footnotes
-        })
+        .field('recipe', recipe)
         .end(this.handleError);
     } else {
+      let recipe = JSON.stringify({
+        title: this.state.recipe.title,
+        category: this.state.recipe.category,
+        ingredients: this.state.recipe.ingredients,
+        steps: this.state.recipe.steps,
+        notes: this.state.recipe.notes,
+        footnotes: this.state.recipe.footnotes,
+        image: this.state.recipe.image
+      });
+
       request.patch(url)
         .set('x-access-token', sessionStorage.getItem('accessToken'))
-        .field({
-          title: this.state.recipe.title,
-          category: this.state.recipe.category,
-          ingredients: JSON.stringify(this.state.recipe.ingredients),
-          steps: JSON.stringify(this.state.recipe.steps),
-          notes: this.state.recipe.notes,
-          footnotes: this.state.recipe.footnotes,
-          image: this.state.recipe.image
-        })
+        .field('recipe', recipe)
         .end(this.handleError);
     }
   }

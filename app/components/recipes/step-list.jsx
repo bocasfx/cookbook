@@ -10,18 +10,20 @@ const styles = {
     padding: '10px'
   },
   row: {
+    marginBottom: '30px'
   },
   cell: {
-    display: 'table-cell',
+    display: 'inline-block',
     width: '30px',
     textAlign: 'center'
   },
   step: {
-    display: 'table-cell',
+    display: 'block',
     textAlign: 'justify',
     paddingRight: '15px',
-    maxWidth: '500px',
-    wordWrap: 'break-word'
+    width: '500px',
+    wordWrap: 'break-word',
+    verticalAlign: 'top'
   }
 };
 
@@ -52,6 +54,12 @@ class StepList extends React.Component {
       return null;
     }
 
+    let stepStyle = styles.step;
+
+    if (this.props.editButton || this.props.removeButton) {
+      stepStyle.display = 'inline-block';
+    }
+
     return (
       <div style={styles.ol}>
         <ol>
@@ -59,7 +67,7 @@ class StepList extends React.Component {
             this.props.steps.map((step, idx) => {
               return (
                 <li style={styles.row} key={idx}>
-                  <span style={styles.step}>{step}</span>
+                  <span style={stepStyle}>{step}</span>
                   {this.editButton(idx)}
                   {this.removeButton(idx)}
                 </li>
