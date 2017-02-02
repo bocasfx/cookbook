@@ -11,8 +11,8 @@ const styles = {
     marginTop: '50px'
   },
   dropzone: {
-    width: '300px',
-    height: '200px',
+    width: '250px',
+    height: '250px',
     marginBottom: '25px',
     display: 'flex',
     justifyContent: 'center',
@@ -22,7 +22,7 @@ const styles = {
     backgroundColor: '#eee'
   },
   image: {
-    maxHeight: '190px'
+    maxHeight: '250px'
   },
   icon: {
     fontSize: '2em'
@@ -34,6 +34,19 @@ const styles = {
   textArea: {
     width: '100%',
     height: '200px'
+  },
+  imageContainer: {
+    position: 'relative'
+  },
+  removeImage: {
+    position: 'absolute',
+    left: '248px',
+    top: '-20px',
+    padding: '7px 8px',
+    backgroundColor: 'white',
+    border: '1px solid gainsboro',
+    borderRadius: '20px',
+    cursor: 'pointer'
   }
 };
 
@@ -43,6 +56,7 @@ class RecipeForm extends React.Component {
     this.showImage = this.showImage.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.getRef = this.getRef.bind(this);
+    this.removeImageButton = this.removeImageButton.bind(this);
   }
 
   showImage() {
@@ -67,8 +81,8 @@ class RecipeForm extends React.Component {
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center center',
-      width: '300px',
-      height: '200px'
+      width: '250px',
+      height: '250px'
     };
 
     return (
@@ -85,6 +99,18 @@ class RecipeForm extends React.Component {
     this.dropzone = node; 
   }
 
+  removeImageButton() {
+    if (this.props.recipe.image === '') {
+      return null;
+    }
+
+    return (
+      <div style={styles.removeImage} onClick={this.props.onRemoveImage}>
+        <FontAwesome name="times"/>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -94,9 +120,12 @@ class RecipeForm extends React.Component {
         </div>
         <div style={styles.formEntry}>
           <h2>Image</h2>
-          <Dropzone style={styles.dropzone} ref={this.getRef} onDrop={this.props.onDrop}>
-            {this.showImage()}
-          </Dropzone>
+          <div style={styles.imageContainer}>
+            <Dropzone style={styles.dropzone} ref={this.getRef} onDrop={this.props.onDrop}>
+              {this.showImage()}
+            </Dropzone>
+            {this.removeImageButton()}
+          </div>
         </div>
         <div style={styles.formEntry}>
           <h2>Notes</h2>

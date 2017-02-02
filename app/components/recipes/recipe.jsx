@@ -11,7 +11,7 @@ let styles = {
     display: 'table'
   },
   header: {
-    margin: '25px 0',
+    margin: '25px 0 70px 0',
     width: '100%',
     display: 'table'
   },
@@ -20,7 +20,7 @@ let styles = {
     maxWidth: '50%'
   },
   image: {
-    margin: '0 0 70px 0',
+    margin: '0',
     boxShadow: '0px 0px 1px 1px gainsboro',
     border: '7px solid white',
     float: 'right',
@@ -45,10 +45,14 @@ let styles = {
 };
 
 class Recipe extends React.Component {
-  getImageStyle() {
-    let imageStyle = JSON.parse(JSON.stringify(styles.image));
-    imageStyle.backgroundImage = 'url(' + this.props.recipe.image + ')';
-    return imageStyle;
+  renderImage() {
+    if (this.props.recipe.image === '') {
+      return null;
+    }
+
+    styles.image.backgroundImage = 'url(' + this.props.recipe.image + ')';
+
+    return <div style={styles.image}></div>;
   }
 
   recipe() {
@@ -77,7 +81,7 @@ class Recipe extends React.Component {
               editButton={false}
               removeButton={false}/>
           </div>
-          <div style={this.getImageStyle()}></div>
+          {this.renderImage()}
         </div>
         <div style={styles.body}>
           <SectionHeader text="Preparation"/>

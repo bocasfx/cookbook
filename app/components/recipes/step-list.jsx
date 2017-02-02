@@ -15,7 +15,8 @@ const styles = {
   cell: {
     display: 'inline-block',
     width: '30px',
-    textAlign: 'center'
+    textAlign: 'center',
+    cursor: 'pointer'
   },
   step: {
     display: 'block',

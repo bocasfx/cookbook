@@ -26,6 +26,7 @@ class RecipeEdit extends React.Component {
     this.handleError = this.handleError.bind(this);
     this.onIngredientsChange = this.onIngredientsChange.bind(this);
     this.onStepsChange = this.onStepsChange.bind(this);
+    this.onRemoveImage = this.onRemoveImage.bind(this);
   }
 
   componentDidMount() {
@@ -127,6 +128,13 @@ class RecipeEdit extends React.Component {
     this.setState(state);
   }
 
+  onRemoveImage(event) {
+    event.preventDefault();
+    let state = this.state;
+    state.recipe.image = '';
+    this.setState(state);
+  }
+
   render() {
     if (!this.state.recipe || this.error) {
       return (
@@ -149,7 +157,8 @@ class RecipeEdit extends React.Component {
         done={this.state.done}
         disabled={this.state.disabled}
         onIngredientsChange={this.onIngredientsChange}
-        onStepsChange={this.onStepsChange}/>
+        onStepsChange={this.onStepsChange}
+        onRemoveImage={this.onRemoveImage}/>
     );
   }
 }

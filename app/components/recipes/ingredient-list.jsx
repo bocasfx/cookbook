@@ -14,18 +14,21 @@ const styles = {
   },
   ammountCell: {
     maxWidth: '50px',
-    wordWrap: 'break-word'
+    wordWrap: 'break-word',
+    textAlign: 'right'
   },
   unitsCell: {
     maxWidth: '50px',
-    wordWrap: 'break-word'
+    wordWrap: 'break-word',
+    width: '60px'
   },
   ingredientCell: {
     maxWidth: '250px',
     wordWrap: 'break-word'
   },
   icon: {
-    width: '40px'
+    width: '40px',
+    cursor: 'pointer'
   }
 };
 
