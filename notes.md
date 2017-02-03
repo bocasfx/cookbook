@@ -25,5 +25,6 @@ db.createUser(
   }
 )
 
-pm2 start npm -- run-script doit
-pm2 start npm --name cookbook -- run-script doit
+pm2 start npm --name cookbook -- run-script start
+
+npm run-script buildProd seems to be failing on Linux. Just run 'NODE_ENV=production webpack -d' directly.
