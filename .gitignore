@@ -1,4 +1,4 @@
 node_modules/
-app/static/bundle.js*
+app/static/cookbook.js*
 app/static/images
 *.pem

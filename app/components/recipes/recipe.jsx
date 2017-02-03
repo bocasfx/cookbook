@@ -17,7 +17,7 @@ let styles = {
   },
   ingredients: {
     float: 'left',
-    maxWidth: '50%'
+    width: '50%'
   },
   image: {
     margin: '0',

@@ -33,8 +33,10 @@
     "webpack-livereload-plugin": "^0.9.0"
   },
   "scripts": {
-    "start": "webpack -d --watch",
-    "doit": "NODE_ENV=production babel-node --presets 'react,es2015' app/server.js"
+    "start": "NODE_ENV=production babel-node --presets 'react,es2015' app/server.js",
+    "watch": "webpack -d --watch",
+    "build": "webpack -d",
+    "buildProd": "NODE_ENV=production webpack -d"
   },
   "author": "Rodolfo Palacios",
   "license": "ISC"

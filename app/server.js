@@ -244,15 +244,15 @@ app.use((req, res, next) => {
     });
   }
     
-  jwt.verify(token, config.secret, (err, decoded) => {      
+  jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
       return res.status(403).json({
         success: false,
         message: 'Failed to authenticate token.'
-      });    
+      });
     }
 
-    req.decoded = decoded;    
+    req.decoded = decoded;
     next();
   });
 });

@@ -99,11 +99,16 @@ class RecipeEdit extends React.Component {
 
   handleError(err) {
     if (err) {
+      if (err.response.status === 403) {
+        return browserHistory.push('/login');
+      }
+
       return this.setState({
         error: true,
         done: true
       });
     }
+
     this.setState({
       done: true
     });
@@ -136,10 +141,10 @@ class RecipeEdit extends React.Component {
   }
 
   render() {
-    if (!this.state.recipe || this.error) {
+    if (!this.state.recipe || this.state.error) {
       return (
         <div style={styles.container}>
-          <Spinner error={this.props.error} spin={!this.props.done} staticMessage="Nothing to see here. Try adding a recipe."/>
+          <Spinner error={this.state.error} spin={!this.state.done} staticMessage="Nothing to see here. Try adding a recipe."/>
         </div>
       );
     }
