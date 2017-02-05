@@ -44,7 +44,8 @@ mongoose.connect(dbUrl);
 
 app.get(apiPrefix + '/categories', (req, res)=> {
   Category
-    .find({})
+    .find()
+    .sort({category: 1})
     .then((categories) => {
       if (!categories.length) {
         res.json(categories);
