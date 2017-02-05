@@ -119,6 +119,10 @@ class RecipeForm extends React.Component {
           <input name="title" type="text" value={this.props.recipe.title} onChange={this.props.onChange}/>
         </div>
         <div style={styles.formEntry}>
+          <h2>Translation</h2>
+          <input name="translation" type="text" value={this.props.recipe.translation} onChange={this.props.onChange}/>
+        </div>
+        <div style={styles.formEntry}>
           <h2>Image</h2>
           <div style={styles.imageContainer}>
             <Dropzone style={styles.dropzone} ref={this.getRef} onDrop={this.props.onDrop}>

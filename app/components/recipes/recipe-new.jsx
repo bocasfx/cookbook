@@ -9,6 +9,7 @@ class NewRecipe extends React.Component {
     this.state = {
       recipe: {
         title: '',
+        translation: '',
         category: this.props.params.categoryid,
         ingredients: [],
         steps: [],
@@ -43,6 +44,7 @@ class NewRecipe extends React.Component {
       .set('x-access-token', sessionStorage.getItem('accessToken'))
       .field({
         title: this.state.recipe.title,
+        translation: this.state.recipe.translation,
         category: this.state.recipe.category,
         ingredients: JSON.stringify(this.state.recipe.ingredients),
         steps: JSON.stringify(this.state.recipe.steps),

@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 let Schema = mongoose.Schema;
 
 let recipeModel = mongoose.model('Recipe', new Schema({ 
-  title: String, 
-  image: String, 
+  title: String,
+  translation: String,
+  image: String,
   ingredients: [{
     ammount: String,
     units: String,
