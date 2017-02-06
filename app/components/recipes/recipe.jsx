@@ -41,6 +41,10 @@ let styles = {
   },
   container: {
     margin: '50px 0'
+  },
+  translation: {
+    textAlign: 'center',
+    fontSize: '1.5em'
   }
 };
 
@@ -66,12 +70,14 @@ class Recipe extends React.Component {
 
     let recipesUrl = '/categories/' + this.props.recipe.category + '/recipes';
     let editUrl = recipesUrl + '/edit/' + this.props.recipe._id;
+    let translation = this.props.recipe.translation ? '(' + this.props.recipe.translation + ')' : null;
 
     return (
       <div>
         <Subheader leftUrl={recipesUrl} leftLabel="Recipes" rightUrl={editUrl} rightLabel="Edit"/>
         <div style={styles.title}>
           <SectionHeader text={this.props.recipe.title} size="big"/>
+          <div style={styles.translation}>{translation}</div>
         </div>
         <div style={styles.header}>
           <div style={styles.ingredients}>

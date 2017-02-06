@@ -39,6 +39,9 @@ class RecipeList extends React.Component {
 
     return this.props.recipeIdx[key].map((recipe) => {
       let label = capitalize(recipe.title);
+      if (recipe.translation) {
+        label = label + ' (' + capitalize(recipe.translation) + ')';
+      }
       let url = '/recipes/' + recipe._id;
       return (
         <Link to={url} key={recipe._id}>
