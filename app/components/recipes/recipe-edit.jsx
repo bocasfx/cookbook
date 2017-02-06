@@ -3,6 +3,7 @@ import RecipeForm from './recipe-form.jsx';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
 import Spinner from '../spinner.jsx';
+import capitalize from 'capitalize';
 
 const styles = {
   container: {
@@ -15,6 +16,7 @@ class RecipeEdit extends React.Component {
     super(props);
     this.state = {
       recipe: null,
+      categories: [],
       error: false,
       done: false,
       disabled: false
@@ -27,24 +29,46 @@ class RecipeEdit extends React.Component {
     this.onIngredientsChange = this.onIngredientsChange.bind(this);
     this.onStepsChange = this.onStepsChange.bind(this);
     this.onRemoveImage = this.onRemoveImage.bind(this);
+    this.onCategoryChange = this.onCategoryChange.bind(this);
   }
 
   componentDidMount() {
     request
       .get('/api/v1/recipes/' + this.props.params.recipeid)
       .set('Accept', 'application/json')
-      .end((err, response)=> {
-        if (err) {
+      .end((recipeErr, recipeResponse)=> {
+        if (recipeErr) {
           return this.setState({
             error: true,
             done: true
           });
         }
         this.setState({
-          recipe: response.body[0],
+          recipe: recipeResponse.body[0],
           done: true
         });
       });
+    request
+      .get('/api/v1/categorylist/')
+      .set('Accept', 'application/json')
+      .end((categoryErr, categoryResponse)=> {
+        this.setState({
+          categories: this.buildCategoryDropdown(categoryResponse.body),
+          done: true
+        });
+      });
+  }
+
+  buildCategoryDropdown(categories) {
+    let options = [];
+    categories.forEach((category) => {
+      let option = {
+        value: category._id,
+        label: capitalize(category.category)
+      };
+      options.push(option);
+    });
+    return options;
   }
 
   handleChange(event) {
@@ -55,6 +79,12 @@ class RecipeEdit extends React.Component {
     let state = this.state;
 
     state.recipe[name] = value;
+    this.setState(state);
+  }
+
+  onCategoryChange(category) {
+    let state = this.state;
+    state.recipe.category = category.value;
     this.setState(state);
   }
 
@@ -145,7 +175,9 @@ class RecipeEdit extends React.Component {
     return (
       <RecipeForm 
         recipe={this.state.recipe}
+        categories={this.state.categories}
         onChange={this.handleChange}
+        onCategoryChange={this.onCategoryChange}
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
         cancelUrl={cancelUrl}

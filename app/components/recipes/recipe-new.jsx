@@ -2,6 +2,7 @@ import React from 'react';
 import request from 'superagent';
 import { browserHistory } from 'react-router';
 import RecipeForm from './recipe-form.jsx';
+import capitalize from 'capitalize';
 
 class NewRecipe extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class NewRecipe extends React.Component {
         notes: '',
         footnotes: ''
       },
+      categories: [],
       error: false,
       done: false,
       disabled: false
@@ -28,6 +30,37 @@ class NewRecipe extends React.Component {
     this.onIngredientsChange = this.onIngredientsChange.bind(this);
     this.onStepsChange = this.onStepsChange.bind(this);
     this.onRemoveImage = this.onRemoveImage.bind(this);
+    this.onCategoryChange = this.onCategoryChange.bind(this);
+  }
+
+  componentDidMount() {
+    request
+      .get('/api/v1/categorylist/')
+      .set('Accept', 'application/json')
+      .end((categoryErr, categoryResponse)=> {
+        this.setState({
+          categories: this.buildCategoryDropdown(categoryResponse.body),
+          done: true
+        });
+      });
+  }
+
+  buildCategoryDropdown(categories) {
+    let options = [];
+    categories.forEach((category) => {
+      let option = {
+        value: category._id,
+        label: capitalize(category.category)
+      };
+      options.push(option);
+    });
+    return options;
+  }
+
+  onCategoryChange(category) {
+    let state = this.state;
+    state.recipe.category = category.value;
+    this.setState(state);
   }
 
   handleSubmit(event) {
@@ -109,7 +142,9 @@ class NewRecipe extends React.Component {
     return (
       <RecipeForm
         recipe={this.state.recipe}
+        categories={this.state.categories}
         onChange={this.onChange}
+        onCategoryChange={this.onCategoryChange}
         handleSubmit={this.handleSubmit}
         onDrop={this.onDrop}
         cancelUrl={cancelUrl}

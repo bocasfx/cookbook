@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import Button from '../button.jsx';
 import Ingredients from './ingredients.jsx';
 import Steps from './steps.jsx';
+import Dropdown from 'react-dropdown'
 
 const styles = {
   formEntry: {
@@ -57,6 +58,7 @@ class RecipeForm extends React.Component {
     this.onCancel = this.onCancel.bind(this);
     this.getRef = this.getRef.bind(this);
     this.removeImageButton = this.removeImageButton.bind(this);
+    this.getInitialCategory = this.getInitialCategory.bind(this);
   }
 
   showImage() {
@@ -111,6 +113,16 @@ class RecipeForm extends React.Component {
     );
   }
 
+  getInitialCategory() {
+    let selectedOption = this.props.categories[0];
+    this.props.categories.forEach((category) => {
+      if (category.value === this.props.recipe.category) {
+        selectedOption = category;
+      }
+    });
+    return selectedOption;
+  }
+
   render() {
     return (
       <div>
@@ -121,6 +133,10 @@ class RecipeForm extends React.Component {
         <div style={styles.formEntry}>
           <h2>Translation</h2>
           <input name="translation" type="text" value={this.props.recipe.translation} onChange={this.props.onChange}/>
+        </div>
+        <div style={styles.formEntry}>
+          <h2>Category</h2>
+          <Dropdown options={this.props.categories} onChange={this.props.onCategoryChange} value={this.getInitialCategory()} placeholder="Category" />
         </div>
         <div style={styles.formEntry}>
           <h2>Image</h2>

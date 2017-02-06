@@ -72,6 +72,18 @@ app.get(apiPrefix + '/categories', (req, res)=> {
     });
 });
 
+app.get(apiPrefix + '/categorylist', (req, res) => {
+  Category
+    .find()
+    .sort({category: 1})
+    .then((categories) => {
+      res.json(categories);
+    })
+    .catch((err) => {
+      errorHandler(err);
+    });
+});
+
 app.get(apiPrefix + '/categories/:category', (req, res)=> {
   Category
     .find({category: req.params.category})
