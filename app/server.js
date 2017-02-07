@@ -16,6 +16,7 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import https from 'https';
+import http from 'http';
 import fs from 'fs';
 import Bluebird from 'bluebird';
 
@@ -41,6 +42,15 @@ app.use(bodyParser.json({limit: '50mb'}));
 
 mongoose.Promise = Bluebird;
 mongoose.connect(dbUrl);
+
+function ensureSecure(req, res, next){
+  if(req.secure){
+    return next();
+  };
+  res.redirect('https://' + req.hostname + req.url);
+};
+
+app.all('*', ensureSecure);
 
 app.get(apiPrefix + '/categories', (req, res)=> {
   Category
@@ -320,4 +330,5 @@ app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
 https.createServer({
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
-}, app).listen(3000);
+}, app).listen(443);
+http.createServer(app).listen(80);
