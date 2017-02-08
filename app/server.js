@@ -330,5 +330,5 @@ app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
 https.createServer({
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
-}, app).listen(3000);
-// http.createServer(app).listen(80);
+}, app).listen(443);
+http.createServer(app).listen(80);
