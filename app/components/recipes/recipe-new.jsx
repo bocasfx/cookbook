@@ -31,6 +31,7 @@ class NewRecipe extends React.Component {
     this.onStepsChange = this.onStepsChange.bind(this);
     this.onRemoveImage = this.onRemoveImage.bind(this);
     this.onCategoryChange = this.onCategoryChange.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
 
   componentDidMount() {
@@ -66,39 +67,51 @@ class NewRecipe extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    this.setState({
-      disabled: true
-    });
+    // this.setState({
+    //   disabled: true
+    // });
 
     let image = this.state.recipe.image;
 
-    request.post('/api/v1/recipes')
-      .attach('image', image, image.name)
-      .set('x-access-token', sessionStorage.getItem('accessToken'))
-      .field({
-        title: this.state.recipe.title,
-        translation: this.state.recipe.translation,
-        category: this.state.recipe.category,
-        ingredients: JSON.stringify(this.state.recipe.ingredients),
-        steps: JSON.stringify(this.state.recipe.steps),
-        notes: this.state.recipe.notes,
-        footnotes: this.state.recipe.footnotes
-      })
-      .end((err, response) => {
-        if (response && response.status === 403) {
-          return browserHistory.push('/login');
-        }
+    let recipe = {
+      title: this.state.recipe.title,
+      translation: this.state.recipe.translation,
+      category: this.state.recipe.category,
+      ingredients: this.state.recipe.ingredients,
+      steps: this.state.recipe.steps,
+      notes: this.state.recipe.notes,
+      footnotes: this.state.recipe.footnotes
+    };
 
-        if (err) {
-          return this.setState({
-            error: true,
-            done: true
-          });
-        }
+    if (typeof image === 'object') {
+      request.post('/api/v1/recipes')
+        .attach('image', image, image.name)
+        .set('x-access-token', sessionStorage.getItem('accessToken'))
+        .field('recipe', JSON.stringify(recipe))
+        .end(this.handleError);
+    } else {
+      recipe.image = this.state.recipe.image;
+      request.post('/api/v1/recipes')
+        .set('x-access-token', sessionStorage.getItem('accessToken'))
+        .field('recipe', JSON.stringify(recipe))
+        .end(this.handleError);
+    }
+  }
 
-        let recipeId = response.body._id;
-        browserHistory.push('/recipes/' + recipeId);
+  handleError(err, response) {
+    if (response && response.status === 403) {
+      return browserHistory.push('/login');
+    }
+
+    if (err) {
+      return this.setState({
+        error: true,
+        done: true
       });
+    }
+
+    let recipeId = response.body._id;
+    browserHistory.push('/recipes/' + recipeId);
   }
 
   onChange(event) {

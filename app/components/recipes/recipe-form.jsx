@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 import Button from '../button.jsx';
 import Ingredients from './ingredients.jsx';
 import Steps from './steps.jsx';
-import Dropdown from 'react-dropdown'
+import Dropdown from 'react-dropdown';
 
 const styles = {
   formEntry: {
@@ -145,6 +145,7 @@ class RecipeForm extends React.Component {
               {this.showImage()}
             </Dropzone>
             {this.removeImageButton()}
+            <input name="image" type="text" value={this.props.recipe.image} onChange={this.props.onChange}/>
           </div>
         </div>
         <div style={styles.formEntry}>

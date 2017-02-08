@@ -91,6 +91,10 @@ class RecipeEdit extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    this.setState({
+      disabled: true
+    });
+
     let image = this.state.recipe.image;
     let url = '/api/v1/recipes/' + this.props.params.recipeid;
 

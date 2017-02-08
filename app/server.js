@@ -297,10 +297,10 @@ app.post(apiPrefix + '/categories', (req, res) => {
 });
 
 app.post(apiPrefix + '/recipes', upload.single('image'), (req, res)=> {
-  let newRecipe = req.body;
-  newRecipe.steps = JSON.parse(newRecipe.steps);
-  newRecipe.ingredients = JSON.parse(newRecipe.ingredients);
-  newRecipe.image = req.file ? '/images/' + path.basename(req.file.path) : '';
+  let newRecipe = JSON.parse(req.body.recipe);
+  if (req.file) {
+    newRecipe.image = '/images/' + path.basename(req.file.path);
+  }
   let recipe = new Recipe(newRecipe);
   recipe
     .save()
@@ -330,5 +330,5 @@ app.patch(apiPrefix + '/recipes/:id', upload.single('image'), (req, res)=> {
 https.createServer({
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
-}, app).listen(443);
-http.createServer(app).listen(80);
+}, app).listen(3000);
+// http.createServer(app).listen(80);
