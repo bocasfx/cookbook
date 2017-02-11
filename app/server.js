@@ -158,7 +158,7 @@ app.post(apiPrefix + '/authenticate', (req, res) => {
       delete user.passowrd;
 
       let token = jwt.sign(user, config.secret, {
-        expiresIn: '24h'
+        expiresIn: '365d'
       });
 
       res.json({
