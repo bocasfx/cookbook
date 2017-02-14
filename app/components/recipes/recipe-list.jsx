@@ -20,7 +20,7 @@ const styles = {
     borderRadius: '50px'
   },
   recipeEntry: {
-    fontSize: '1.5em',
+    fontSize: '2em',
     margin: '15px 0 0 40px'
   },
   section: {

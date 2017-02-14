@@ -51,6 +51,7 @@ class Ingredient extends React.Component {
     this.removeIngredient = this.removeIngredient.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+    this.onIngredientsChange = this.onIngredientsChange.bind(this);
   }
 
   onChange(event) {
@@ -146,6 +147,12 @@ class Ingredient extends React.Component {
     this.setState(state);
   }
 
+  onIngredientsChange(ingredients) {
+    let state = this.state;
+    state.ingredients = ingredients;
+    this.setState(state);
+  }
+
   renderIngredients() {
     if (!this.state.ingredients.length) {
       return null;
@@ -158,7 +165,8 @@ class Ingredient extends React.Component {
           loadIngredient={this.loadIngredient}
           removeIngredient={this.removeIngredient}
           editButton={true}
-          removeButton={true}/>
+          removeButton={true}
+          onChange={this.onIngredientsChange}/>
       </div>
     );
   }
