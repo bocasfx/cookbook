@@ -80,11 +80,35 @@ class IngredientList extends React.Component {
 
   onDragOver(event) {
     event.preventDefault();
-    if(event.target.className === 'placeholder') {
+    let overId = event.target.parentNode.getAttribute('data-id');
+    if(overId === 'placeholder' || overId === this.dragged.getAttribute('data-id')) {
       return;
     }
     this.over = event.target.parentNode;
-    // TODO: Add placeholder above event.target.
+    if (this.over.nodeName !== 'TR') {
+      return;
+    }
+    this.removePlaceholder();
+    let idx = this.over.getAttribute('data-id');
+    let state = this.state;
+    let placeholder = {
+      ammount: '',
+      units: '',
+      ingredient: '',
+      _id: 'placeholder'
+    };
+    state.ingredients.splice(idx, 0, placeholder);
+    this.setState(state);
+  }
+
+  removePlaceholder() {
+    let state = this.state;
+    state.ingredients.forEach((ingredient, idx) => {
+      if (ingredient._id === 'placeholder') {
+        state.ingredients.splice(idx, 1);
+      }
+    });
+    this.setState(state);
   }
 
   onDragEnd(event) {
@@ -92,6 +116,7 @@ class IngredientList extends React.Component {
     event.preventDefault();
     let target = this.over.getAttribute('data-id');
     let dragged = this.dragged.getAttribute('data-id');
+    this.removePlaceholder();
     this.reorderIngredients(dragged, target);
   }
 
@@ -111,8 +136,10 @@ class IngredientList extends React.Component {
         <tbody>
           {
             this.state.ingredients.map((ingredient, idx) => {
+              // data-type allows us to identify the placeholder.
+              let dataType = ingredient._id;
               return (
-                <tr key={idx} data-id={idx} style={styles.tr} draggable="true" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
+                <tr key={idx} data-type={dataType} data-id={idx} style={styles.tr} draggable="true" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
                   <td style={styles.ammountCell}>{ingredient.ammount}</td>
                   <td style={styles.unitsCell}>{ingredient.units}</td>
                   <td style={styles.ingredientCell}>{ingredient.ingredient}</td>
