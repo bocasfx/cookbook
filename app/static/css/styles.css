@@ -1,6 +1,6 @@
 
 html body {
-  font-family: 'Amatic SC', sans-serif;
+  font-family: 'Amatic SC', monospace;
   color: dimgray;
   width: 100%;
   margin: 0;
@@ -22,7 +22,6 @@ ul {
 
 ul li {
   list-style-type: none;
-  margin-bottom: 15px;
   font-size: 2em;
 }
 
@@ -36,7 +35,7 @@ input {
   width: 100%;
   color: dimgray;
   font-size: 1em;
-  font-family: "Anonymous Pro", monospace;
+  font-family: 'Anonymous Pro', monospace;
   border: 1px solid gainsboro;
   outline: none;
   padding: 0 7px;
@@ -70,7 +69,7 @@ footer {
 textarea {
   color: dimgray;
   font-size: 1em;
-  font-family: "Anonymous Pro", monospace;
+  font-family: 'Anonymous Pro', monospace;
   border: 1px solid gainsboro;
   outline: none;
   padding: 7px;
@@ -84,33 +83,47 @@ td {
 .toc {
   margin: 50px auto;
   text-align: left;
+  font-size: 1.2em;
 }
 
 .toc li {
   position: relative;
   overflow: hidden;
+  padding: 0 50px;
+  transition: opacity .15s ease-in-out;
+}
+
+.toc li span {
+  background-color: white;
+}
+
+.toc li span:last-child {
+  float: right;
+  padding-left: 5px;
+}
+
+.toc li span:first-child {
+  display: none;
+}
+
+.toc li:hover span {
+  color: dimgray;
+  display: inline;
 }
 
 .toc li:after {
-  content: "..............................";
+  content: ".........................";
   text-indent:  -1px;
   display: block;
   letter-spacing: 16px;
   position: absolute;
-  left: 0px;
   bottom: 0px;
   z-index: -1;
+  color: dimgray;
 }
 
-.toc li span {
-  display: inline;
-  background-color: white;
-  padding-right: 5px;
-}
-
-.toc li .tocCount {
-  float: right;
-  padding-left: 5px;
+.toc:hover li:not(:hover) {
+  opacity: 0.5;
 }
 
 .headerLink {
@@ -154,7 +167,7 @@ td {
 
 .Dropdown-root {
   position: relative;
-  font-family: "Anonymous Pro", monospace;
+  font-family: 'Anonymous Pro', monospace;
 }
 
 .Dropdown-control {

@@ -9,8 +9,15 @@ const styles = {
   container: {
     margin: '70px 0'
   },
-  li: {
-    margin: '0 0 .6em 0'
+  gt: {
+    backgroundColor: 'mistyrose',
+    padding: '6px 16px 6px 4px',
+    fontSize: '0.75em',
+    fontWeight: 'bolder',
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    clipPath: 'polygon(100% 50%, 100% 50%, 0 100%, 0 0)'
   },
   sectionHeader: {
     margin: '50px auto',
@@ -32,8 +39,9 @@ class CategoryList extends React.Component {
       return (
         <Link to={url} key={category._id}>
           <li style={styles.li}>
+            <span style={styles.gt}>&gt;</span>
             <span>{label}</span>
-            <span className="tocCount">{category.recipeCount}</span>
+            <span>{category.recipeCount}</span>
           </li>
         </Link>
       );

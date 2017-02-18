@@ -25,6 +25,10 @@ const styles = {
   },
   section: {
     marginTop: '30px'
+  },
+  sectionHeader: {
+    margin: '50px auto',
+    display: 'table'
   }
 };
 
@@ -62,7 +66,6 @@ class RecipeList extends React.Component {
     return Object.keys(recipeIdx).map((key) => {
       return(
         <div style={styles.section} key={key}>
-          <SectionHeader text={key}/>
           <div>
             {this.recipes(key)}
           </div>
@@ -76,6 +79,9 @@ class RecipeList extends React.Component {
     return (
       <div>
         <Subheader leftUrl='/' leftLabel="Categories" rightUrl={newUrl} rightLabel="Add Recipe"/>
+         <div style={styles.sectionHeader}>
+          <SectionHeader text="Recipes" size="big"/>
+        </div>
         <div style={styles.recipeList}>
           {this.recipeIndex()}
         </div>
