@@ -6,29 +6,28 @@ import Spinner from '../spinner.jsx';
 import SectionHeader from '../section-header.jsx';
 
 const styles = {
-  recipeList: {
+  recipeListContainer: {
     margin: '50px auto'
   },
-  nothing: {
-    fontSize: '2em'
-  },
-  spinner: {
-    fontSize: '1.2em',
-    color: 'gainsboro',
-    border: '1px dashed gainsboro',
-    padding: '10px 12px',
-    borderRadius: '50px'
-  },
   recipeEntry: {
-    fontSize: '2em',
-    margin: '15px 0 0 40px'
+    margin: '0 0 0 40px'
   },
   section: {
-    marginTop: '30px'
+    marginTop: '50px'
   },
   sectionHeader: {
     margin: '50px auto',
     display: 'table'
+  },
+  gt: {
+    backgroundColor: 'mistyrose',
+    padding: '6px 16px 6px 4px',
+    fontSize: '0.75em',
+    fontWeight: 'bolder',
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    clipPath: 'polygon(100% 50%, 100% 50%, 0 100%, 0 0)'
   }
 };
 
@@ -41,18 +40,27 @@ class RecipeList extends React.Component {
 
   recipes(key) {
 
-    return this.props.recipeIdx[key].map((recipe) => {
-      let label = capitalize(recipe.title);
-      if (recipe.translation) {
-        label = label + ' (' + capitalize(recipe.translation) + ')';
-      }
-      let url = '/recipes/' + recipe._id;
-      return (
-        <Link to={url} key={recipe._id}>
-          <div style={styles.recipeEntry}>{label}</div>
-        </Link>
-      );
-    });
+    return (
+      <ul className="recipeList">
+        {
+          this.props.recipeIdx[key].map((recipe) => {
+            let label = capitalize(recipe.title);
+            if (recipe.translation) {
+              label = label + ' (' + capitalize(recipe.translation) + ')';
+            }
+            let url = '/recipes/' + recipe._id;
+            return (
+              <li key={recipe._id}>
+                <Link to={url}>
+                  <span style={styles.gt}>&gt;</span>
+                  <div style={styles.recipeEntry}>{label}</div>
+                </Link>
+              </li>
+            );
+          })
+        }
+      </ul>
+    );
   }
 
   recipeIndex() {
@@ -66,9 +74,8 @@ class RecipeList extends React.Component {
     return Object.keys(recipeIdx).map((key) => {
       return(
         <div style={styles.section} key={key}>
-          <div>
-            {this.recipes(key)}
-          </div>
+          <SectionHeader text={key}/>
+          <div>{this.recipes(key)}</div>
         </div>
       );
     });
@@ -82,7 +89,7 @@ class RecipeList extends React.Component {
          <div style={styles.sectionHeader}>
           <SectionHeader text="Recipes" size="big"/>
         </div>
-        <div style={styles.recipeList}>
+        <div style={styles.recipeListContainer}>
           {this.recipeIndex()}
         </div>
       </div>

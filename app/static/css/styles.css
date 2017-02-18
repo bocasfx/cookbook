@@ -103,12 +103,13 @@ td {
 }
 
 .toc li span:first-child {
-  display: none;
+  opacity: 0;
+  transition: opacity .15s ease-in-out;
 }
 
 .toc li:hover span {
   color: dimgray;
-  display: inline;
+  opacity: 1;
 }
 
 .toc li:after {
@@ -123,6 +124,37 @@ td {
 }
 
 .toc:hover li:not(:hover) {
+  opacity: 0.5;
+}
+
+.recipeList {
+  margin: 0;
+}
+
+.recipeList li {
+  position: relative;
+  transition: opacity .15s ease-in-out;
+}
+
+.recipeList span {
+  opacity: 0;
+  transition: opacity .15s ease-in-out;
+}
+
+.recipeList li:hover {
+  color: dimgray;
+}
+
+.recipeList li:hover span {
+  opacity: 1;
+  color: dimgray;
+}
+
+.recipeList li div {
+  color: dimgray;
+}
+
+.recipeList:hover li:not(:hover) {
   opacity: 0.5;
 }
 
