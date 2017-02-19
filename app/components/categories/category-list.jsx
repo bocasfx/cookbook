@@ -12,11 +12,11 @@ const styles = {
   gt: {
     backgroundColor: 'mistyrose',
     padding: '6px 16px 6px 4px',
-    fontSize: '0.75em',
+    fontSize: '0.5em',
     fontWeight: 'bolder',
     position: 'absolute',
-    top: '0px',
-    left: '0px',
+    top: '7px',
+    left: '10px',
     clipPath: 'polygon(100% 50%, 100% 50%, 0 100%, 0 0)'
   },
   sectionHeader: {
