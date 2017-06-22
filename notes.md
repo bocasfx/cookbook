@@ -3,7 +3,8 @@ openssl rsa -in key.pem -out newkey.pem && mv newkey.pem key.pem
 mongod --auth --dbpath .
 npm start
 npm run-script doit
-mongo -u "" -p "" --authenticationDatabase "recipes"
+mongo -u "admin" -p "same" --authenticationDatabase "admin"
+mongo -u "cookbook" -p "koobkooccookbook" --authenticationDatabase "recipes"
 
 mongod --auth --port 27017 --dbpath /var/lib/mongodb
 
