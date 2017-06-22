@@ -45,12 +45,12 @@ mongoose.connect(dbUrl);
 
 function ensureSecure(req, res, next){
   if(req.secure){
-    return next();
+    res.redirect('http://' + req.hostname + req.url);
   };
-  res.redirect('https://' + req.hostname + req.url);
+  return next();
 };
 
-// app.all('*', ensureSecure);
+app.all('*', ensureSecure);
 
 app.get(apiPrefix + '/categories', (req, res)=> {
   Category
